@@ -9,6 +9,7 @@ import android.widget.Toast;
 public class Common {
     //this is a appple
     public static String URL_SERVER = "http://10.0.2.2:8080/FunTaipei/";
+//    public static String URL_SERVER = "http://10.0.2.2:8080/GP2System/";
 
     public static boolean networkConnected(Activity activity) {
         ConnectivityManager conManager = (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);

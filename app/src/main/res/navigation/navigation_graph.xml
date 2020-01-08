@@ -58,6 +58,9 @@
         <action
             android:id="@+id/action_groupListFragment_to_groupInsertFragment"
             app:destination="@id/groupInsertFragment" />
+        <action
+            android:id="@+id/action_groupListFragment_to_travel_detail"
+            app:destination="@id/travel_detail" />
     </fragment>
     <fragment
         android:id="@+id/groupInsertFragment"

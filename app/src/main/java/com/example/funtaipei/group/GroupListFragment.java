@@ -22,8 +22,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.funtaipei.Common;
 import com.example.funtaipei.R;
+import com.example.funtaipei.group.Group;
 import com.example.funtaipei.task.CommonTask;
 import com.example.funtaipei.task.ImageTask;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -196,15 +198,17 @@ public class GroupListFragment extends Fragment {
             groupImageTask = new ImageTask(url, id , imageSize, myViewHolder.imageView);
             groupImageTask.execute();
             myViewHolder.tvName.setText(group.getGP_NAME());
-            myViewHolder.tvEventdate.setText(new SimpleDateFormat("yyyy-MM-dd").format(group.getGP_EVENTDATE()));
-            myViewHolder.tvUpper.setText(String.valueOf(group.getGP_UPPER()));
+            myViewHolder.tvEventdate.setText("出發日期：" + new SimpleDateFormat("yyyy-MM-dd").format(group.getGP_EVENTDATE()));
+            myViewHolder.tvUpper.setText("可報名人數：");
+            myViewHolder.tvUpper.append(String.valueOf(group.getGP_ENROLLMENT()) + " / " );
+            myViewHolder.tvUpper.append(String.valueOf(group.getGP_UPPER()) + "人");
             myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-//                    Bundle bundle = new Bundle();
-//                    bundle.putSerializable("group",group);
-//                    Navigation.findNavController(view)
-//                            .navigate(R.id.action_listFragment_to_travelFragment, bundle);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("group",group);
+                    Navigation.findNavController(view)
+                            .navigate(R.id.action_groupListFragment_to_travel_detail, bundle);
                 }
             });
 
