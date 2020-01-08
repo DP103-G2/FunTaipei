@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/fragment_travel"
+        android:name="com.example.funtaipei.travel.TravelListFragment"
+        android:label="fragment_fragment_travel"
+        tools:layout="@layout/fragment_travel_list" >
+        <action
+            android:id="@+id/action_fragment_travel_to_travel_detail"
+            app:destination="@id/travel_detail" />
+        <action
+            android:id="@+id/action_fragment_travel_to_travel_update"
+            app:destination="@id/travel_update" />
+        <action
+            android:id="@+id/action_fragment_travel_to_travelInsert"
+            app:destination="@id/travelInsert" />
+    </fragment>
+    <fragment
+        android:id="@+id/travel_detail"
+        android:name="com.example.funtaipei.travel.TravelDetailFragment"
+        android:label="fragment_travel_detail"
+        tools:layout="@layout/fragment_travel_detail" />
+    <fragment
+        android:id="@+id/travel_update"
+        android:name="com.example.funtaipei.travel.TravelUpdateFragment"
+        android:label="fragment_travel_update"
+        tools:layout="@layout/fragment_travel_update" />
+    <fragment
+        android:id="@+id/travelInsert"
+        android:name="com.example.funtaipei.travel.TravelInsertFragment"
+        android:label="fragment_travel_insert"
+        tools:layout="@layout/fragment_travel_insert" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.funtaipei.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/memberFragment"
+        android:name="com.example.funtaipei.MemberFragment"
+        android:label="fragment_member"
+        tools:layout="@layout/fragment_member" />
+    <fragment
+        android:id="@+id/placeFragment"
+        android:name="com.example.funtaipei.PlaceFragment"
+        android:label="fragment_place"
+        tools:layout="@layout/fragment_place" />
+    <fragment
+        android:id="@+id/travelCollectionFragment"
+        android:name="com.example.funtaipei.travelCollection.TravelCollectionFragment"
+        android:label="fragment_travel_collection"
+        tools:layout="@layout/fragment_travel_collection" />
+</navigation>

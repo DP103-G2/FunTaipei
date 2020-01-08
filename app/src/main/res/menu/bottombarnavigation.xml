@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/placeFragment"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="Home"/>
+    <item
+        android:id="@+id/memberFragment"
+        android:icon="@drawable/ic_people_black_24dp"
+        android:title="Member"/>
+
+    <item
+        android:id="@+id/fragment_travel"
+        android:icon="@drawable/ic_airport_shuttle_black_24dp"
+        android:title="Travel"/>
+    <item
+        android:id="@+id/travelCollectionFragment"
+        android:icon="@drawable/baseline_favorite_border_black_36"
+        android:title="Favorite"/>
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_assignment_ind_black_24dp"
+        android:title="Profile"/>
+</menu>

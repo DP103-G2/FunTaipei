@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp">
+
+    <com.example.funtaipei.CircleImageView
+        android:id="@+id/travelCollection_Memberimageview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/no_image"/>
+
+    <!--        <ImageView-->
+    <!--            android:id="@+id/travelCollection_Memberimageview"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:src="@drawable/no_image"/>-->
+    <TextView
+        android:id="@+id/travelCollection_MemberId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Member_id"
+        android:layout_toRightOf="@id/travelCollection_Memberimageview"
+        android:layout_marginLeft="10dp"/>
+    <TextView
+        android:id="@+id/travelCollection_MemberName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MB_NAME"
+        android:layout_toRightOf="@id/travelCollection_Memberimageview"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@id/travelCollection_MemberId"
+        android:textSize="22sp"
+        android:textColor="#000000"/>
+    <TextView
+        android:id="@+id/travelCollection_MemberEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MB_Email"
+        android:layout_toRightOf="@id/travelCollection_Memberimageview"
+        android:layout_below="@id/travelCollection_MemberName"
+        android:layout_marginLeft="10dp"
+        android:textColor="#A0A0A0"/>
+
+</RelativeLayout>
