@@ -27,6 +27,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import static java.lang.Math.cos;
 
 public class CircleImageView extends AppCompatImageView {
+    //fuck
 
     private static final ImageView.ScaleType SCALE_TYPE = ImageView.ScaleType.CENTER_CROP;
     private static final Bitmap.Config BITMAP_CONFIG = Bitmap.Config.ARGB_8888;
