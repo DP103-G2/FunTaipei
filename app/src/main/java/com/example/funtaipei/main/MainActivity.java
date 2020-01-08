@@ -13,14 +13,16 @@ import com.example.funtaipei.HomeFragment;
 import com.example.funtaipei.MemberFragment;
 import com.example.funtaipei.PlaceFragment;
 import com.example.funtaipei.R;
+import com.example.funtaipei.group.GroupListFragment;
+import com.example.funtaipei.place.PlaceListFragment;
 import com.example.funtaipei.travelCollection.TravelCollectionFragment;
 import com.example.funtaipei.travel.TravelListFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private PlaceFragment placeFragment;
-    private HomeFragment homeFragment;
+    private GroupListFragment groupListFragment;
+    private PlaceListFragment placeListFragment;
     private MemberFragment memberFragment;
     private TravelListFragment travelListFragment;
     private TravelCollectionFragment travelCollectionFragment;
@@ -30,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        homeFragment = new HomeFragment();
-        placeFragment = new PlaceFragment();
+        placeListFragment = new PlaceListFragment();
+        groupListFragment = new GroupListFragment();
         memberFragment = new MemberFragment();
         travelListFragment = new TravelListFragment();
         travelCollectionFragment = new TravelCollectionFragment();

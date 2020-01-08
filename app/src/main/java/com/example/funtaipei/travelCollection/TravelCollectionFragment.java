@@ -3,7 +3,6 @@ package com.example.funtaipei.travelCollection;
 
 import android.app.Activity;
 import android.content.Context;
-import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -27,7 +26,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Member;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.List;

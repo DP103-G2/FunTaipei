@@ -8,6 +8,33 @@
     <string name="textDelete">Delete</string>
     <string name="textDeleteFail">DeleteFail</string>
     <string name="textDeleteSucess">DeleteSucess</string>
+    <string name="textCancel">取消</string>
+    <string name="textInsert">新增</string>
+    <string name="textGroupName">旅遊團名稱</string>
+    <string name="textNoGroupsFound">No Groups Found</string>
+    <string name="textPickPicture">選照片</string>
+    <string name="textTakePicture">拍照</string>
+    <string name="textStartDate">旅遊日期</string>
+    <string name="textDateTime">活動日期</string>
+    <string name="textDatePicker">選擇</string>
+    <string name="textTravel">行程攻略</string>
+    <string name="textTravelName">選擇</string>
+    <string name="textNumber">報名人數最多:</string>
+    <string name="textDateStart">開始報名日期</string>
+    <string name="textDateEnd">報名截止日期</string>
+    <string name="textNote">備註</string>
+    <string name="textNoPlacesFound">no place found</string>
+    <string name="textDeleteSuccess">delete successfully</string>
+    <string name="textNoCameraApp">no camera app found</string>
+    <string name="textNameIsInvalid">book name is invalid</string>
+    <string name="textInsertFail">insert fail</string>
+    <string name="textInsertSuccess">insert successfully</string>
+    <string name="textUpdateFail">update fail</string>
+    <string name="textUpdateSuccess">update successfully</string>
+    <string name="textNoImageCropAppFound">no image crop app found</string>
+    <string name="btInsert">INSERT</string>
+    <string name="btUpdate">UPDATE</string>
+    <string name="etName">Name</string>
     <string-array name="travel_status">
         <item>下架</item>
         <item>上架</item>

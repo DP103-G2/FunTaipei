@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/placeListFragment">
 
     <fragment
         android:id="@+id/fragment_travel"
@@ -46,13 +46,81 @@
         android:label="fragment_member"
         tools:layout="@layout/fragment_member" />
     <fragment
-        android:id="@+id/placeFragment"
-        android:name="com.example.funtaipei.PlaceFragment"
-        android:label="fragment_place"
-        tools:layout="@layout/fragment_place" />
-    <fragment
         android:id="@+id/travelCollectionFragment"
         android:name="com.example.funtaipei.travelCollection.TravelCollectionFragment"
         android:label="fragment_travel_collection"
         tools:layout="@layout/fragment_travel_collection" />
+    <fragment
+        android:id="@+id/groupListFragment"
+        android:name="com.example.funtaipei.group.GroupListFragment"
+        android:label="fragment_group_list"
+        tools:layout="@layout/fragment_group_list" >
+        <action
+            android:id="@+id/action_groupListFragment_to_groupInsertFragment"
+            app:destination="@id/groupInsertFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/groupInsertFragment"
+        android:name="com.example.funtaipei.group.GroupInsertFragment"
+        android:label="fragment_insert"
+        tools:layout="@layout/fragment_insert" />
+    <fragment
+        android:id="@+id/placeListFragment"
+        android:name="com.example.funtaipei.place.PlaceListFragment"
+        android:label="fragment_place_list"
+        tools:layout="@layout/fragment_place_list" >
+        <action
+            android:id="@+id/action_placeListFragment_to_placeDetailsFragment"
+            app:destination="@id/placeDetailsFragment" />
+        <action
+            android:id="@+id/action_placeListFragment_to_restaurantFragment"
+            app:destination="@id/restaurantFragment" />
+        <action
+            android:id="@+id/action_placeListFragment_to_hotelFragment"
+            app:destination="@id/hotelFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoritePlaceFragment"
+        android:name="com.example.funtaipei.place.FavoritePlaceFragment"
+        android:label="fragment_favorite_place"
+        tools:layout="@layout/fragment_favorite_place" >
+        <action
+            android:id="@+id/action_favoritePlaceFragment_to_placeDetailsFragment"
+            app:destination="@id/placeDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/hotelFragment"
+        android:name="com.example.funtaipei.place.HotelFragment"
+        android:label="fragment_hotel"
+        tools:layout="@layout/fragment_hotel" >
+        <action
+            android:id="@+id/action_hotelFragment_to_placeDetailsFragment"
+            app:destination="@id/placeDetailsFragment" />
+        <action
+            android:id="@+id/action_hotelFragment_to_placeListFragment"
+            app:destination="@id/placeListFragment" />
+        <action
+            android:id="@+id/action_hotelFragment_to_restaurantFragment"
+            app:destination="@id/restaurantFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/placeDetailsFragment"
+        android:name="com.example.funtaipei.place.PlaceDetailsFragment"
+        android:label="fragment_place_details"
+        tools:layout="@layout/fragment_place_details" />
+    <fragment
+        android:id="@+id/restaurantFragment"
+        android:name="com.example.funtaipei.place.RestaurantFragment"
+        android:label="fragment_restaurant"
+        tools:layout="@layout/fragment_restaurant" >
+        <action
+            android:id="@+id/action_restaurantFragment_to_placeDetailsFragment"
+            app:destination="@id/placeDetailsFragment" />
+        <action
+            android:id="@+id/action_restaurantFragment_to_placeListFragment"
+            app:destination="@id/placeListFragment" />
+        <action
+            android:id="@+id/action_restaurantFragment_to_hotelFragment"
+            app:destination="@id/hotelFragment" />
+    </fragment>
 </navigation>
