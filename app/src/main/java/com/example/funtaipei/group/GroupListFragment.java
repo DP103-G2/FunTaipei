@@ -22,7 +22,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.funtaipei.Common;
 import com.example.funtaipei.R;
-import com.example.funtaipei.group.Group;
+
 import com.example.funtaipei.task.CommonTask;
 import com.example.funtaipei.task.ImageTask;
 
@@ -193,8 +193,10 @@ public class GroupListFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
             final Group group = groups.get(position);
+
             String url = Common.URL_SERVER + "GroupServlet";
             int id = group.getGP_ID();
+
             groupImageTask = new ImageTask(url, id , imageSize, myViewHolder.imageView);
             groupImageTask.execute();
             myViewHolder.tvName.setText(group.getGP_NAME());
@@ -205,10 +207,10 @@ public class GroupListFragment extends Fragment {
             myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("group",group);
-                    Navigation.findNavController(view)
-                            .navigate(R.id.action_groupListFragment_to_travel_detail, bundle);
+                    Navigation.findNavController(view).navigate(R.id.action_groupListFragment_to_travel_detail, bundle);
                 }
             });
 
