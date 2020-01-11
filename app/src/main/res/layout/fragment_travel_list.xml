@@ -47,9 +47,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:layout_marginRight="16dp"
-        android:src="@drawable/ic_add_black_24dp"
+        android:src="@android:drawable/ic_input_add"
+        app:backgroundTint="#3F51B5"
         app:elevation="6dp"
-        android:layout_gravity="center_vertical|right"/>
+        android:layout_gravity="bottom|right"/>
 
 
 

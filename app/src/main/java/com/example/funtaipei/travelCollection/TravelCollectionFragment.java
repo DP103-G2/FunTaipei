@@ -8,20 +8,26 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TabHost;
 import android.widget.TextView;
 
+import com.bumptech.glide.manager.RequestManagerFragment;
 import com.example.funtaipei.Common;
 import com.example.funtaipei.R;
 import com.example.funtaipei.task.CommonTask;
 import com.example.funtaipei.task.ImageTask;
+import com.google.android.material.tabs.TabItem;
+import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
@@ -43,7 +49,10 @@ public class TravelCollectionFragment extends Fragment {
     private ImageView travelColleationImage, travelCollection_Memberimageview;
     private TextView travelCollection_MemberName, travelCollection_MemberEmail, travelCollection_MemberId;
     private List<TravelCollection> travelCollections;
-
+    private TabLayout tabLayout;
+    private TabItem tab_travelCollection, tab_placeCollection;
+    private ViewPager viewPager;
+    public PageAdapter pageAdapter;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +62,7 @@ public class TravelCollectionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        activity.setTitle("行程收藏");
+        activity.setTitle("收藏列表");
         super.onCreateView(inflater, container, savedInstanceState);
         return inflater.inflate(R.layout.fragment_travel_collection, container, false);
     }
@@ -61,6 +70,41 @@ public class TravelCollectionFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        //Tabitems
+//        tabLayout = view.findViewById(R.id.tabLayout);
+//        tab_travelCollection = view.findViewById(R.id.tab_travelCollection);
+//        tab_placeCollection = view.findViewById(R.id.tab_placeCollection);
+//        viewPager = view.findViewById(R.id.viewPage);
+//
+//       pageAdapter = new PageAdapter(getChildFragmentManager(), tabLayout.getTabCount());
+//       viewPager.setAdapter(pageAdapter);
+//
+//        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//                viewPager.setCurrentItem(tab.getPosition());
+//                if(tab.getPosition() == 0){
+//                    pageAdapter.notifyDataSetChanged();
+//                }
+//                if(tab.getPosition() == 1){
+//                    pageAdapter.notifyDataSetChanged();
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//
+//            }
+//        });
+
+
         //TravelCollection資料
         travelCollectionRecycleView = view.findViewById(R.id.travelCollectionRecycleview);
         travelCollectionRecycleView.setLayoutManager(new LinearLayoutManager(activity));
@@ -281,6 +325,7 @@ public class TravelCollectionFragment extends Fragment {
 //            });
             //增加按鈕常按事件
         }
+
     }
 
     @Override
