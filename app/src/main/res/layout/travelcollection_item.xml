@@ -5,7 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="15dp"
-    app:cardBackgroundColor="#ccffcc">
+    app:cardBackgroundColor="#ccffcc"
+    app:cardCornerRadius="50dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="10dp">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -15,6 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:src="@drawable/no_image"
+        android:layout_marginTop="15dp"
         android:layout_gravity="center"/>
     <TextView
         android:id="@+id/Group_ID"

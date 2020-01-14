@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 import com.bumptech.glide.manager.RequestManagerFragment;
 import com.example.funtaipei.Common;
 import com.example.funtaipei.R;
+import com.example.funtaipei.place.FavoritePlaceFragment;
 import com.example.funtaipei.task.CommonTask;
 import com.example.funtaipei.task.ImageTask;
 import com.google.android.material.tabs.TabItem;
@@ -112,15 +114,6 @@ public class TravelCollectionFragment extends Fragment {
         showTravelCollections(travelCollections);
 
 
-//        Member資料
-//        travelCollection_member_recycleview = view.findViewById(R.id.travelCollection_member_recycleview);
-//        travelCollection_member_recycleview.setLayoutManager(new LinearLayoutManager(activity));
-//        travelCollection_member_recycleview = (RecyclerView) getTravelCollectionMember();
-//        showTravelCollectionMembers(travelCollections);
-        travelCollection_Memberimageview = view.findViewById(R.id.travelCollection_Memberimageview);
-        travelCollection_MemberId = view.findViewById(R.id.travelCollection_MemberId);
-        travelCollection_MemberName = view.findViewById(R.id.travelCollection_MemberName);
-        travelCollection_MemberEmail = view.findViewById(R.id.travelCollection_MemberEmail);
 
 
 
@@ -327,6 +320,53 @@ public class TravelCollectionFragment extends Fragment {
         }
 
     }
+
+    public class SectionPaperAdapter extends FragmentPagerAdapter{
+
+        public SectionPaperAdapter(FragmentManager fm){
+            super((fm));
+        }
+
+        @NonNull
+        @Override
+        public Fragment getItem(int position) {
+            Fragment fragment = null;
+            switch (position){
+                case 0:
+                    fragment = new TravelCollectionFragment();
+                    break;
+                case 1:
+                    fragment = new FavoritePlaceFragment();
+                    break;
+
+            }
+            return fragment;
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+
+        @Nullable
+        @Override
+        public CharSequence getPageTitle(int position) {
+
+            switch (position){
+                case 0:
+                    return "行程收藏";
+
+                case 1:
+                    return "旅遊點收藏";
+
+            }
+            return null;
+        }
+    }
+
+
+
+
 
     @Override
     public void onStop() {

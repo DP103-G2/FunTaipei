@@ -1,68 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.funtaipei.travelCollection.TravelCollectionFragment"
-    android:padding="15dp">
+    android:padding="15dp"
+    tools:context="com.example.funtaipei.travelCollection.TravelCollectionFragment">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <com.example.funtaipei.CircleImageView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:src="@drawable/travelcollectionpic" />
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-        <com.example.funtaipei.CircleImageView
-            android:id="@+id/travelCollection_Memberimageview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/no_image"/>
 
-        <!--        <ImageView-->
-        <!--            android:id="@+id/travelCollection_Memberimageview"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:src="@drawable/no_image"/>-->
-        <TextView
-            android:id="@+id/travelCollection_MemberId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Member_id"
-            android:layout_toRightOf="@id/travelCollection_Memberimageview"
-            android:layout_marginLeft="10dp"/>
-        <TextView
-            android:id="@+id/travelCollection_MemberName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="MB_NAME"
-            android:layout_toRightOf="@id/travelCollection_Memberimageview"
-            android:layout_marginLeft="10dp"
-            android:layout_below="@id/travelCollection_MemberId"
-            android:textSize="22sp"
-            android:textColor="#000000"/>
-        <TextView
-            android:id="@+id/travelCollection_MemberEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="MB_Email"
-            android:layout_toRightOf="@id/travelCollection_Memberimageview"
-            android:layout_below="@id/travelCollection_MemberName"
-            android:layout_marginLeft="10dp"
-            android:textColor="#A0A0A0"/>
+            <!--        <com.example.funtaipei.CircleImageView-->
+            <!--            android:id="@+id/travelCollection_Memberimageview"-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:src="@drawable/no_image"/>-->
+
+
+            <!--        <ImageView-->
+            <!--            android:id="@+id/travelCollection_Memberimageview"-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:src="@drawable/no_image"/>-->
+            <!--        <TextView-->
+            <!--            android:id="@+id/travelCollection_MemberId"-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:text="Member_id"-->
+            <!--            android:layout_toRightOf="@id/travelCollection_Memberimageview"-->
+            <!--            android:layout_marginLeft="10dp"/>-->
+            <!--        <TextView-->
+            <!--            android:id="@+id/travelCollection_MemberName"-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:text="MB_NAME"-->
+            <!--            android:layout_toRightOf="@id/travelCollection_Memberimageview"-->
+            <!--            android:layout_marginLeft="10dp"-->
+            <!--            android:layout_below="@id/travelCollection_MemberId"-->
+            <!--            android:textSize="22sp"-->
+            <!--            android:textColor="#000000"/>-->
+            <!--        <TextView-->
+            <!--            android:id="@+id/travelCollection_MemberEmail"-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:text="MB_Email"-->
+            <!--            android:layout_toRightOf="@id/travelCollection_Memberimageview"-->
+            <!--            android:layout_below="@id/travelCollection_MemberName"-->
+            <!--            android:layout_marginLeft="10dp"-->
+            <!--            android:textColor="#A0A0A0"/>-->
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#ff1100"
-                android:layout_below="@id/travelCollection_MemberEmail"
-                android:layout_marginTop="30dp">
+                android:layout_marginTop="30dp"
+                android:background="#ff1100">
+
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/tab_travelCollection"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="行程收藏"/>
+                    android:text="行程收藏" />
 
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/tab_placeCollection"
@@ -74,35 +83,25 @@
 
         </RelativeLayout>
 
-        <TextView
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/travelCollectionRecycleview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="1"
-            android:textSize="0.5sp"
-            android:textColor="#000000"
-            android:layout_marginTop="15dp"/>
+            android:layout_below="@id/travelCollection_Memberimageview"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="20dp">
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/travelCollectionRecycleview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/travelCollection_Memberimageview"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="20dp">
-
-    </androidx.recyclerview.widget.RecyclerView>
+        </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/travelCollectionbtnAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right|bottom"
-        android:src="@android:drawable/ic_input_add"
-        android:backgroundTint="#3F51B5">
-    </com.google.android.material.floatingactionbutton.FloatingActionButton>
-
-
+        android:backgroundTint="#3F51B5"
+        android:src="@android:drawable/ic_input_add"></com.google.android.material.floatingactionbutton.FloatingActionButton>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

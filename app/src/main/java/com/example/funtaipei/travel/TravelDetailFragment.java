@@ -1,6 +1,7 @@
 package com.example.funtaipei.travel;
 
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -46,10 +48,13 @@ public class TravelDetailFragment extends Fragment {
     private List<TravelDetail> travelDetails;
     private List<Group> groups;
     private RecyclerView travel_detail_recycleview;
+    private CommonTask placeGetAllTask;
+    private CommonTask placeDeleteTask;
+    private ImageTask placeImageTask;
     private RecyclerView group_recycleview;
     private RecyclerView stationRecycleView;
     private Button btnAddTravel;
-
+    private Place places;
     private Button btnAddGroup;
     private Travel travel;
 
@@ -109,6 +114,31 @@ public class TravelDetailFragment extends Fragment {
 //            }
 //        });
     }
+    //Get PlaceDetail
+    private List<com.example.funtaipei.place.Place> getPlaces() {
+        List<com.example.funtaipei.place.Place> places = null;
+        if (Common.networkConnected(activity)) {
+            String url = Common.URL_SERVER + "/PlaceServlet";
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("action", "getAll");
+            String jsonOut = jsonObject.toString();
+            placeGetAllTask = new CommonTask(url, jsonOut);
+            try {
+                String jsonIn = placeGetAllTask.execute().get();
+                Type listType = new TypeToken<List<com.example.funtaipei.place.Place>>() {
+                }.getType();
+                places = new Gson().fromJson(jsonIn, listType);
+            } catch (Exception e) {
+                Log.e(TAG, e.toString());
+            }
+        } else {
+            Common.showToast(activity, R.string.textNoNetwork);
+        }
+        return places;
+    }
+    
+
+    //Get Travel Detail
     private List<TravelDetail> getTravelDetails() {
         List<TravelDetail> travelDetails = null;
         if (Common.networkConnected(activity)) {
@@ -187,7 +217,7 @@ public class TravelDetailFragment extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull TravelDetailAdapter.MyViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull final TravelDetailAdapter.MyViewHolder holder, int position) {
             final TravelDetail travelDetail = travelDetails.get(position);
             String url = Common.URL_SERVER + "TravelDetailServlet";
             int id = travelDetail.getTravel_id();
@@ -197,12 +227,13 @@ public class TravelDetailFragment extends Fragment {
             holder.pc_name.setText(String.valueOf(travelDetail.getPc_name()));
 //            holder.stationRecycleView.setLayoutManager(new GridLayoutManager(activity));
             //下面這行是跳轉到旅遊點細節
-//            holder.itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//
-//                }
-//            });
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    Navigation.findNavController(v).navigate(R.id.action_travel_detail_to_placeDetailsFragment, bundle);
+                }
+            });
 
         }
         @Override
