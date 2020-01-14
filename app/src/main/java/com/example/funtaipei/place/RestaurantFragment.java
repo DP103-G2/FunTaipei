@@ -152,7 +152,7 @@ public class RestaurantFragment extends Fragment {
         if (Common.networkConnected(activity)) {
             String url = Common.URL_SERVER + "/PlaceServlet";
             JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("action", "getAll");
+            jsonObject.addProperty("action", "getRestaurant");
             String jsonOut = jsonObject.toString();
             placeGetAllTask = new CommonTask(url, jsonOut);
             try {

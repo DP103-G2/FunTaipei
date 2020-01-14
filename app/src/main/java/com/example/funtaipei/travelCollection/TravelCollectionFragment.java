@@ -55,6 +55,7 @@ public class TravelCollectionFragment extends Fragment {
     private TabItem tab_travelCollection, tab_placeCollection;
     private ViewPager viewPager;
     public PageAdapter pageAdapter;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +73,24 @@ public class TravelCollectionFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        tabLayout = view.findViewById(R.id.tabLayout);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
         //Tabitems
 //        tabLayout = view.findViewById(R.id.tabLayout);
@@ -331,6 +350,7 @@ public class TravelCollectionFragment extends Fragment {
         @Override
         public Fragment getItem(int position) {
             Fragment fragment = null;
+            Log.d(TAG, "getItem: ");
             switch (position){
                 case 0:
                     fragment = new TravelCollectionFragment();
