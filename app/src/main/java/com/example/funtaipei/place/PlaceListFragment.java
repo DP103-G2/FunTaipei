@@ -146,7 +146,7 @@ public class PlaceListFragment extends Fragment{
         });
 
     }
-
+//
     private List<Place> getPlaces() {
         List<Place> places = null;
         if (Common.networkConnected(activity)) {
