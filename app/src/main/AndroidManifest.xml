@@ -24,7 +24,8 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name=".main.MainActivity">
+        <activity android:name=".main.MainActivity"
+            android:windowSoftInputMode="adjustPan">
             <meta-data
                 android:name="android.support.PARENT_FRAGMENT"
                 android:value=".MainActivity"/>
