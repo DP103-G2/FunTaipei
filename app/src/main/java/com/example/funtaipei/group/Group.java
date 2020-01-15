@@ -3,15 +3,13 @@ package com.example.funtaipei.group;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Group implements Serializable {
+public class Group implements Serializable{
 
     private int GP_ID, TRAVEL_ID, GP_ENROLLMENT, GP_UPPER, GP_LOWER, GP_STATUS;
     private String GP_NAME, GP_NOTES;
-    private Date GP_DATESTAR, GP_DATEEND, GP_EVENTDATE;
+    private Date GP_DATESTART, GP_DATEEND, GP_EVENTDATE;
 
-
-
-    public Group(int gP_ID, int tRAVEL_ID, String gP_NAME, int gP_ENROLLMENT, int gP_UPPER, int gP_LOWER, Date gP_DATESTAR, Date gP_DATEEND, Date gP_EVENTDATE, int gP_STATUS, String gP_NOTES) {
+    public Group(int gP_ID, int tRAVEL_ID, String gP_NAME, int gP_ENROLLMENT, int gP_UPPER, int gP_LOWER, Date gP_DATESTART, Date gP_DATEEND, Date gP_EVENTDATE, int gP_STATUS, String gP_NOTES) {
         super();
         this.GP_ID = gP_ID;
         this.TRAVEL_ID = tRAVEL_ID;
@@ -21,11 +19,22 @@ public class Group implements Serializable {
         this.GP_STATUS = gP_STATUS;
         this.GP_NAME = gP_NAME;
         this.GP_NOTES = gP_NOTES;
-        this.GP_DATESTAR = gP_DATESTAR;
+        this.GP_DATESTART = gP_DATESTART;
         this.GP_DATEEND = gP_DATEEND;
         this.GP_EVENTDATE = gP_EVENTDATE;
-
     }
+
+    public Group(int gP_ID, int tRAVEL_ID, String gP_NAME, Date gP_DATESTART, Date gP_DATEEND,
+                 Date gP_EVENTDATE) {
+        super();
+        GP_ID = gP_ID;
+        TRAVEL_ID = tRAVEL_ID;
+        GP_NAME = gP_NAME;
+        GP_DATESTART = gP_DATESTART;
+        GP_DATEEND = gP_DATEEND;
+        GP_EVENTDATE = gP_EVENTDATE;
+    }
+
     public int getGP_ID() {
         return GP_ID;
     }
@@ -75,10 +84,10 @@ public class Group implements Serializable {
         this.GP_NOTES = gP_NOTES;
     }
     public Date getGP_DATESTAR() {
-        return GP_DATESTAR;
+        return GP_DATESTART;
     }
     public void setGP_DATESTAR(Date gP_DATESTAR) {
-        this.GP_DATESTAR = gP_DATESTAR;
+        this.GP_DATESTART = gP_DATESTAR;
     }
     public Date getGP_DATEEND() {
         return GP_DATEEND;
@@ -92,7 +101,6 @@ public class Group implements Serializable {
     public void setGP_EVENTDATE(Date gP_EVENTDATE) {
         this.GP_EVENTDATE = gP_EVENTDATE;
     }
-
 
 
 }

@@ -121,8 +121,8 @@ public class GroupListFragment extends Fragment {
                 String jsonIn = groupGetAllTask.execute().get();
                 Type listType = new TypeToken<List<Group>>() {
                 }.getType();
-                Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-                groups = new Gson().fromJson(jsonIn, listType);
+                Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
+                groups = gson.fromJson(jsonIn, listType);
             } catch (Exception e) {
                 Log.e(TAG, e.toString());
             }
@@ -200,7 +200,7 @@ public class GroupListFragment extends Fragment {
             groupImageTask = new ImageTask(url, id , imageSize, myViewHolder.imageView);
             groupImageTask.execute();
             myViewHolder.tvName.setText(group.getGP_NAME());
-            myViewHolder.tvEventdate.setText("出發日期：" + new SimpleDateFormat("yyyy-MM-dd").format(group.getGP_EVENTDATE()));
+            myViewHolder.tvEventdate.setText("出發日期：" + new SimpleDateFormat("yyyy/MM/dd").format(group.getGP_EVENTDATE()));
             myViewHolder.tvUpper.setText("可報名人數：");
             myViewHolder.tvUpper.append(String.valueOf(group.getGP_ENROLLMENT()) + " / " );
             myViewHolder.tvUpper.append(String.valueOf(group.getGP_UPPER()) + "人");

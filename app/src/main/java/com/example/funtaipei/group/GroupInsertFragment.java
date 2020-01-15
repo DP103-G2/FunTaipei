@@ -17,6 +17,7 @@ import androidx.navigation.Navigation;
 
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,10 @@ import android.widget.Toast;
 
 import com.example.funtaipei.Common;
 import com.example.funtaipei.R;
+import com.example.funtaipei.task.CommonTask;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -49,7 +54,6 @@ public class GroupInsertFragment extends Fragment {
     private ImageView ivGroup;
     private EditText etName, etUpper, etLower, etNotes;
     private TextView tvDateTime, tvDateTime2, tvDateTime3, tvPeople;
-    private static int year, month, day;
     private Date date1, date2, date3;
     private SimpleDateFormat simpleDateFormat;
     private byte[] image;
@@ -83,11 +87,12 @@ public class GroupInsertFragment extends Fragment {
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final NavController navController = Navigation.findNavController(view);
-        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
         ivGroup = view.findViewById(R.id.ivGroup);
 
         etName = view.findViewById(R.id.etName);
+        etNotes = view.findViewById(R.id.etNotes);
 
         tvDateTime = view.findViewById(R.id.tvDateTime);
         tvDateTime2 = view.findViewById(R.id.tvDateTime2);
@@ -106,7 +111,49 @@ public class GroupInsertFragment extends Fragment {
         btFinshInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String name = etName.getText().toString().trim();
+                if (name.length() <= 0) {
+                    Common.showToast(getActivity(), R.string.textGroupName);
+                    return;
+                }
+                //Date解決中
+                //Date eventDate = new Date();
+                Date eventDate = date1;
+                Date dateStart = date2;
+                Date dateEnd = date3;
+                int upper = skPeople.getProgress();
+                //String lower = "2";
+                String notes = etNotes.getText().toString().trim();
 
+
+
+                if (Common.networkConnected(activity)) {
+                    String url = Common.URL_SERVER + "GroupServlet";
+                    Group group = new Group(0, 1238, name, 1, upper, 2, dateStart, dateEnd, eventDate, 1, notes);
+                    JsonObject jsonObject = new JsonObject();
+                    jsonObject.addProperty("action", "groupInsert");
+                    Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
+                    jsonObject.addProperty("group", gson.toJson(group));
+                    if (image != null) {
+                        jsonObject.addProperty("imageBase64", Base64.encodeToString(image, Base64.DEFAULT));
+                    }
+                    int count = 0;
+                    try {
+                        String result = new CommonTask(url, jsonObject.toString()).execute().get();
+                        count = Integer.valueOf(result);
+                    } catch (Exception e) {
+                        Log.e(TAG, e.toString());
+                    }
+                    if (count == 0) {
+                        Common.showToast(getActivity(), R.string.textInsertFail);
+                    } else {
+                        Common.showToast(getActivity(), R.string.textInsertSuccess);
+                    }
+                } else {
+                    Common.showToast(getActivity(), R.string.textNoNetwork);
+                }
+                /* 回前一個Fragment */
+                navController.popBackStack();
             }
         });
 
@@ -200,7 +247,7 @@ public class GroupInsertFragment extends Fragment {
                                     @Override
                                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                                         date2 = new Date(year - 1900, month, dayOfMonth);
-                                        tvDateTime2.setText(R.string.textDateTime);
+                                        tvDateTime2.setText(R.string.textDateStart);
                                         tvDateTime2.append( ":" + simpleDateFormat.format(date2));
                                         btDatePicker3.setEnabled(true);
                                     }
@@ -230,7 +277,7 @@ public class GroupInsertFragment extends Fragment {
                                     @Override
                                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                                         date3 = new Date(year - 1900, month, dayOfMonth);
-                                        tvDateTime3.setText(R.string.textDateTime);
+                                        tvDateTime3.setText(R.string.textDateEnd);
                                         tvDateTime3.append( ":" + simpleDateFormat.format(date3));
 
                                     }
