@@ -213,7 +213,7 @@ public class GroupInsertFragment extends Fragment {
                                     @Override
                                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                                         date1 = new Date(year - 1900, month, dayOfMonth);
-                                        tvDateTime.setText(R.string.textDateTime);
+                                        tvDateTime.setText(R.string.textDateStart);
                                         tvDateTime.append( ":" + simpleDateFormat.format(date1));
                                         btDatePicker2.setEnabled(true);
                                     }

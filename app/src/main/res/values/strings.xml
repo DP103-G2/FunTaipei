@@ -8,21 +8,21 @@
     <string name="textDelete">Delete</string>
     <string name="textDeleteFail">DeleteFail</string>
     <string name="textDeleteSucess">DeleteSucess</string>
-    <string name="textCancel">取消</string>
-    <string name="textInsert">新增</string>
-    <string name="textGroupName">旅遊團名稱</string>
+    <string name="textCancel">Cancel</string>
+    <string name="textInsert">Insert</string>
+    <string name="textGroupName">GroupName</string>
     <string name="textNoGroupsFound">No Groups Found</string>
-    <string name="textPickPicture">選照片</string>
-    <string name="textTakePicture">拍照</string>
-    <string name="textStartDate">旅遊日期</string>
-    <string name="textDateTime">活動日期</string>
-    <string name="textDatePicker">選擇</string>
-    <string name="textTravel">行程攻略</string>
-    <string name="textTravelName">選擇</string>
-    <string name="textNumber">報名人數最多:</string>
-    <string name="textDateStart">開始報名日期</string>
-    <string name="textDateEnd">報名截止日期</string>
-    <string name="textNote">備註</string>
+    <string name="textPickPicture">Pick Picture</string>
+    <string name="textTakePicture">Tack Pitcure</string>
+    <string name="textStartDate">Travel dates</string>
+
+    <string name="textDatePicker">Pick</string>
+    <string name="textTravel">Travel</string>
+    <string name="textTravelName">Pick</string>
+    <string name="textNumber">Maximum number:</string>
+    <string name="textDateStart">Registration begins：</string>
+    <string name="textDateEnd">Stop registration</string>
+    <string name="textNote">Note</string>
     <string name="textNoPlacesFound">no place found</string>
     <string name="textDeleteSuccess">delete successfully</string>
     <string name="textNoCameraApp">no camera app found</string>
@@ -36,25 +36,25 @@
     <string name="btUpdate">UPDATE</string>
     <string name="etName">Name</string>
     <string-array name="travel_status">
-        <item>下架</item>
-        <item>上架</item>
+        <item>On the shelf</item>
+        <item>Lower shelf</item>
     </string-array>
     <string name="textEmail">E-mail</string>
     <string name="textPassword">Password</string>
     <string name="textLogin">Login</string>
-    <string name="textRegister">註冊</string>
+    <string name="textRegister">Register</string>
     <string name="emailEdit">Email</string>
     <string name="textMB_NO">Member NO</string>
     <string name="textMemberName">MemberName</string>
     <string name="textName">Name</string>
-    <string name="textMale">男生</string>
-    <string name="textFemale">女生</string>
+    <string name="textMale">Male</string>
+    <string name="textFemale">Female</string>
     <string name="textEmailIsInvalid">Email is invalid</string>
     <string name="textPasswordIsInvalid">Password is invalid</string>
     <string name="textGenderIsInvalid">Gender is invalid</string>
     <string name="textBirthdayIsInvalid">Birthday is invalid</string>
     <string name="textRegisterFail">Register Fail</string>
     <string name="textRegisterSuccess">Register Success</string>
-    <string name="textLoginSuccess">登入成功</string>
-    <string name="textLoginFail">登入失敗</string>
+    <string name="textLoginSuccess">LoginSuccess</string>
+    <string name="textLoginFail">LoginFail</string>
 </resources>
