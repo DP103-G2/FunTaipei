@@ -105,6 +105,14 @@ public class TravelListFragment extends Fragment {
 //                            }
 //                            showTravels(searchTravelName);
 //                        }
+                        }else{
+                            List<Travel> searchTravelByid = new ArrayList<>();
+                            for (Travel travelId: travels){
+                                if(travel.getTravel_name().contains(newText.toUpperCase())){
+                                    searchTravelByid.add(travel);
+                                }
+                            }
+                            showTravels(searchTravelByid);
                         }
                     }
                     showTravels(searchTravels);

@@ -10,6 +10,7 @@ import androidx.navigation.ui.NavigationUI;
 import android.os.Bundle;
 
 import com.example.funtaipei.HomeFragment;
+import com.example.funtaipei.Member.LoginFragment;
 import com.example.funtaipei.MemberFragment;
 import com.example.funtaipei.PlaceFragment;
 import com.example.funtaipei.R;
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     private GroupListFragment groupListFragment;
     private PlaceListFragment placeListFragment;
-    private MemberFragment memberFragment;
+    private LoginFragment loginFragment;
     private TravelListFragment travelListFragment;
     private TravelCollectionFragment travelCollectionFragment;
 
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         placeListFragment = new PlaceListFragment();
         groupListFragment = new GroupListFragment();
-        memberFragment = new MemberFragment();
+        loginFragment = new LoginFragment();
         travelListFragment = new TravelListFragment();
         travelCollectionFragment = new TravelCollectionFragment();
 

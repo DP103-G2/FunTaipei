@@ -39,4 +39,22 @@
         <item>下架</item>
         <item>上架</item>
     </string-array>
+    <string name="textEmail">E-mail</string>
+    <string name="textPassword">Password</string>
+    <string name="textLogin">Login</string>
+    <string name="textRegister">註冊</string>
+    <string name="emailEdit">Email</string>
+    <string name="textMB_NO">Member NO</string>
+    <string name="textMemberName">MemberName</string>
+    <string name="textName">Name</string>
+    <string name="textMale">男生</string>
+    <string name="textFemale">女生</string>
+    <string name="textEmailIsInvalid">Email is invalid</string>
+    <string name="textPasswordIsInvalid">Password is invalid</string>
+    <string name="textGenderIsInvalid">Gender is invalid</string>
+    <string name="textBirthdayIsInvalid">Birthday is invalid</string>
+    <string name="textRegisterFail">Register Fail</string>
+    <string name="textRegisterSuccess">Register Success</string>
+    <string name="textLoginSuccess">登入成功</string>
+    <string name="textLoginFail">登入失敗</string>
 </resources>

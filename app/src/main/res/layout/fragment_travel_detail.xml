@@ -76,9 +76,10 @@
             android:id="@+id/btnAddTravel"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:background="#ffff66"
+            android:background="@drawable/bluebuttonstyle"
             android:layout_gravity="right"
-            android:text="新增行程" />
+            android:text="我要報名"
+            android:textColor="#ffffff"/>
 
         <TextView
             android:layout_width="wrap_content"

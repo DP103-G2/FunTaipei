@@ -53,7 +53,11 @@
         android:id="@+id/travelCollectionFragment"
         android:name="com.example.funtaipei.travelCollection.TravelCollectionFragment"
         android:label="fragment_travel_collection"
-        tools:layout="@layout/fragment_travel_collection" />
+        tools:layout="@layout/fragment_travel_collection" >
+        <action
+            android:id="@+id/action_travelCollectionFragment_to_travel_collection_insert"
+            app:destination="@id/travel_collection_insert" />
+    </fragment>
     <fragment
         android:id="@+id/groupListFragment"
         android:name="com.example.funtaipei.group.GroupListFragment"
@@ -130,4 +134,31 @@
             android:id="@+id/action_restaurantFragment_to_hotelFragment"
             app:destination="@id/hotelFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/travel_collection_insert"
+        android:name="com.example.funtaipei.travelCollection.Travel_collection_insert"
+        android:label="fragment_travel_collection_insert"
+        tools:layout="@layout/fragment_travel_collection_insert" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.funtaipei.Member.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_placeListFragment"
+            app:destination="@id/placeListFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment2"
+            app:destination="@id/registerFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="menu.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" />
+    <fragment
+        android:id="@+id/registerFragment2"
+        android:name="com.example.funtaipei.Member.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" />
 </navigation>
