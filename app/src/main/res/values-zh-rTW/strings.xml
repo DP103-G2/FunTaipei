@@ -1,2 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">台北一日遊</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="textNoNetwork">沒有網路連線</string>
+    <string name="textUpdate">更新</string>
+    <string name="textDelete">刪除</string>
+    <string name="textDeleteFail">刪除失敗</string>
+    <string name="textDeleteSucess">刪除成功</string>
+    <string name="textCancel">取消</string>
+    <string name="textInsert">新增</string>
+    <string name="textGroupName">旅遊團名稱</string>
+    <string name="textNoGroupsFound">找不到旅遊團</string>
+    <string name="textPickPicture">選擇照片</string>
+    <string name="textTakePicture">拍照</string>
+    <string name="textStartDate">旅遊日期</string>
+
+    <string name="textDatePicker">選擇</string>
+    <string name="textTravel">行程</string>
+    <string name="textTravelName">選擇</string>
+    <string name="textNumber">可報名人數:</string>
+    <string name="textDateStart">開始報名日期：</string>
+    <string name="textDateEnd">結束報名日期</string>
+    <string name="textNote">備註</string>
+    <string name="textNoPlacesFound">找不到旅遊點</string>
+    <string name="textDeleteSuccess">刪除成功</string>
+    <string name="textNoCameraApp">找不到相機程式</string>
+
+    <string name="textInsertFail">新增失敗</string>
+    <string name="textInsertSuccess">新增成功</string>
+    <string name="textUpdateFail">更新失敗</string>
+    <string name="textUpdateSuccess">更新成功</string>
+    <string name="textNoImageCropAppFound">找不到截圖程式</string>
+    <string name="btInsert">新增</string>
+    <string name="btUpdate">更新</string>
+    <string name="etName">名稱</string>
+    <string-array name="travel_status">
+        <item>On the shelf</item>
+        <item>Lower shelf</item>
+    </string-array>
+    <string name="textEmail">電子信箱</string>
+    <string name="textPassword">密碼</string>
+    <string name="textLogin">登入</string>
+    <string name="textRegister">註冊</string>
+    <string name="emailEdit">電子信箱</string>
+    <string name="textMB_NO">會員編號</string>
+    <string name="textMemberName">會員姓名</string>
+    <string name="textName">姓名</string>
+    <string name="textMale">男性</string>
+    <string name="textFemale">女性</string>
+    <string name="textEmailIsInvalid">電子信箱不符合規定</string>
+    <string name="textPasswordIsInvalid">密碼不符合規定</string>
+    <string name="textGenderIsInvalid">性別不符合規定</string>
+    <string name="textBirthdayIsInvalid">生日不符合規定</string>
+    <string name="textRegisterFail">註冊失敗</string>
+    <string name="textRegisterSuccess">註冊成功</string>
+    <string name="textLoginSuccess">登入成功</string>
+    <string name="textLoginFail">登入失敗</string>
+</resources>
