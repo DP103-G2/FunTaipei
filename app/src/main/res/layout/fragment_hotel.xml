@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".HotelFragment">
+    tools:context=".place.HotelFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,7 +30,8 @@
                 android:id="@+id/imageView4"
                 android:layout_width="0dp"
                 android:layout_height="150dp"
-                android:src="@android:color/holo_orange_light"
+                android:background="#6CA0B2"
+                android:src="@drawable/hotel"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

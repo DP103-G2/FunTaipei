@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".RestaurantFragment">
+    tools:context=".place.RestaurantFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,11 +30,12 @@
                 android:id="@+id/imageView3"
                 android:layout_width="0dp"
                 android:layout_height="150dp"
+                android:background="#907F75"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@color/design_default_color_primary" />
+                app:srcCompat="@drawable/restaurant" />
 
             <Button
                 android:id="@+id/btView"
