@@ -26,12 +26,14 @@
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:layout_weight="0.5"
+       android:background="@drawable/little_blue_button"
        android:text="TakePicture"/>
    <Button
        android:id="@+id/btnPickPic"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:layout_weight="0.5"
+       android:background="@drawable/little_blue_button"
        android:text="PickPicture"/>
 </LinearLayout>
     <TextView
@@ -56,12 +58,14 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_weight="0.5"
+          android:background="@drawable/little_blue_button"
           android:text="Update "/>
       <Button
           android:id="@+id/btnCancel"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_weight="0.5"
+          android:background="@drawable/little_blue_button"
           android:text="CANCEL"/>
    </LinearLayout>
 </LinearLayout>
