@@ -57,4 +57,5 @@
     <string name="textRegisterSuccess">Register Success</string>
     <string name="textLoginSuccess">LoginSuccess</string>
     <string name="textLoginFail">LoginFail</string>
+    <string name="textJustgo">Join Us</string>
 </resources>

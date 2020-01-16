@@ -58,4 +58,5 @@
     <string name="textRegisterSuccess">註冊成功</string>
     <string name="textLoginSuccess">登入成功</string>
     <string name="textLoginFail">登入失敗</string>
+    <string name="textJustgo">立即加入</string>
 </resources>

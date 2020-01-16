@@ -55,11 +55,12 @@
 
         <Button
             android:id="@+id/button"
-            android:layout_width="1dp"
+            android:layout_width="2dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="#03A9F4"
-            android:text="報名" />
+            android:clickable="true"
+            android:text="@string/textJustgo" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>
