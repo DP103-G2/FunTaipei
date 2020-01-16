@@ -141,7 +141,7 @@
         tools:layout="@layout/fragment_travel_collection_insert" />
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.funtaipei.Member.LoginFragment"
+        android:name="com.example.funtaipei.member.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -158,7 +158,7 @@
         tools:layout="@layout/fragment_register" />
     <fragment
         android:id="@+id/registerFragment2"
-        android:name="com.example.funtaipei.Member.RegisterFragment"
+        android:name="com.example.funtaipei.member.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" />
 </navigation>

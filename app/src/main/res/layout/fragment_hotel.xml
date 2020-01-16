@@ -43,6 +43,8 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginLeft="32dp"
                 android:text="景點"
+                android:textColor="#00ffff"
+                android:background="@drawable/little_blue_button"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
@@ -53,6 +55,8 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginLeft="32dp"
                 android:text="餐廳"
+                android:textColor="#00ffff"
+                android:background="@drawable/little_blue_button"
                 app:layout_constraintStart_toEndOf="@+id/btView"
                 app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
@@ -63,6 +67,8 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginLeft="32dp"
                 android:text="飯店"
+                android:textColor="#00ffff"
+                android:background="@drawable/little_blue_button"
                 app:layout_constraintStart_toEndOf="@+id/btResturant"
                 app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 

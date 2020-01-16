@@ -9,10 +9,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 
-import com.example.funtaipei.HomeFragment;
-import com.example.funtaipei.Member.LoginFragment;
-import com.example.funtaipei.MemberFragment;
-import com.example.funtaipei.PlaceFragment;
+import com.example.funtaipei.member.LoginFragment;
 import com.example.funtaipei.R;
 import com.example.funtaipei.group.GroupListFragment;
 import com.example.funtaipei.place.PlaceListFragment;

@@ -1,4 +1,4 @@
-package com.example.funtaipei.Member;
+package com.example.funtaipei.member;
 
 
 import android.annotation.SuppressLint;
@@ -25,7 +25,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.funtaipei.Common;
-import com.example.funtaipei.Member.Member;
 import com.example.funtaipei.R;
 import com.example.funtaipei.task.CommonTask;
 import com.google.gson.Gson;

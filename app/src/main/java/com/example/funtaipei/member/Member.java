@@ -1,4 +1,4 @@
-package com.example.funtaipei.Member;
+package com.example.funtaipei.member;
 
 import java.util.Date;
 

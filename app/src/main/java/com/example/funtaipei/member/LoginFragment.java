@@ -1,4 +1,4 @@
-package com.example.funtaipei.Member;
+package com.example.funtaipei.member;
 
 
 import android.app.Activity;
@@ -46,7 +46,7 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        activity.setTitle("會員專區");
         etEmail = view.findViewById(R.id.etEmail);
         etPassword = view.findViewById(R.id.etPassword);
         btLogin = view.findViewById(R.id.btLogin);
