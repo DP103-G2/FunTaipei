@@ -9,7 +9,7 @@
     tools:context=".member.LoginFragment">
 
 
-    <ImageView
+    <com.example.funtaipei.CircleImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/funtaipei_black"/>
