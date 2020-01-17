@@ -161,4 +161,9 @@
         android:name="com.example.funtaipei.member.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" />
+    <fragment
+        android:id="@+id/memberDetailFragment"
+        android:name="com.example.funtaipei.Member.MemberDetailFragment"
+        android:label="fragment_member_detail"
+        tools:layout="@layout/fragment_member_detail" />
 </navigation>
