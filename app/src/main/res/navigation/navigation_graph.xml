@@ -67,8 +67,8 @@
             android:id="@+id/action_groupListFragment_to_groupInsertFragment"
             app:destination="@id/groupInsertFragment" />
         <action
-            android:id="@+id/action_groupListFragment_to_travel_detail"
-            app:destination="@id/travel_detail" />
+            android:id="@+id/action_groupListFragment_to_groupDetailFragment"
+            app:destination="@id/groupDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/groupInsertFragment"
@@ -161,4 +161,9 @@
         android:name="com.example.funtaipei.member.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" />
+    <fragment
+        android:id="@+id/groupDetailFragment"
+        android:name="com.example.funtaipei.group.GroupDetailFragment"
+        android:label="fragment_group_detail"
+        tools:layout="@layout/fragment_group_detail" />
 </navigation>
