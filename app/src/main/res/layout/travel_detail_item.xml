@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp"
-    app:cardBackgroundColor="#ff1100"
+    app:cardBackgroundColor="#99c2ff"
     android:layout_marginTop="15dp">
 
     <RelativeLayout
@@ -37,8 +37,6 @@
             android:text="台北101"
             android:textColor="#000000"
             android:textSize="26sp" />
-
-
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

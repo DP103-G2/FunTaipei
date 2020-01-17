@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.funtaipei.placeFavoriteFragment;
+import com.example.funtaipei.PlaceFavoriteFragment;
+import com.example.funtaipei.place.FavoritePlaceFragment;
+
+import java.util.zip.Inflater;
 
 public class PageAdapter extends FragmentPagerAdapter {
 
@@ -23,7 +26,7 @@ public class PageAdapter extends FragmentPagerAdapter {
             case 0:
                 return new TravelCollectionFragment();
             case 1:
-                return new placeFavoriteFragment();
+                return new FavoritePlaceFragment();
                 default:
                     return null;
         }

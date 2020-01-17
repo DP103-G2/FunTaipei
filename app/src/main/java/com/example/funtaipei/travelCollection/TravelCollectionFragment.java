@@ -77,24 +77,36 @@ public class TravelCollectionFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        tabLayout = view.findViewById(R.id.tabLayout);
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
+//        tabLayout = view.findViewById(R.id.tabLayout);
+//        tab_travelCollection = view.findViewById(R.id.tab_travelCollection);
+//        tab_placeCollection = view.findViewById(R.id.tab_placeCollection);
+//        pageAdapter = new PageAdapter((FragmentManager) getTravelCollections(), tabLayout.getTabCount());
+//        viewPager.setAdapter(pageAdapter);
+//        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//            viewPager.setCurrentItem(tab.getPosition());
+//            if (tab.getPosition() == 0){
+//                pageAdapter.notifyDataSetChanged();
+//                if (tab.getPosition() == 1){
+//                    pageAdapter.notifyDataSetChanged();
+//                }
+//            }
+//
+//            }
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//
+//            }
+//        });
 
-
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+//        viewPager.addOnAdapterChangeListener((ViewPager.OnAdapterChangeListener) new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         travelCollectionbtnAdd = view.findViewById(R.id.travelCollectionbtnAdd);
         travelCollectionbtnAdd.setOnClickListener(new View.OnClickListener() {
