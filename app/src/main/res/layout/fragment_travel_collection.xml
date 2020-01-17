@@ -65,7 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:background="#ff1100">
+                android:background="#66ccff">
 
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/tab_travelCollection"
@@ -78,6 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="旅遊點收藏" />
+
             </com.google.android.material.tabs.TabLayout>
 
 

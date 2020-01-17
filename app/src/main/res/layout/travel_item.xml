@@ -3,12 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="15dp"
+    android:layout_marginTop="10dp"
     android:orientation="vertical"
     android:padding="16dp"
-    app:cardBackgroundColor="#0444BF"
-    app:cardCornerRadius="50dp"
-    app:cardElevation="6dp">
+    app:cardBackgroundColor="#b3ecff"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="6dp"
+    app:cardMaxElevation="1dp"
+    android:elevation="0.7dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true">
 
 
     <RelativeLayout
@@ -23,7 +27,8 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_gravity="center"
-            android:src="@drawable/no_image" />
+            android:src="@drawable/no_image"
+            android:scaleType="centerCrop"/>
 
         <TextView
             android:id="@+id/travel_id"

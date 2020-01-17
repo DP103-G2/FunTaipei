@@ -174,7 +174,8 @@ public class GroupListFragment extends Fragment {
                 tvName = itemView.findViewById(R.id.tvName);
                 tvEventdate = itemView.findViewById(R.id.tvEventdate);
                 tvUpper = itemView.findViewById(R.id.tvUpper);
-                button = itemView.findViewById(R.id.button);
+
+
             }
         }
 
@@ -186,7 +187,7 @@ public class GroupListFragment extends Fragment {
         @NonNull
         @Override
         public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View itemView = layoutInflater.inflate(R.layout.item_view, parent, false);
+            View itemView = layoutInflater.inflate(R.layout.fragment_group_item_view, parent, false);
             return new MyViewHolder(itemView);
         }
 
@@ -210,7 +211,7 @@ public class GroupListFragment extends Fragment {
 
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("group",group);
-                    Navigation.findNavController(view).navigate(R.id.action_groupListFragment_to_travel_detail, bundle);
+                    Navigation.findNavController(view).navigate(R.id.action_groupListFragment_to_groupDetailFragment,bundle);
                 }
             });
 

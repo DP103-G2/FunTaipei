@@ -114,6 +114,7 @@ public class TravelDetailFragment extends Fragment {
 //            }
 //        });
     }
+
     //Get PlaceDetail
     private List<com.example.funtaipei.place.Place> getPlaces() {
         List<com.example.funtaipei.place.Place> places = null;
@@ -136,7 +137,7 @@ public class TravelDetailFragment extends Fragment {
         }
         return places;
     }
-    
+
 
     //Get Travel Detail
     private List<TravelDetail> getTravelDetails() {
@@ -194,7 +195,7 @@ public class TravelDetailFragment extends Fragment {
 
         class MyViewHolder extends RecyclerView.ViewHolder {
             ImageView imageView;
-            TextView travel_id,pc_name,pc_id;
+            TextView travel_id, pc_name, pc_id;
 
 
             MyViewHolder(View itemView) {
@@ -205,14 +206,13 @@ public class TravelDetailFragment extends Fragment {
                 pc_name = itemView.findViewById(R.id.pc_name);
 
 
-
             }
         }
 
         @NonNull
         @Override
         public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View itemView = layoutInflater.inflate(R.layout.travel_detail_item, parent,false);
+            View itemView = layoutInflater.inflate(R.layout.travel_detail_item, parent, false);
             return new MyViewHolder(itemView);
         }
 
@@ -236,114 +236,115 @@ public class TravelDetailFragment extends Fragment {
             });
 
         }
+
         @Override
         public int getItemCount() {
             return travelDetails.size();
         }
     }
 
-        //-----------------------------------------以下為Gruops---------------------------------------------------------------------------
-        private List<Group> getGroups() {
-            List<Group> groups = null;
-            if (Common.networkConnected(activity)) {
-                String url = Common.URL_SERVER + "GroupServlet";
-                JsonObject jsonObject = new JsonObject();
-                jsonObject.addProperty("action", "findByTravelId");
-                jsonObject.addProperty("id", travel.getTravel_id());
-                String jsonOut = jsonObject.toString();
+    //-----------------------------------------以下為Gruops---------------------------------------------------------------------------
+    private List<Group> getGroups() {
+        List<Group> groups = null;
+        if (Common.networkConnected(activity)) {
+            String url = Common.URL_SERVER + "GroupServlet";
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("action", "findByTravelId");
+            jsonObject.addProperty("id", travel.getTravel_id());
+            String jsonOut = jsonObject.toString();
 
-                groupGetAllTask = new CommonTask(url, jsonOut);
-                try {
-                    String jsonIn = groupGetAllTask.execute().get();
-                    Type listType = new TypeToken<List<Group>>() {
-                    }.getType();
-                    Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-                    groups = gson.fromJson(jsonIn, listType);
+            groupGetAllTask = new CommonTask(url, jsonOut);
+            try {
+                String jsonIn = groupGetAllTask.execute().get();
+                Type listType = new TypeToken<List<Group>>() {
+                }.getType();
+                Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+                groups = gson.fromJson(jsonIn, listType);
 
-                } catch (Exception e) {
-                    Log.d(TAG, "getGroups: ");
-                }
-            } else {
-                Common.showToast(activity, "No NetWork Connection");
+            } catch (Exception e) {
+                Log.d(TAG, "getGroups: ");
             }
-            return groups;
+        } else {
+            Common.showToast(activity, "No NetWork Connection");
+        }
+        return groups;
+    }
+
+    //ShowGroups
+    private void showGroups(List<Group> groups) {
+        if (groups == null || groups.isEmpty()) {
+            Common.showToast(activity, "No Groups Founded");
+            return;
+        }
+        GroupAdapter groupAdapter = (GroupAdapter) group_recycleview.getAdapter();
+        if (groupAdapter == null) {
+            group_recycleview.setAdapter(new GroupAdapter(activity, groups));
+        } else {
+            groupAdapter.setGroups(groups);
+            groupAdapter.notifyDataSetChanged();
+        }
+    }
+
+    //以下是GroupRecycleView
+    private class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.MyViewHolder> {
+
+        private LayoutInflater layoutInflater;
+        private List<Group> groups;
+        private int imageSize;
+
+        GroupAdapter(Context context, List<Group> groups) {
+            layoutInflater = LayoutInflater.from(context);
+            this.groups = groups;
+            imageSize = getResources().getDisplayMetrics().widthPixels / 4;
         }
 
-        //ShowGroups
-        private void showGroups(List<Group> groups) {
-            if (groups == null || groups.isEmpty()) {
-                Common.showToast(activity, "No Groups Founded");
-                return;
-            }
-            GroupAdapter groupAdapter = (GroupAdapter) group_recycleview.getAdapter();
-            if (groupAdapter == null) {
-                group_recycleview.setAdapter(new GroupAdapter(activity, groups));
-            } else {
-                groupAdapter.setGroups(groups);
-                groupAdapter.notifyDataSetChanged();
-            }
+        void setGroups(List<Group> groups) {
+            this.groups = groups;
         }
 
-        //以下是GroupRecycleView
-        private class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.MyViewHolder> {
+        class MyViewHolder extends RecyclerView.ViewHolder {
+            ImageView groupImage;
+            TextView group_id, groupTitle, gp_eventstart, gp_datestart, gp_dateend;
 
-            private LayoutInflater layoutInflater;
-            private List<Group> groups;
-            private int imageSize;
-
-            GroupAdapter(Context context, List<Group> groups) {
-                layoutInflater = LayoutInflater.from(context);
-                this.groups = groups;
-                imageSize = getResources().getDisplayMetrics().widthPixels / 4;
+            MyViewHolder(View itemView) {
+                super(itemView);
+                groupImage = itemView.findViewById(R.id.groupImage);
+                group_id = itemView.findViewById(R.id.group_id);
+                groupTitle = itemView.findViewById(R.id.groupTitle);
+                gp_eventstart = itemView.findViewById(R.id.gp_eventstart);
+                gp_datestart = itemView.findViewById(R.id.gp_datestart);
+                gp_dateend = itemView.findViewById(R.id.gp_dateend);
             }
 
-            void setGroups(List<Group> groups) {
-                this.groups = groups;
-            }
+        }
 
-            class MyViewHolder extends RecyclerView.ViewHolder {
-                ImageView groupImage;
-                TextView group_id, groupTitle, gp_eventstart, gp_datestart, gp_dateend;
-
-                MyViewHolder(View itemView) {
-                    super(itemView);
-                    groupImage = itemView.findViewById(R.id.groupImage);
-                    group_id = itemView.findViewById(R.id.group_id);
-                    groupTitle = itemView.findViewById(R.id.groupTitle);
-                    gp_eventstart = itemView.findViewById(R.id.gp_eventstart);
-                    gp_datestart = itemView.findViewById(R.id.gp_datestart);
-                    gp_dateend = itemView.findViewById(R.id.gp_dateend);
-                }
-
-            }
-
-            @Override
-            public int getItemCount() {
-                return groups.size();
-            }
+        @Override
+        public int getItemCount() {
+            return groups.size();
+        }
 
 
-            @NonNull
-            @Override
-            public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View itemView = layoutInflater.inflate(R.layout.group_item, parent, false);
-                return new MyViewHolder(itemView);
-            }
+        @NonNull
+        @Override
+        public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View itemView = layoutInflater.inflate(R.layout.group_item, parent, false);
+            return new MyViewHolder(itemView);
+        }
 
-            @Override
-            public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-                final Group group = groups.get(position);
-                String url = Common.URL_SERVER + "GroupServlet";
-                int id = group.getGP_ID();
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                groupImageTask = new ImageTask(url, id, imageSize, holder.groupImage);
-                groupImageTask.execute();
-                holder.group_id.setText(String.valueOf(group.getGP_ID()));
-                holder.groupTitle.setText(group.getGP_NAME());
-                holder.gp_eventstart.setText(simpleDateFormat.format(group.getGP_EVENTDATE()));
-                holder.gp_datestart.setText(simpleDateFormat.format(group.getGP_DATESTAR()));
-                holder.gp_dateend.setText(simpleDateFormat.format(group.getGP_DATEEND()));
-                //以下為團體明細的Ｂｕｎｄｌｅ(報名頁面）
+        @Override
+        public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+            final Group group = groups.get(position);
+            String url = Common.URL_SERVER + "GroupServlet";
+            int id = group.getGP_ID();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            groupImageTask = new ImageTask(url, id, imageSize, holder.groupImage);
+            groupImageTask.execute();
+            holder.group_id.setText(String.valueOf(group.getGP_ID()));
+            holder.groupTitle.setText(group.getGP_NAME());
+            holder.gp_eventstart.setText(simpleDateFormat.format(group.getGP_EVENTDATE()));
+            holder.gp_datestart.setText(simpleDateFormat.format(group.getGP_DATESTAR()));
+            holder.gp_dateend.setText(simpleDateFormat.format(group.getGP_DATEEND()));
+            //以下為團體明細的Ｂｕｎｄｌｅ(報名頁面）
 //            holder.itemView.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View v) {
@@ -352,8 +353,9 @@ public class TravelDetailFragment extends Fragment {
 //                    Navigation.findNavController(v).navigate(R.id.XXX,bundle);
 //                }
 //            });
-            }
         }
+    }
+
     @Override
     public void onStop() {
         super.onStop();
