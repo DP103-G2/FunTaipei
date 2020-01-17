@@ -5,8 +5,9 @@
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@drawable/background"
     tools:context=".place.RestaurantFragment">
+
 
     <LinearLayout
         android:layout_width="match_parent"
