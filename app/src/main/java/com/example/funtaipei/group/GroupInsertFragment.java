@@ -69,6 +69,7 @@ public class GroupInsertFragment extends Fragment {
     private Button btDatePicker, btDatePicker2, btDatePicker3;
     private Button btTakePicture, btPickPicture;
     private Button btCancel, btFinshInsert;
+    private Button btTravelPickr;
     private SeekBar skPeople;
 
     @Override
@@ -112,6 +113,7 @@ public class GroupInsertFragment extends Fragment {
         btDatePicker3 = view.findViewById(R.id.btDatePicker3);
         btCancel = view.findViewById(R.id.btCancel);
         btFinshInsert = view.findViewById(R.id.btFinishInsert);
+        btTravelPickr = view.findViewById(R.id.btTravelPicker);
 
         btFinshInsert.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,10 +137,7 @@ public class GroupInsertFragment extends Fragment {
                                     }
 
                                     Date eventDate = date1;
-
-
                                     Date dateStart = date2;
-
                                     Date dateEnd = date3;
                                     if (dateEnd == null) {
                                         Common.showToast(getActivity(), R.string.textChoseDate);
@@ -192,6 +191,14 @@ public class GroupInsertFragment extends Fragment {
                             }
                         })
                         .show();
+
+            }
+        });
+
+
+        btTravelPickr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
             }
         });

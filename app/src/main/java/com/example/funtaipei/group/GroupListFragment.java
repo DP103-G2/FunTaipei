@@ -202,8 +202,8 @@ public class GroupListFragment extends Fragment {
             groupImageTask = new ImageTask(url, id , imageSize, myViewHolder.imageView);
             groupImageTask.execute();
             myViewHolder.tvName.setText(group.getGP_NAME());
-            myViewHolder.tvEventdate.setText("出發日期：" + new SimpleDateFormat("yyyy/MM/dd").format(group.getGP_EVENTDATE()));
-            myViewHolder.tvUpper.setText("尚有名額：" + String.valueOf(group.getGP_UPPER()-group.getGP_ENROLLMENT()) + "位");
+            myViewHolder.tvEventdate.setText("活動日期：" + new SimpleDateFormat("yyyy/MM/dd").format(group.getGP_EVENTDATE()) + new SimpleDateFormat("（E）").format(group.getGP_EVENTDATE()));
+            myViewHolder.tvUpper.setText("可報 " + String.valueOf(group.getGP_UPPER()-group.getGP_ENROLLMENT()) + " 團位 " + String.valueOf(group.getGP_UPPER()));
 
             myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
