@@ -74,7 +74,7 @@
         android:id="@+id/groupInsertFragment"
         android:name="com.example.funtaipei.group.GroupInsertFragment"
         android:label="fragment_insert"
-        tools:layout="@layout/fragment_insert" />
+        tools:layout="@layout/fragment_group_insert" />
     <fragment
         android:id="@+id/placeListFragment"
         android:name="com.example.funtaipei.place.PlaceListFragment"

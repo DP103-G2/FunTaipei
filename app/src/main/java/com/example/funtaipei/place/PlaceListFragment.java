@@ -94,7 +94,7 @@ public class PlaceListFragment extends Fragment{
         //rvPlace.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL,false)); //橫向滑動
         places = getPlaces();
         showPlaces(places);
-        activity.setTitle("景點");
+        activity.setTitle("旅遊景點");
         Button btHotel = view.findViewById(R.id.btHotel);
         btHotel.setOnClickListener(new View.OnClickListener() {
             @Override

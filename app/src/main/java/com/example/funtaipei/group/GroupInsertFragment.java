@@ -1,6 +1,7 @@
 package com.example.funtaipei.group;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -52,8 +54,11 @@ public class GroupInsertFragment extends Fragment {
     private final static String TAG = "TAG_GroupInsertFragment";
     private FragmentActivity activity;
     private ImageView ivGroup;
-    private EditText etName, etUpper, etLower, etNotes;
-    private TextView tvDateTime, tvDateTime2, tvDateTime3, tvPeople;
+    private EditText etName, etNotes;
+    private TextView tvDateTime;
+    private TextView tvDateTime2;
+    private TextView tvDateTime3;
+    private TextView tvPeople;
     private Date date1, date2, date3;
     private SimpleDateFormat simpleDateFormat;
     private byte[] image;
@@ -80,7 +85,7 @@ public class GroupInsertFragment extends Fragment {
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_insert, container, false);
+        return inflater.inflate(R.layout.fragment_group_insert, container, false);
     }
 
     @Override
@@ -111,60 +116,85 @@ public class GroupInsertFragment extends Fragment {
         btFinshInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = etName.getText().toString().trim();
-                if (name.length() <= 0) {
-                    Common.showToast(getActivity(), R.string.textGroupName);
-                    return;
-                }
-                //Date解決中
-                //Date eventDate = new Date();
-                Date eventDate = date1;
-                Date dateStart = date2;
-                Date dateEnd = date3;
-                int upper = skPeople.getProgress();
-                //String lower = "2";
-                String notes = etNotes.getText().toString().trim();
+                new AlertDialog.Builder(activity)
+                        /* 設定標題 */
+                        .setTitle(R.string.textFinish)
+                        /* 設定圖示 */
+                        .setIcon(R.drawable.alert)
+                        /* 設定訊息文字 */
+                        //.setMessage(R.string.textGroupAlertMessage)
+                        /* 設定positive與negative按鈕上面的文字與點擊事件監聽器 */
+                        .setPositiveButton(R.string.textYes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (Common.networkConnected(activity)) {
+                                    String name = etName.getText().toString().trim();
+                                    if (name.length() <= 0) {
+                                        Common.showToast(getActivity(), R.string.textInsertGroupName);
+                                        return;
+                                    }
+
+                                    Date eventDate = date1;
 
 
+                                    Date dateStart = date2;
 
-                if (Common.networkConnected(activity)) {
-                    String url = Common.URL_SERVER + "GroupServlet";
-                    Group group = new Group(0, 1238, name, 1, upper, 2, dateStart, dateEnd, eventDate, 1, notes);
-                    JsonObject jsonObject = new JsonObject();
-                    jsonObject.addProperty("action", "groupInsert");
-                    Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
-                    jsonObject.addProperty("group", gson.toJson(group));
-                    if (image != null) {
-                        jsonObject.addProperty("imageBase64", Base64.encodeToString(image, Base64.DEFAULT));
-                    }
-                    int count = 0;
-                    try {
-                        String result = new CommonTask(url, jsonObject.toString()).execute().get();
-                        count = Integer.valueOf(result);
-                    } catch (Exception e) {
-                        Log.e(TAG, e.toString());
-                    }
-                    if (count == 0) {
-                        Common.showToast(getActivity(), R.string.textInsertFail);
-                    } else {
-                        Common.showToast(getActivity(), R.string.textInsertSuccess);
-                    }
-                } else {
-                    Common.showToast(getActivity(), R.string.textNoNetwork);
-                }
-                /* 回前一個Fragment */
-                navController.popBackStack();
+                                    Date dateEnd = date3;
+                                    if (dateEnd == null) {
+                                        Common.showToast(getActivity(), R.string.textChoseDate);
+                                        return;
+                                    }
+
+                                    //upper條件解決中...
+                                    int upper = skPeople.getProgress();
+
+                                    if (upper == 2) {
+                                        tvPeople.setText("可報名人數: " + skPeople.getProgress() + "人");
+                                    }
+
+                                    //String lower = "2";
+                                    String notes = etNotes.getText().toString().trim();
+                                    String url = Common.URL_SERVER + "GroupServlet";
+                                    Group group = new Group(0, 1238, name, 1, upper, 2, dateStart, dateEnd, eventDate, 1, notes, 10);
+                                    JsonObject jsonObject = new JsonObject();
+                                    jsonObject.addProperty("action", "groupInsert");
+                                    Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
+                                    jsonObject.addProperty("group", gson.toJson(group));
+                                    if (image != null) {
+                                        jsonObject.addProperty("imageBase64", Base64.encodeToString(image, Base64.DEFAULT));
+                                    }
+                                    int count = 0;
+                                    try {
+                                        String result = new CommonTask(url, jsonObject.toString()).execute().get();
+                                        count = Integer.valueOf(result);
+                                    } catch (Exception e) {
+                                        Log.e(TAG, e.toString());
+                                    }
+                                    if (count == 0) {
+                                        Common.showToast(getActivity(), R.string.textInsertFail);
+                                    } else {
+                                        Common.showToast(getActivity(), R.string.textInsertSuccess);
+                                    }
+                                } else {
+                                    Common.showToast(getActivity(), R.string.textNoNetwork);
+                                }
+                                /* 回前一個Fragment */
+                                navController.popBackStack();
+
+
+                            }
+                        })
+                        .setNegativeButton(R.string.textNo, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                /* 關閉對話視窗 */
+                                dialog.cancel();
+                            }
+                        })
+                        .show();
+
             }
         });
-
-
-
-
-
-
-
-
-
 
 
         btTakePicture.setOnClickListener(new View.OnClickListener() {
@@ -214,7 +244,7 @@ public class GroupInsertFragment extends Fragment {
                                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                                         date1 = new Date(year - 1900, month, dayOfMonth);
                                         tvDateTime.setText(R.string.textDateStart);
-                                        tvDateTime.append( ":" + simpleDateFormat.format(date1));
+                                        tvDateTime.append(":" + simpleDateFormat.format(date1));
                                         btDatePicker2.setEnabled(true);
                                     }
                                 },
@@ -248,7 +278,7 @@ public class GroupInsertFragment extends Fragment {
                                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                                         date2 = new Date(year - 1900, month, dayOfMonth);
                                         tvDateTime2.setText(R.string.textDateStart);
-                                        tvDateTime2.append( ":" + simpleDateFormat.format(date2));
+                                        tvDateTime2.append(":" + simpleDateFormat.format(date2));
                                         btDatePicker3.setEnabled(true);
                                     }
                                 },
@@ -278,7 +308,7 @@ public class GroupInsertFragment extends Fragment {
                                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                                         date3 = new Date(year - 1900, month, dayOfMonth);
                                         tvDateTime3.setText(R.string.textDateEnd);
-                                        tvDateTime3.append( ":" + simpleDateFormat.format(date3));
+                                        tvDateTime3.append(":" + simpleDateFormat.format(date3));
 
                                     }
                                 },
@@ -298,7 +328,6 @@ public class GroupInsertFragment extends Fragment {
         });
 
 
-
         btCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -306,7 +335,9 @@ public class GroupInsertFragment extends Fragment {
                 navController.popBackStack();
             }
         });
+
         skPeople.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 tvPeople.setText("可報名人數: " + progress + "人");

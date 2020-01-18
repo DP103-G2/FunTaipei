@@ -66,7 +66,7 @@ public class TravelListFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        activity.setTitle("行程列表");
+        activity.setTitle("攻略行程");
         super.onViewCreated(view, savedInstanceState);
 
         SearchView searchView = view.findViewById(R.id.searchView);

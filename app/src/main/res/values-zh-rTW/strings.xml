@@ -20,10 +20,10 @@
     <string name="textDatePicker">選擇</string>
     <string name="textTravel">行程</string>
     <string name="textTravelName">選擇</string>
-    <string name="textNumber">可報名人數:</string>
-    <string name="textDateStart">開始報名日期：</string>
+    <string name="textNumber">可報名人數</string>
+    <string name="textDateStart">開始報名日期</string>
     <string name="textDateEnd">結束報名日期</string>
-    <string name="textNote">備註</string>
+    <string name="textNote">貼心提醒(需帶雨具...)</string>
     <string name="textNoPlacesFound">找不到旅遊點</string>
     <string name="textDeleteSuccess">刪除成功</string>
     <string name="textNoCameraApp">找不到相機程式</string>
@@ -33,7 +33,7 @@
     <string name="textUpdateFail">更新失敗</string>
     <string name="textUpdateSuccess">更新成功</string>
     <string name="textNoImageCropAppFound">找不到截圖程式</string>
-    <string name="btInsert">新增</string>
+    <string name="btInsertGroup">發起旅遊團</string>
     <string name="btUpdate">更新</string>
     <string name="etName">名稱</string>
     <string-array name="travel_status">

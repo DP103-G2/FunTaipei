@@ -51,7 +51,7 @@ public class GroupListFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = getActivity();
-        activity.setTitle("旅遊團");
+
     }
 
     @Override
@@ -63,6 +63,7 @@ public class GroupListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        activity.setTitle("旅遊團體");
         SearchView searchView = view.findViewById(R.id.searchView);
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         rvGroup = view.findViewById(R.id.rvGroup);
@@ -202,9 +203,8 @@ public class GroupListFragment extends Fragment {
             groupImageTask.execute();
             myViewHolder.tvName.setText(group.getGP_NAME());
             myViewHolder.tvEventdate.setText("出發日期：" + new SimpleDateFormat("yyyy/MM/dd").format(group.getGP_EVENTDATE()));
-            myViewHolder.tvUpper.setText("可報名人數：");
-            myViewHolder.tvUpper.append(String.valueOf(group.getGP_ENROLLMENT()) + " / " );
-            myViewHolder.tvUpper.append(String.valueOf(group.getGP_UPPER()) + "人");
+            myViewHolder.tvUpper.setText("尚有名額：" + String.valueOf(group.getGP_UPPER()-group.getGP_ENROLLMENT()) + "位");
+
             myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
