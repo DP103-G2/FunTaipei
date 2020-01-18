@@ -55,6 +55,10 @@ public class TravelCollectionFragment extends Fragment {
     private ViewPager viewPager;
     private FloatingActionButton travelCollectionbtnAdd;
 
+    public static TravelCollectionFragment newInstance(){
+        return new TravelCollectionFragment();
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

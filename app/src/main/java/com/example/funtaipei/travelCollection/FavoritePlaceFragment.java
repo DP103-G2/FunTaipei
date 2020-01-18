@@ -51,6 +51,11 @@ public class FavoritePlaceFragment extends Fragment {
     private ImageTask placeImageTask;
     private List<Place> places;
 
+    public static FavoritePlaceFragment newInstance(){
+        return new FavoritePlaceFragment();
+    }
+
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,9 +64,7 @@ public class FavoritePlaceFragment extends Fragment {
 
     }
 
-    public static FavoritePlaceFragment newInstance(){
-        return new FavoritePlaceFragment();
-    }
+
 
     @Nullable
     @Override
@@ -71,7 +74,6 @@ public class FavoritePlaceFragment extends Fragment {
 
 
     }
-
 
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {

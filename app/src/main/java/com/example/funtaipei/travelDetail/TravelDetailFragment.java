@@ -1,7 +1,6 @@
-package com.example.funtaipei.travel;
+package com.example.funtaipei.travelDetail;
 
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -27,6 +26,9 @@ import com.example.funtaipei.Common;
 import com.example.funtaipei.R;
 import com.example.funtaipei.task.CommonTask;
 import com.example.funtaipei.task.ImageTask;
+import com.example.funtaipei.travel.Group;
+import com.example.funtaipei.travel.Place;
+import com.example.funtaipei.travel.Travel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;

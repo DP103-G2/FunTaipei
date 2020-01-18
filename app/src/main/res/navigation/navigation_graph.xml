@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/travel_detail"
-        android:name="com.example.funtaipei.travel.TravelDetailFragment"
+        android:name="com.example.funtaipei.travelDetail.TravelDetailFragment"
         android:label="fragment_travel_detail"
         tools:layout="@layout/fragment_travel_detail" >
         <action

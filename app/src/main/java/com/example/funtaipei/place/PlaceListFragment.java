@@ -69,16 +69,16 @@ public class PlaceListFragment extends Fragment{
         super.onCreateView(inflater, container, savedInstanceState);
         v = inflater.inflate(R.layout.fragment_hotel,container,false);
         btHotel =(Button)v.findViewById(R.id.btHotel);
-        btHotel.setOnClickListener(new View.OnClickListener(){
-            public  void  onClick(View view) {
-                switch (v.getId()){
-                    case  R.id.btHotel:
-                        Navigation.findNavController(view).navigate(R.id.action_placeListFragment_to_placeDetailsFragment);
-                break;
-                }
-            }
-
-        });
+//        btHotel.setOnClickListener(new View.OnClickListener(){
+//            public  void  onClick(View view) {
+//                switch (v.getId()){
+//                    case  R.id.btHotel:
+//                        Navigation.findNavController(view).navigate(R.id.action_placeListFragment_to_placeDetailsFragment);
+//                break;
+//                }
+//            }
+//
+//        });
         return inflater.inflate(R.layout.fragment_place_list, container, false);
 
 

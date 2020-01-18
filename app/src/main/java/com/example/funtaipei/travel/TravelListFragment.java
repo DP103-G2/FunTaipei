@@ -9,8 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
@@ -80,7 +82,7 @@ public class TravelListFragment extends Fragment {
             }
         });
         recyclerView = view.findViewById(R.id.recycleview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         travels = getTravels();
         showTravels(travels);
 
@@ -121,7 +123,7 @@ public class TravelListFragment extends Fragment {
         });
 
     }
-
+        //取得Travel資料
     private List<Travel> getTravels() {
         List<Travel> travels = null;
         if (Common.networkConnected(activity)) {
@@ -143,7 +145,7 @@ public class TravelListFragment extends Fragment {
         }
         return travels;
     }
-
+    //Show出Travel資料
     private void showTravels(List<Travel> travels) {
         if (travels == null || travels.isEmpty()) {
             Common.showToast(activity, "No Travel Found");
@@ -158,7 +160,7 @@ public class TravelListFragment extends Fragment {
             travelAdapter.notifyDataSetChanged();
         }
     }
-
+    //==========================================以下為RecycleView Travel=================================================
     private class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.MyViewHolder> {
         private LayoutInflater layoutInflater;
         private List<Travel> travels;

@@ -1,4 +1,4 @@
-package com.example.funtaipei.travel;
+package com.example.funtaipei.travelDetail;
 
 import java.util.Date;
 
