@@ -19,15 +19,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TabHost;
 import android.widget.TextView;
 
-import com.bumptech.glide.manager.RequestManagerFragment;
 import com.example.funtaipei.Common;
 import com.example.funtaipei.R;
-import com.example.funtaipei.place.FavoritePlaceFragment;
 import com.example.funtaipei.task.CommonTask;
 import com.example.funtaipei.task.ImageTask;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -57,7 +53,6 @@ public class TravelCollectionFragment extends Fragment {
     private TabLayout tabLayout;
     private TabItem tab_travelCollection, tab_placeCollection;
     private ViewPager viewPager;
-    public PageAdapter pageAdapter;
     private FloatingActionButton travelCollectionbtnAdd;
 
     @Override
@@ -65,7 +60,6 @@ public class TravelCollectionFragment extends Fragment {
         super.onCreate(savedInstanceState);
         activity = getActivity();
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -77,36 +71,7 @@ public class TravelCollectionFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        tabLayout = view.findViewById(R.id.tabLayout);
-//        tab_travelCollection = view.findViewById(R.id.tab_travelCollection);
-//        tab_placeCollection = view.findViewById(R.id.tab_placeCollection);
-//        pageAdapter = new PageAdapter((FragmentManager) getTravelCollections(), tabLayout.getTabCount());
-//        viewPager.setAdapter(pageAdapter);
-//        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//            viewPager.setCurrentItem(tab.getPosition());
-//            if (tab.getPosition() == 0){
-//                pageAdapter.notifyDataSetChanged();
-//                if (tab.getPosition() == 1){
-//                    pageAdapter.notifyDataSetChanged();
-//                }
-//            }
-//
-//            }
-//
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab) {
-//
-//            }
-//
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) {
-//
-//            }
-//        });
 
-//        viewPager.addOnAdapterChangeListener((ViewPager.OnAdapterChangeListener) new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         travelCollectionbtnAdd = view.findViewById(R.id.travelCollectionbtnAdd);
         travelCollectionbtnAdd.setOnClickListener(new View.OnClickListener() {
@@ -116,38 +81,6 @@ public class TravelCollectionFragment extends Fragment {
             }
         });
 
-        //Tabitems
-//        tabLayout = view.findViewById(R.id.tabLayout);
-//        tab_travelCollection = view.findViewById(R.id.tab_travelCollection);
-//        tab_placeCollection = view.findViewById(R.id.tab_placeCollection);
-//        viewPager = view.findViewById(R.id.viewPage);
-//
-//       pageAdapter = new PageAdapter(getChildFragmentManager(), tabLayout.getTabCount());
-//       viewPager.setAdapter(pageAdapter);
-//
-//        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//                viewPager.setCurrentItem(tab.getPosition());
-//                if(tab.getPosition() == 0){
-//                    pageAdapter.notifyDataSetChanged();
-//                }
-//                if(tab.getPosition() == 1){
-//                    pageAdapter.notifyDataSetChanged();
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab) {
-//
-//            }
-//
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) {
-//
-//            }
-//        });
 
 
         //TravelCollection資料
@@ -155,105 +88,10 @@ public class TravelCollectionFragment extends Fragment {
         travelCollectionRecycleView.setLayoutManager(new LinearLayoutManager(activity));
         travelCollections = getTravelCollections();
         showTravelCollections(travelCollections);
-
-
-
-
-
     }
 
-//    private List<TravelCollection> getTravelCollectionMember() {
-//        List<TravelCollection> travelCollections = null;
-//        if (Common.networkConnected(activity)) {
-//            String url = Common.URL_SERVER + "TravelCollectionServlet";
-//            JsonObject jsonObject = new JsonObject();
-//            jsonObject.addProperty("action", "getAll");
-//            String jsonOut = jsonObject.toString();
-//            try {
-//                String jsonIn = travelCollectionGetAllTask.execute().get();
-//                Type listType = new TypeToken<List<TravelCollection>>() {
-//                }.getType();
-//                travelCollections = new Gson().fromJson(jsonIn, listType);
-//            } catch (Exception e) {
-//                Log.d(TAG, "getTravelCollections: ");
-//            }
-//        } else {
-//            Common.showToast(activity, R.string.textNoNetwork);
-//        }
-//        return travelCollections;
-//    }
-//
-//    private void showTravelCollectionMembers(List<TravelCollection> travelCollections){
-//        if(travelCollections == null || travelCollections.isEmpty()){
-//            Common.showToast(activity, "No Member Found");
-//            return;
-//        }
-//        TravelCollectionMemberAdapter travelCollectionMemberAdapter = (TravelCollectionMemberAdapter) travelCollection_member_recycleview.getAdapter();
-//        if( travelCollectionMemberAdapter == null){
-//            travelCollection_member_recycleview.setAdapter(new TravelCollectionAdapter(activity, travelCollections));
-//        }else{
-//            travelCollectionMemberAdapter.setTravelCollections(travelCollections);
-//            travelCollectionMemberAdapter.notifyDataSetChanged();
-//        }
-//    }
-//
-//    private class TravelCollectionMemberAdapter extends RecyclerView.Adapter<TravelCollectionMemberAdapter.MyViewHolder>{
-//        private LayoutInflater layoutInflater;
-//        private List<TravelCollection> travelCollections;
-//        private int imageSize;
-//
-//        TravelCollectionMemberAdapter(Context context, List<TravelCollection> travelCollections){
-//            layoutInflater = LayoutInflater.from(context);
-//            this.travelCollections = travelCollections;
-//            imageSize = getResources().getDisplayMetrics().widthPixels / 4;
-//        }
-//
-//        void setTravelCollections(List<TravelCollection> travelCollections){
-//            this.travelCollections = travelCollections;
-//        }
-//
-//        class MyViewHolder extends RecyclerView.ViewHolder{
-//            ImageView imageView;
-//            TextView travelCollection_MemberId, travelCollection_MemberName, travelCollection_MemberEmail;
-//
-//            MyViewHolder(View itemView){
-//                super(itemView);
-//                imageView = itemView.findViewById(R.id.travelCollection_Memberimageview);
-//                travelCollection_MemberId = itemView.findViewById(R.id.travelCollection_MemberId);
-//                travelCollection_MemberName = itemView.findViewById(R.id.travelCollection_MemberName);
-//                travelCollection_MemberEmail = itemView.findViewById(R.id.travelCollection_MemberEmail);
-//            }
-//        }
-//
-//        @Override
-//        public int getItemCount() {
-//             return travelCollections.size();
-//        }
-//
-//        @NonNull
-//        @Override
-//        public TravelCollectionMemberAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//            View itemView = layoutInflater.inflate(R.layout.travelcollection_member_item, parent, false);
-//            return new MyViewHolder(itemView);
-//        }
-//
-//        @Override
-//        public void onBindViewHolder(@NonNull TravelCollectionMemberAdapter.MyViewHolder holder, int position) {
-//            final TravelCollection travelCollection = travelCollections.get(position);
-//            String url = Common.URL_SERVER + "TravelCollectionServlet";
-//            int id = travelCollection.getMb_no();
-//            travelCollectionImageTask = new ImageTask(url, id, imageSize, holder.imageView);
-//            travelCollectionImageTask.execute();
-//            holder.travelCollection_MemberId.setText(String.valueOf(travelCollection.getMb_no()));
-//            holder.travelCollection_MemberName.setText(travelCollection.getMb_name());
-//            holder.travelCollection_MemberEmail.setText(travelCollection.getMb_email());
-//        }
-//
-//
-//    }
-
-
     //--------------------------------以下是TravelCollection資料-------------------------------------------------------------
+
 
     private List<TravelCollection> getTravelCollections() {
         List<TravelCollection> travelCollections = null;
@@ -398,11 +236,9 @@ public class TravelCollectionFragment extends Fragment {
 
             switch (position){
                 case 0:
-                    return "行程收藏";
-
+                    return "我的行程";
                 case 1:
-                    return "旅遊點收藏";
-
+                    return "我的旅遊點";
             }
             return null;
         }

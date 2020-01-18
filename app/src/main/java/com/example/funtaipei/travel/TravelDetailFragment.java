@@ -244,6 +244,7 @@ public class TravelDetailFragment extends Fragment {
     }
 
     //-----------------------------------------以下為Gruops---------------------------------------------------------------------------
+
     private List<Group> getGroups() {
         List<Group> groups = null;
         if (Common.networkConnected(activity)) {
@@ -334,7 +335,7 @@ public class TravelDetailFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
             final Group group = groups.get(position);
-            String url = Common.URL_SERVER + "GroupServlet";
+            String url = Common.URL_SERVER + "TravelDetailServlet";
             int id = group.getGP_ID();
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             groupImageTask = new ImageTask(url, id, imageSize, holder.groupImage);

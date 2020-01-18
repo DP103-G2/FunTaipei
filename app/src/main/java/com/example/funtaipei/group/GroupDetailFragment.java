@@ -2,6 +2,7 @@ package com.example.funtaipei.group;
 
 
 
+
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
@@ -16,12 +17,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.funtaipei.Common;
 import com.example.funtaipei.R;
+
 import com.example.funtaipei.task.ImageTask;
 
 import java.text.SimpleDateFormat;
@@ -32,14 +35,14 @@ public class GroupDetailFragment extends Fragment {
     private final static String TAG = "TAG_GroupDetailFragment";
     private ImageView imageView;
     private TextView tvName, tvDate, tvGroupNo, tvPeople;
-    private Button button;
+    private Button btJoin;
     private Group group;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = getActivity();
-        activity.setTitle("旅遊團");
+
     }
 
     @Override
@@ -52,11 +55,20 @@ public class GroupDetailFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        activity.setTitle("旅遊團體內容");
         imageView = view.findViewById(R.id.imageView);
         tvName = view.findViewById(R.id.tvName);
         tvDate = view.findViewById(R.id.tvDate);
         tvGroupNo = view.findViewById(R.id.tvGroupNo);
-        tvPeople = view.findViewById(R.id.tvPhone);
+        tvPeople = view.findViewById(R.id.tvPeople);
+
+        btJoin = view.findViewById(R.id.btJoin);
+        btJoin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         final NavController navController = Navigation.findNavController(view);
         Bundle bundle = getArguments();
@@ -87,7 +99,7 @@ public class GroupDetailFragment extends Fragment {
         }
         tvName.setText(group.getGP_NAME());
         tvGroupNo.setText("團體編號：" + String.valueOf(group.getGP_ID()));
-        tvDate.setText("活動日期：" + new SimpleDateFormat("yyyy/MM/dd").format(group.getGP_EVENTDATE()));
-        //tvPeople.setText(String.valueOf(group.getGP_ENROLLMENT()));
+        tvDate.setText("活動日期：" + new SimpleDateFormat("yyyy/MM/dd").format(group.getGP_EVENTDATE())+ new SimpleDateFormat("（E）").format(group.getGP_EVENTDATE()));
+        tvPeople.setText("可報 " + String.valueOf(group.getGP_UPPER()-group.getGP_ENROLLMENT()) + " 團位 " + String.valueOf(group.getGP_UPPER()));
     }
 }

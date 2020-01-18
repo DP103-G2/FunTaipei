@@ -25,7 +25,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
-
         <activity
             android:name=".main.MainActivity"
             android:windowSoftInputMode="adjustPan">
@@ -33,12 +32,25 @@
                 android:name="android.support.PARENT_FRAGMENT"
                 android:value=".MainActivity" />
 
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Splash"
+            android:theme="@style/Theme.Design.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
+
         </activity>
+
+
     </application>
 
 </manifest>

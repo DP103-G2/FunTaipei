@@ -4,7 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PlaceDetailsFragment" >
+    tools:context=".place.PlaceDetailsFragment" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mapView">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/like_click_btn"
+            android:clickable="true"
+            android:scaleType="center" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/bookmark_btn"
+            android:clickable="true"
+            android:scaleType="center" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tvAddress"
@@ -34,7 +58,6 @@
         android:layout_width="191dp"
         android:layout_height="128dp"
         android:layout_marginStart="200dp"
-        android:layout_marginLeft="200dp"
         android:layout_marginTop="10dp"
         android:src="@drawable/ic_launcher_foreground"
         app:layout_constraintStart_toStartOf="parent"
