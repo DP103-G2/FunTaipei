@@ -61,4 +61,6 @@
     <string name="title_activity_collection_">Collection_Activity</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
+    <string name="travelCollection1">我的行程</string>
+    <string name="placeCollection">我的旅遊點</string>
 </resources>

@@ -92,7 +92,7 @@
     </fragment>
     <fragment
         android:id="@+id/favoritePlaceFragment"
-        android:name="com.example.funtaipei.place.FavoritePlaceFragment"
+        android:name="com.example.funtaipei.travelCollection.FavoritePlaceFragment"
         android:label="fragment_favorite_place"
         tools:layout="@layout/fragment_favorite_place" >
         <action
@@ -166,4 +166,9 @@
         android:name="com.example.funtaipei.group.GroupDetailFragment"
         android:label="fragment_group_detail"
         tools:layout="@layout/fragment_group_detail" />
+    <fragment
+        android:id="@+id/my_collectionFragment"
+        android:name="com.example.funtaipei.travelCollection.my_collectionFragment"
+        android:label="fragment_my_collection"
+        tools:layout="@layout/fragment_my_collection" />
 </navigation>

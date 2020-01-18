@@ -1,4 +1,4 @@
-package com.example.funtaipei.place;
+package com.example.funtaipei.travelCollection;
 
 
 import android.app.Activity;
@@ -11,10 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.Gravity;
@@ -22,8 +20,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -32,6 +28,7 @@ import android.widget.TextView;
 
 import com.example.funtaipei.Common;
 import com.example.funtaipei.R;
+import com.example.funtaipei.place.Place;
 import com.example.funtaipei.task.CommonTask;
 import com.example.funtaipei.task.ImageTask;
 import com.google.gson.Gson;
@@ -60,6 +57,10 @@ public class FavoritePlaceFragment extends Fragment {
         super.onCreate(savedInstanceState);
         activity = getActivity();
 
+    }
+
+    public static FavoritePlaceFragment newInstance(){
+        return new FavoritePlaceFragment();
     }
 
     @Nullable
@@ -115,7 +116,7 @@ public class FavoritePlaceFragment extends Fragment {
     private List<Place> getPlaces() {
         List<Place> places = null;
         if (Common.networkConnected(activity)) {
-            String url = Common.URL_SERVER + "/PlaceServlet";
+            String url = Common.URL_SERVER + "PlaceServlet";
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "getAll");
             String jsonOut = jsonObject.toString();

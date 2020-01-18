@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <com.example.funtaipei.CircleImageView
@@ -17,73 +17,19 @@
             android:layout_height="100dp"
             android:src="@drawable/travelcollectionpic" />
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
 
-
-            <!--        <com.example.funtaipei.CircleImageView-->
-            <!--            android:id="@+id/travelCollection_Memberimageview"-->
-            <!--            android:layout_width="wrap_content"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:src="@drawable/no_image"/>-->
-
-
-            <!--        <ImageView-->
-            <!--            android:id="@+id/travelCollection_Memberimageview"-->
-            <!--            android:layout_width="wrap_content"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:src="@drawable/no_image"/>-->
-            <!--        <TextView-->
-            <!--            android:id="@+id/travelCollection_MemberId"-->
-            <!--            android:layout_width="wrap_content"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:text="Member_id"-->
-            <!--            android:layout_toRightOf="@id/travelCollection_Memberimageview"-->
-            <!--            android:layout_marginLeft="10dp"/>-->
-            <!--        <TextView-->
-            <!--            android:id="@+id/travelCollection_MemberName"-->
-            <!--            android:layout_width="wrap_content"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:text="MB_NAME"-->
-            <!--            android:layout_toRightOf="@id/travelCollection_Memberimageview"-->
-            <!--            android:layout_marginLeft="10dp"-->
-            <!--            android:layout_below="@id/travelCollection_MemberId"-->
-            <!--            android:textSize="22sp"-->
-            <!--            android:textColor="#000000"/>-->
-            <!--        <TextView-->
-            <!--            android:id="@+id/travelCollection_MemberEmail"-->
-            <!--            android:layout_width="wrap_content"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:text="MB_Email"-->
-            <!--            android:layout_toRightOf="@id/travelCollection_Memberimageview"-->
-            <!--            android:layout_below="@id/travelCollection_MemberName"-->
-            <!--            android:layout_marginLeft="10dp"-->
-            <!--            android:textColor="#A0A0A0"/>-->
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:background="#66ccff">
-
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/tab_travelCollection"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="行程收藏" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/tab_placeCollection"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="旅遊點收藏" />
-
-            </com.google.android.material.tabs.TabLayout>
-
-
-        </RelativeLayout>
-
+       <com.google.android.material.tabs.TabLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+           <com.google.android.material.tabs.TabItem
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="我的行程"/>
+           <com.google.android.material.tabs.TabItem
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="我的旅遊點"/>
+       </com.google.android.material.tabs.TabLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/travelCollectionRecycleview"

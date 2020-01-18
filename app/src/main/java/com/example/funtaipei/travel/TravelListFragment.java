@@ -95,31 +95,16 @@ public class TravelListFragment extends Fragment {
                     for (Travel travel : travels) {
                         if (String.valueOf(travel.getTravel_id()).contains(newText.toUpperCase())) {
                             searchTravels.add(travel);
-//                       //用Name搜尋
-//                        }else{
-//                            List<Travel> searchTravelName = new ArrayList<>();
-//                            for(Travel travelName: travels){
-//                                if(travel.getTravel_name().contains(newText.toUpperCase())){
-//                                    searchTravelName.add(travel);
-//                                }
-//                            }
-//                            showTravels(searchTravelName);
-//                        }
-                        }else{
-                            List<Travel> searchTravelByid = new ArrayList<>();
-                            for (Travel travelId: travels){
-                                if(travel.getTravel_name().contains(newText.toUpperCase())){
-                                    searchTravelByid.add(travel);
-                                }
-                            }
-                            showTravels(searchTravelByid);
+                       }
+                        //下面這段有問題 2020-1-18
+                        else if(travel.getTravel_name().contains(newText.toUpperCase())){
+                            searchTravels.add(travel);
+                        }
+                            showTravels(searchTravels);
                         }
                     }
-                    showTravels(searchTravels);
+                    return true;
                 }
-                return true;
-            }
-
             @Override
             public boolean onQueryTextSubmit(String query) {
                 return false;

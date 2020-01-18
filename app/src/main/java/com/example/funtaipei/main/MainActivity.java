@@ -7,8 +7,11 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 
+import com.example.funtaipei.Splash;
 import com.example.funtaipei.member.LoginFragment;
 import com.example.funtaipei.R;
 import com.example.funtaipei.group.GroupListFragment;
@@ -18,7 +21,7 @@ import com.example.funtaipei.travel.TravelListFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-
+    private static int SPLASH_TIME_OUT = 3000;
     private GroupListFragment groupListFragment;
     private PlaceListFragment placeListFragment;
     private LoginFragment loginFragment;
@@ -29,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         placeListFragment = new PlaceListFragment();
         groupListFragment = new GroupListFragment();
