@@ -16,8 +16,9 @@ import com.example.funtaipei.member.LoginFragment;
 import com.example.funtaipei.R;
 import com.example.funtaipei.group.GroupListFragment;
 import com.example.funtaipei.place.PlaceListFragment;
-import com.example.funtaipei.travelCollection.TravelCollectionFragment;
+import com.example.funtaipei.travelCollection.TabCollectionFragment;
 import com.example.funtaipei.travel.TravelListFragment;
+import com.example.funtaipei.travelCollection.TabCollectionFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,7 +27,8 @@ public class MainActivity extends AppCompatActivity {
     private PlaceListFragment placeListFragment;
     private LoginFragment loginFragment;
     private TravelListFragment travelListFragment;
-    private TravelCollectionFragment travelCollectionFragment;
+//    private TravelCollectionFragment travelCollectionFragment;
+    private TabCollectionFragment tabCollectionFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,17 +40,16 @@ public class MainActivity extends AppCompatActivity {
         groupListFragment = new GroupListFragment();
         loginFragment = new LoginFragment();
         travelListFragment = new TravelListFragment();
-        travelCollectionFragment = new TravelCollectionFragment();
+        tabCollectionFragment = new TabCollectionFragment();
+
+//        travelCollectionFragment = new TravelCollectionFragment();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         NavController navController = Navigation.findNavController(this, R.id.fragment);
         //自動連接Fragment
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
     }
-    private void setFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment, fragment).commit();
-    }
+
 
 
 }

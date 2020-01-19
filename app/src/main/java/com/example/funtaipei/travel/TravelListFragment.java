@@ -51,7 +51,7 @@ public class TravelListFragment extends Fragment {
     private CommonTask travelDeleteTask;
     private ImageTask travelImageTask;
     private List<Travel> travels;
-    private FloatingActionButton btnInsert;
+//    private FloatingActionButton btnInsert;
 
 
     @Override
@@ -114,13 +114,13 @@ public class TravelListFragment extends Fragment {
 
 
         });
-        btnInsert = view.findViewById(R.id.btnInsert);
-        btnInsert.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_fragment_travel_to_travelInsert);
-            }
-        });
+//        btnInsert = view.findViewById(R.id.btnInsert);
+//        btnInsert.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Navigation.findNavController(v).navigate(R.id.action_fragment_travel_to_travelInsert);
+//            }
+//        });
 
     }
         //取得Travel資料

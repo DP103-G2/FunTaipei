@@ -41,16 +41,16 @@
         </LinearLayout>
 
     </LinearLayout>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnInsert"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:layout_marginRight="16dp"
-        android:src="@android:drawable/ic_input_add"
-        app:backgroundTint="#3F51B5"
-        app:elevation="6dp"
-        android:layout_gravity="bottom|right"/>
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/btnInsert"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="8dp"-->
+<!--        android:layout_marginRight="16dp"-->
+<!--        android:src="@android:drawable/ic_input_add"-->
+<!--        app:backgroundTint="#3F51B5"-->
+<!--        app:elevation="6dp"-->
+<!--        android:layout_gravity="bottom|right"/>-->
 
 
 

@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.BinderThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -38,7 +39,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
-import static java.lang.String.valueOf;
+
 
 
 public class TravelCollectionFragment extends Fragment {
@@ -51,8 +52,7 @@ public class TravelCollectionFragment extends Fragment {
     private TextView travelCollection_MemberName, travelCollection_MemberEmail, travelCollection_MemberId;
     private List<TravelCollection> travelCollections;
     private TabLayout tabLayout;
-    private TabItem tab_travelCollection, tab_placeCollection;
-    private ViewPager viewPager;
+
     private FloatingActionButton travelCollectionbtnAdd;
 
     public static TravelCollectionFragment newInstance(){
@@ -64,17 +64,22 @@ public class TravelCollectionFragment extends Fragment {
         super.onCreate(savedInstanceState);
         activity = getActivity();
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        activity.setTitle("收藏列表");
         super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_travel_collection, container, false);
+        View v = inflater.inflate(R.layout.fragment_travel_collection, container, false);
+        return v;
+
     }
 
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+
 
 
         travelCollectionbtnAdd = view.findViewById(R.id.travelCollectionbtnAdd);
@@ -92,6 +97,8 @@ public class TravelCollectionFragment extends Fragment {
         travelCollectionRecycleView.setLayoutManager(new LinearLayoutManager(activity));
         travelCollections = getTravelCollections();
         showTravelCollections(travelCollections);
+
+
     }
 
     //--------------------------------以下是TravelCollection資料-------------------------------------------------------------

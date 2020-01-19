@@ -20,6 +20,22 @@
             android:src="@drawable/no_image" />
         <LinearLayout
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/goodTextview"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="123"
+            android:textStyle="bold"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="likes"
+                android:layout_marginLeft="5dp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp">
         <ImageButton
@@ -39,16 +55,25 @@
 
         </LinearLayout>
 
-
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="行程ID:"
+                android:layout_marginTop="5dp"/>
         <TextView
             android:id="@+id/travel_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/travel_title"
-            android:layout_marginTop="10dp"
             android:gravity="right"
-            android:text="ID:"
-            android:textSize="16sp" />
+            android:text="123"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"/>
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -56,10 +81,12 @@
         <TextView
             android:id="@+id/travel_title"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="台北101一日遊"
-            android:textSize="26sp" />
+            android:layout_marginTop="5dp"
+            android:textSize="26sp"
+            android:textStyle="bold"/>
         </LinearLayout>
 
 
@@ -80,14 +107,14 @@
             android:id="@+id/travel_detail_recycleview"
             android:layout_width="match_parent"
             android:layout_height="400dp"/>
-        <Button
-            android:id="@+id/btnAddTravel"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bluebuttonstyle"
-            android:layout_gravity="right"
-            android:text="我要報名"
-            android:textColor="#ffffff"/>
+<!--        <Button-->
+<!--            android:id="@+id/btnAddTravel"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/bluebuttonstyle"-->
+<!--            android:layout_gravity="right"-->
+<!--            android:text="我要報名"-->
+<!--            android:textColor="#ffffff"/>-->
 
         <ImageView
             android:layout_width="match_parent"
@@ -95,18 +122,18 @@
             android:src="@drawable/linebird"/>
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="團體:"
-            android:textSize="36sp" />
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:text="團體:"-->
+<!--            android:textSize="36sp" />-->
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/group_recycleview"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_marginTop="15dp" />
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/group_recycleview"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="300dp"-->
+<!--            android:layout_marginTop="15dp" />-->
 
 
 

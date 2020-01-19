@@ -166,9 +166,17 @@
         android:name="com.example.funtaipei.group.GroupDetailFragment"
         android:label="fragment_group_detail"
         tools:layout="@layout/fragment_group_detail" />
+
     <fragment
-        android:id="@+id/my_collectionFragment"
-        android:name="com.example.funtaipei.travelCollection.my_collectionFragment"
-        android:label="fragment_my_collection"
-        tools:layout="@layout/fragment_my_collection" />
+        android:id="@+id/tab_collection_fragment"
+        android:name="com.example.funtaipei.travelCollection.TabCollectionFragment"
+        android:label="fragment_tab_collection_fragment"
+        tools:layout="@layout/fragment_tab_collection_fragment" >
+        <action
+            android:id="@+id/action_tab_collection_fragment_to_travelCollectionFragment"
+            app:destination="@id/travelCollectionFragment" />
+        <action
+            android:id="@+id/action_tab_collection_fragment_to_favoritePlaceFragment"
+            app:destination="@id/favoritePlaceFragment" />
+    </fragment>
 </navigation>

@@ -103,10 +103,10 @@ public class TravelDetailFragment extends Fragment {
         travelDetails = getTravelDetails();
         showtravelDetail(travelDetails);
         //Group的RecycleView
-        group_recycleview = view.findViewById(R.id.group_recycleview);
-        group_recycleview.setLayoutManager(new StaggeredGridLayoutManager(1, HORIZONTAL));
-        groups = getGroups();
-        showGroups(groups);
+//        group_recycleview = view.findViewById(R.id.group_recycleview);
+//        group_recycleview.setLayoutManager(new StaggeredGridLayoutManager(1, HORIZONTAL));
+//        groups = getGroups();
+//        showGroups(groups);
 //        //新增團體Button
 //        btnAddGroup = view.findViewById(R.id.btnAddGroup);
 //        btnAddGroup.setOnClickListener(new View.OnClickListener() {
