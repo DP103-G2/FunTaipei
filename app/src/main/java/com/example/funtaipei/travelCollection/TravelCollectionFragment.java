@@ -3,6 +3,7 @@ package com.example.funtaipei.travelCollection;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.BinderThread;
@@ -51,7 +52,7 @@ public class TravelCollectionFragment extends Fragment {
     private ImageView travelColleationImage, travelCollection_Memberimageview;
     private TextView travelCollection_MemberName, travelCollection_MemberEmail, travelCollection_MemberId;
     private List<TravelCollection> travelCollections;
-    private TabLayout tabLayout;
+
 
     private FloatingActionButton travelCollectionbtnAdd;
 
@@ -71,7 +72,6 @@ public class TravelCollectionFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View v = inflater.inflate(R.layout.fragment_travel_collection, container, false);
         return v;
-
     }
 
     @Override
@@ -86,7 +86,7 @@ public class TravelCollectionFragment extends Fragment {
         travelCollectionbtnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(view).navigate(R.id.action_travelCollectionFragment_to_travel_collection_insert);
+                Navigation.findNavController(v).navigate(R.id.travel_collection_insert);
             }
         });
 
@@ -165,17 +165,13 @@ public class TravelCollectionFragment extends Fragment {
         }
 
         class MyViewHolder extends RecyclerView.ViewHolder {
-            ImageView travelCollectionImage;
-            TextView Group_ID, Group_Name, gp_datestart, gp_dateend, gp_eventstart;
+            ImageView imageView;
+            TextView travelName;
 
             MyViewHolder(View itemView) {
                 super(itemView);
-                travelColleationImage = itemView.findViewById(R.id.travelCollectionImage);
-                Group_ID = itemView.findViewById(R.id.Group_ID);
-                Group_Name = itemView.findViewById(R.id.Group_Name);
-                gp_datestart = itemView.findViewById(R.id.gp_datestart);
-                gp_dateend = itemView.findViewById(R.id.gp_dateend);
-                gp_eventstart = itemView.findViewById(R.id.gp_eventstart);
+                travelColleationImage = itemView.findViewById(R.id.imageView);
+                travelName = itemView.findViewById(R.id.travelName);
             }
 
         }
@@ -193,14 +189,15 @@ public class TravelCollectionFragment extends Fragment {
             final TravelCollection travelCollection = travelCollections.get(position);
             String url = Common.URL_SERVER + "TravelCollectionServlet";
             int id = travelCollection.getMb_no();
-            travelCollectionImageTask = new ImageTask(url, id, imageSize, holder.travelCollectionImage);
+            travelCollectionImageTask = new ImageTask(url, id, imageSize, holder.imageView);
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             travelCollectionImageTask.execute();
-            holder.Group_ID.setText(String.valueOf(travelCollection.getGp_id()));
-            holder.Group_Name.setText(travelCollection.getGp_name());
-            holder.gp_datestart.setText(simpleDateFormat.format(travelCollection.getGP_DATESTART()));
-            holder.gp_dateend.setText(simpleDateFormat.format(travelCollection.getGP_DATEEND()));
-            holder.gp_eventstart.setText(simpleDateFormat.format(travelCollection.getGP_EVENTDATE()));
+            holder.travelName.setText(travelCollection.getGp_name());
+//            holder.Group_ID.setText(String.valueOf(travelCollection.getGp_id()));
+//            holder.Group_Name.setText(travelCollection.getGp_name());
+//            holder.gp_datestart.setText(simpleDateFormat.format(travelCollection.getGP_DATESTART()));
+//            holder.gp_dateend.setText(simpleDateFormat.format(travelCollection.getGP_DATEEND()));
+//            holder.gp_eventstart.setText(simpleDateFormat.format(travelCollection.getGP_EVENTDATE()));
             //增加行程按鈕監聽
 //            holder.itemView.setOnClickListener(new View.OnClickListener() {
 //                @Override
@@ -212,50 +209,6 @@ public class TravelCollectionFragment extends Fragment {
         }
 
     }
-
-    public class SectionPaperAdapter extends FragmentPagerAdapter{
-
-        public SectionPaperAdapter(FragmentManager fm){
-            super((fm));
-        }
-
-        @NonNull
-        @Override
-        public Fragment getItem(int position) {
-            Fragment fragment = null;
-            Log.d(TAG, "getItem: ");
-            switch (position){
-                case 0:
-                    fragment = new TravelCollectionFragment();
-                    break;
-                case 1:
-                    fragment = new FavoritePlaceFragment();
-                    break;
-
-            }
-            return fragment;
-        }
-
-        @Override
-        public int getCount() {
-            return 2;
-        }
-
-        @Nullable
-        @Override
-        public CharSequence getPageTitle(int position) {
-
-            switch (position){
-                case 0:
-                    return "我的行程";
-                case 1:
-                    return "我的旅遊點";
-            }
-            return null;
-        }
-    }
-
-
 
 
 

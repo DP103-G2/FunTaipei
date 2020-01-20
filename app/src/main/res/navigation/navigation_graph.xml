@@ -171,12 +171,5 @@
         android:id="@+id/tab_collection_fragment"
         android:name="com.example.funtaipei.travelCollection.TabCollectionFragment"
         android:label="fragment_tab_collection_fragment"
-        tools:layout="@layout/fragment_tab_collection_fragment" >
-        <action
-            android:id="@+id/action_tab_collection_fragment_to_travelCollectionFragment"
-            app:destination="@id/travelCollectionFragment" />
-        <action
-            android:id="@+id/action_tab_collection_fragment_to_favoritePlaceFragment"
-            app:destination="@id/favoritePlaceFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_tab_collection_fragment" />
 </navigation>

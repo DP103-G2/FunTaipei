@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.funtaipei.Common;
 import com.example.funtaipei.R;
@@ -33,6 +34,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import com.like.LikeButton;
+import com.like.OnAnimationEndListener;
+import com.like.OnLikeListener;
 
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
@@ -60,10 +64,14 @@ public class TravelDetailFragment extends Fragment {
     private Button btnAddGroup;
     private Travel travel;
 
+
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = getActivity();
+
     }
 
     @Override
@@ -74,8 +82,12 @@ public class TravelDetailFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
+
+
+
+
 
         //這邊是接前一頁的圖片和ID
         ImageView imageView = view.findViewById(R.id.travel_imageview);
@@ -179,6 +191,7 @@ public class TravelDetailFragment extends Fragment {
             travelDetailAdapter.notifyDataSetChanged();
         }
     }
+
 
     private class TravelDetailAdapter extends RecyclerView.Adapter<TravelDetailAdapter.MyViewHolder> {
         private LayoutInflater layoutInflater;
