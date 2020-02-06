@@ -13,10 +13,10 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MemberDetailFragment extends Fragment {
+public class ListviewFragment extends Fragment {
 
 
-    public MemberDetailFragment() {
+    public ListviewFragment() {
         // Required empty public constructor
     }
 
@@ -25,7 +25,7 @@ public class MemberDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_member_detail, container, false);
+        return inflater.inflate(R.layout.fragment_listview, container, false);
     }
 
 }
