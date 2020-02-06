@@ -50,6 +50,12 @@ public class FavoritePlaceFragment extends Fragment {
     private CommonTask placeDeleteTask;
     private ImageTask placeImageTask;
     private List<Place> places;
+    private View v;
+
+    public static FavoritePlaceFragment newInstance(){
+        return new FavoritePlaceFragment();
+    }
+
 
 
     @Override
@@ -59,19 +65,16 @@ public class FavoritePlaceFragment extends Fragment {
 
     }
 
-    public static FavoritePlaceFragment newInstance(){
-        return new FavoritePlaceFragment();
-    }
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_favorite_place, container, false);
-
+        v = inflater.inflate(R.layout.fragment_favorite_place, container, false);
+        return v;
 
     }
-
 
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
@@ -83,7 +86,7 @@ public class FavoritePlaceFragment extends Fragment {
         rvPlace.setLayoutManager(new StaggeredGridLayoutManager(6, StaggeredGridLayoutManager.HORIZONTAL));
         places = getPlaces();
         showPlaces(places);
-        activity.setTitle("我的收藏");
+
 
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

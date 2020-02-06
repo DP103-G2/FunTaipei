@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     android:padding="15dp"
     tools:context=".travel.TravelListFragment">
-
+<ScrollView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,6 +24,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:iconifiedByDefault="false"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/toprecycler"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"/>
 
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/swipeRefreshLayout"
@@ -41,17 +48,17 @@
         </LinearLayout>
 
     </LinearLayout>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnInsert"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:layout_marginRight="16dp"
-        android:src="@android:drawable/ic_input_add"
-        app:backgroundTint="#3F51B5"
-        app:elevation="6dp"
-        android:layout_gravity="bottom|right"/>
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/btnInsert"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="8dp"-->
+<!--        android:layout_marginRight="16dp"-->
+<!--        android:src="@android:drawable/ic_input_add"-->
+<!--        app:backgroundTint="#3F51B5"-->
+<!--        app:elevation="6dp"-->
+<!--        android:layout_gravity="bottom|right"/>-->
 
 
-
+</ScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

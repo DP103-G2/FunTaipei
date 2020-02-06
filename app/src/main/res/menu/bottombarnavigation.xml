@@ -14,7 +14,7 @@
         android:icon="@drawable/ic_airport_shuttle_black_24dp"
         android:title="Travel"/>
     <item
-        android:id="@+id/travelCollectionFragment"
+        android:id="@+id/tab_collection_fragment"
         android:icon="@drawable/baseline_favorite_border_black_36"
         android:title="Favorite"/>
     <item

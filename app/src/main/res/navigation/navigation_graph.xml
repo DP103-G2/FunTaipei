@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/travel_detail"
-        android:name="com.example.funtaipei.travel.TravelDetailFragment"
+        android:name="com.example.funtaipei.travelDetail.TravelDetailFragment"
         android:label="fragment_travel_detail"
         tools:layout="@layout/fragment_travel_detail" >
         <action
@@ -166,9 +166,10 @@
         android:name="com.example.funtaipei.group.GroupDetailFragment"
         android:label="fragment_group_detail"
         tools:layout="@layout/fragment_group_detail" />
+
     <fragment
-        android:id="@+id/my_collectionFragment"
-        android:name="com.example.funtaipei.travelCollection.my_collectionFragment"
-        android:label="fragment_my_collection"
-        tools:layout="@layout/fragment_my_collection" />
+        android:id="@+id/tab_collection_fragment"
+        android:name="com.example.funtaipei.travelCollection.TabCollectionFragment"
+        android:label="fragment_tab_collection_fragment"
+        tools:layout="@layout/fragment_tab_collection_fragment" />
 </navigation>

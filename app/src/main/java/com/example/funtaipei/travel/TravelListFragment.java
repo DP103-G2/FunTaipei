@@ -9,8 +9,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
@@ -21,21 +24,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.funtaipei.Common;
 import com.example.funtaipei.R;
+import com.example.funtaipei.main.MainActivity;
 import com.example.funtaipei.task.CommonTask;
 import com.example.funtaipei.task.ImageTask;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import com.like.LikeButton;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
@@ -49,7 +59,8 @@ public class TravelListFragment extends Fragment {
     private CommonTask travelDeleteTask;
     private ImageTask travelImageTask;
     private List<Travel> travels;
-    private FloatingActionButton btnInsert;
+    private List<Integer> list = new ArrayList<>(4);
+
 
 
     @Override
@@ -69,6 +80,34 @@ public class TravelListFragment extends Fragment {
         activity.setTitle("攻略行程");
         super.onViewCreated(view, savedInstanceState);
 
+        //Banner存入圖片
+        list.add(R.drawable.taipeiontshot);
+        list.add(R.drawable.b2);
+        list.add(R.drawable.bb);
+        list.add(R.drawable.dd);
+
+        //Banner
+        BannerAdapter adapter = new BannerAdapter(getActivity(), list);
+        final RecyclerView topreCycleView = view.findViewById(R.id.toprecycler);
+        final SmoothLinearLayoutManager layoutManager = new SmoothLinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        topreCycleView.setLayoutManager(layoutManager);
+        topreCycleView.setHasFixedSize(true);
+        topreCycleView.setAdapter(adapter);
+        topreCycleView.scrollToPosition(list.size() * 10);
+        //讓圖片一頁一頁滑過去
+        PagerSnapHelper snapHelper = new PagerSnapHelper();
+        snapHelper.attachToRecyclerView(topreCycleView);
+        //自動輪播
+        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
+        scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                topreCycleView.smoothScrollToPosition(layoutManager.findFirstVisibleItemPosition() + 1);
+            }
+        }, 2000, 2000, TimeUnit.MILLISECONDS);
+
+
+        //搜尋功能
         SearchView searchView = view.findViewById(R.id.searchView);
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -79,8 +118,13 @@ public class TravelListFragment extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
+
+
+
+
+        //行程明細
         recyclerView = view.findViewById(R.id.recycleview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         travels = getTravels();
         showTravels(travels);
 
@@ -112,16 +156,32 @@ public class TravelListFragment extends Fragment {
 
 
         });
-        btnInsert = view.findViewById(R.id.btnInsert);
-        btnInsert.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_fragment_travel_to_travelInsert);
-            }
-        });
+//        btnInsert = view.findViewById(R.id.btnInsert);
+//        btnInsert.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Navigation.findNavController(v).navigate(R.id.action_fragment_travel_to_travelInsert);
+//            }
+//        });
 
     }
 
+
+        //取得Image資料
+//    private List<Image> getImages(){
+//        List<Image> images = null;
+//        if (Common.networkConnected(activity)){
+//            String url = Common.URL_SERVER + "ImageServlet";
+//            JsonObject jsonObject = new JsonObject();
+//            jsonObject.addProperty("action", "getAll");
+//            String jsonOut = jsonObject.toString();
+//            ImageGetAllTask = new CommonTask(url, jsonOut);
+//            try{
+//                String jsonIn = ImageGetAllTask.execute().get();
+//            }
+//        }
+//    }
+        //取得Travel資料
     private List<Travel> getTravels() {
         List<Travel> travels = null;
         if (Common.networkConnected(activity)) {
@@ -143,7 +203,7 @@ public class TravelListFragment extends Fragment {
         }
         return travels;
     }
-
+    //Show出Travel資料
     private void showTravels(List<Travel> travels) {
         if (travels == null || travels.isEmpty()) {
             Common.showToast(activity, "No Travel Found");
@@ -158,7 +218,7 @@ public class TravelListFragment extends Fragment {
             travelAdapter.notifyDataSetChanged();
         }
     }
-
+    //==========================================以下為RecycleView Travel=================================================
     private class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.MyViewHolder> {
         private LayoutInflater layoutInflater;
         private List<Travel> travels;
