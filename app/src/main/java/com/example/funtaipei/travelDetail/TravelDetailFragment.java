@@ -34,9 +34,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import com.like.LikeButton;
-import com.like.OnAnimationEndListener;
-import com.like.OnLikeListener;
+
 
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
@@ -63,7 +61,6 @@ public class TravelDetailFragment extends Fragment {
     private Place places;
     private Button btnAddGroup;
     private Travel travel;
-    private LikeButton starButton;
 
 
 
@@ -85,13 +82,13 @@ public class TravelDetailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
 
-        starButton = view.findViewById(R.id.star_button);
-        starButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(activity, "收藏成功", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        starButton = view.findViewById(R.id.star_button);
+//        starButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(activity, "收藏成功", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
 
 

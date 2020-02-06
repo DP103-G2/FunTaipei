@@ -39,12 +39,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp">
-            <com.like.LikeButton
-                app:icon_type="heart"
-                app:icon_size="10dp"
-                android:id="@+id/heart_button"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"/>
+<!--            <com.like.LikeButton-->
+<!--                app:icon_type="heart"-->
+<!--                app:icon_size="10dp"-->
+<!--                android:id="@+id/heart_button"-->
+<!--                android:layout_width="40dp"-->
+<!--                android:layout_height="wrap_content"/>-->
 <!--        <ImageButton-->
 <!--            android:layout_width="wrap_content"-->
 <!--            android:layout_height="wrap_content"-->
@@ -53,13 +53,13 @@
 <!--            android:clickable="true"-->
 <!--            android:layout_marginLeft="10dp"-->
 <!--            />-->
-            <com.like.LikeButton
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                app:icon_type="Star"
-                app:icon_size="10dp"
-                android:layout_gravity="right"
-                android:id="@+id/star_button"/>
+<!--            <com.like.LikeButton-->
+<!--                android:layout_width="40dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:icon_type="Star"-->
+<!--                app:icon_size="10dp"-->
+<!--                android:layout_gravity="right"-->
+<!--                android:id="@+id/star_button"/>-->
 
         </LinearLayout>
 

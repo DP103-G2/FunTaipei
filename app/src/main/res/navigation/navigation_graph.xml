@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/travel_detail"
-        android:name="com.example.funtaipei.travelDetail.TravelDetailFragment"
+        android:name="com.example.funtaipei.travel.TravelDetailFragment"
         android:label="fragment_travel_detail"
         tools:layout="@layout/fragment_travel_detail" >
         <action
@@ -89,6 +89,9 @@
         <action
             android:id="@+id/action_placeListFragment_to_hotelFragment"
             app:destination="@id/hotelFragment" />
+        <action
+            android:id="@+id/action_placeListFragment_to_listviewFragment"
+            app:destination="@id/listviewFragment" />
     </fragment>
     <fragment
         android:id="@+id/favoritePlaceFragment"
@@ -145,22 +148,12 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_loginFragment_to_placeListFragment"
-            app:destination="@id/placeListFragment" />
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
         <action
-            android:id="@+id/action_loginFragment_to_registerFragment2"
-            app:destination="@id/registerFragment2" />
+            android:id="@+id/action_loginFragment_to_listviewFragment"
+            app:destination="@id/listviewFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/registerFragment"
-        android:name="menu.RegisterFragment"
-        android:label="fragment_register"
-        tools:layout="@layout/fragment_register" />
-    <fragment
-        android:id="@+id/registerFragment2"
-        android:name="com.example.funtaipei.member.RegisterFragment"
-        android:label="fragment_register"
-        tools:layout="@layout/fragment_register" />
     <fragment
         android:id="@+id/groupDetailFragment"
         android:name="com.example.funtaipei.group.GroupDetailFragment"
@@ -168,8 +161,43 @@
         tools:layout="@layout/fragment_group_detail" />
 
     <fragment
-        android:id="@+id/tab_collection_fragment"
-        android:name="com.example.funtaipei.travelCollection.TabCollectionFragment"
-        android:label="fragment_tab_collection_fragment"
-        tools:layout="@layout/fragment_tab_collection_fragment" />
+        android:id="@+id/listviewFragment"
+        android:name="com.example.funtaipei.member.ListviewFragment"
+        android:label="fragment_listview"
+        tools:layout="@layout/fragment_listview" >
+        <action
+            android:id="@+id/action_listviewFragment_to_memberDetailFragment"
+            app:destination="@id/memberDetailFragment" />
+        <action
+            android:id="@+id/action_listviewFragment_to_mygroupFragment"
+            app:destination="@id/mygroupFragment" />
+        <action
+            android:id="@+id/action_listviewFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateMemberFragment"
+        android:name="com.example.funtaipei.member.UpdateMemberFragment"
+        android:label="fragment_update_member"
+        tools:layout="@layout/fragment_update_member" />
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.funtaipei.member.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" />
+    <fragment
+        android:id="@+id/memberDetailFragment"
+        android:name="com.example.funtaipei.member.MemberDetailFragment"
+        android:label="fragment_member_detail"
+        tools:layout="@layout/fragment_member_detail" >
+        <action
+            android:id="@+id/action_memberDetailFragment_to_updateMemberFragment"
+            app:destination="@id/updateMemberFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mygroupFragment"
+        android:name="com.example.funtaipei.MygroupFragment"
+        android:label="fragment_mygroup"
+        tools:layout="@layout/fragment_mygroup" />
+
 </navigation>

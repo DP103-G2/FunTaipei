@@ -1,8 +1,9 @@
 package com.example.funtaipei.member;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Member {
+public class Member implements Serializable {
     private int Mb_no;
     private String Mb_email;
     private String Mb_password;
