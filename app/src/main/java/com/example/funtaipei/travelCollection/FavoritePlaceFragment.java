@@ -119,7 +119,7 @@ public class FavoritePlaceFragment extends Fragment {
     private List<Place> getPlaces() {
         List<Place> places = null;
         if (Common.networkConnected(activity)) {
-            String url = Common.URL_SERVER + "PlaceServlet";
+            String url = Common.URL_SERVER + "/PlaceServlet";
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "getAll");
             String jsonOut = jsonObject.toString();

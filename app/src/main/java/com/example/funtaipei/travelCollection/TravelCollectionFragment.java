@@ -4,6 +4,7 @@ package com.example.funtaipei.travelCollection;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.BinderThread;
@@ -18,16 +19,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.example.funtaipei.Common;
 import com.example.funtaipei.R;
 import com.example.funtaipei.task.CommonTask;
 import com.example.funtaipei.task.ImageTask;
+import com.example.funtaipei.travel.Travel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
@@ -45,6 +50,7 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class TravelCollectionFragment extends Fragment {
     private Activity activity;
+
     private RecyclerView travelCollectionRecycleView;
     private ImageTask travelCollectionImageTask;
     private CommonTask travelCollectionGetAllTask;
@@ -52,6 +58,7 @@ public class TravelCollectionFragment extends Fragment {
     private ImageView travelColleationImage, travelCollection_Memberimageview;
     private TextView travelCollection_MemberName, travelCollection_MemberEmail, travelCollection_MemberId;
     private List<TravelCollection> travelCollections;
+    private Travel travel;
 
 
     private FloatingActionButton travelCollectionbtnAdd;
@@ -107,9 +114,14 @@ public class TravelCollectionFragment extends Fragment {
     private List<TravelCollection> getTravelCollections() {
         List<TravelCollection> travelCollections = null;
         if (Common.networkConnected(activity)) {
-            String url = Common.URL_SERVER + "TravelCollectionServlet";
+            //取得帳號資料
+            SharedPreferences pref = activity.getSharedPreferences(Common.PREFERENCES_MEMBER, Context.MODE_PRIVATE);
+            int memId = pref.getInt("mb_no", 0);
+            String url = Common.URL_SERVER + "/TravelCollectionServlet";
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "getAll");
+            jsonObject.addProperty("action", "getTravelInfo");
+            jsonObject.addProperty("memId", memId);
             String jsonOut = jsonObject.toString();
             travelCollectionGetAllTask = new CommonTask(url, jsonOut);
             try {
@@ -147,6 +159,7 @@ public class TravelCollectionFragment extends Fragment {
         private List<TravelCollection> travelCollections;
         private int imageSize;
 
+
         TravelCollectionAdapter(Context context, List<TravelCollection> travelCollections) {
             layoutInflater = LayoutInflater.from(context);
             this.travelCollections = travelCollections;
@@ -165,6 +178,7 @@ public class TravelCollectionFragment extends Fragment {
         }
 
         class MyViewHolder extends RecyclerView.ViewHolder {
+            Travel travel;
             ImageView imageView;
             TextView travelName;
 
@@ -187,27 +201,63 @@ public class TravelCollectionFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull TravelCollectionAdapter.MyViewHolder holder, int position) {
             final TravelCollection travelCollection = travelCollections.get(position);
-            String url = Common.URL_SERVER + "TravelCollectionServlet";
-            int id = travelCollection.getMb_no();
+            String url = Common.URL_SERVER + "/TravelCollectionServlet";
+            int id = travelCollection.getTravel_id();
             travelCollectionImageTask = new ImageTask(url, id, imageSize, holder.imageView);
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             travelCollectionImageTask.execute();
-            holder.travelName.setText(travelCollection.getGp_name());
-//            holder.Group_ID.setText(String.valueOf(travelCollection.getGp_id()));
-//            holder.Group_Name.setText(travelCollection.getGp_name());
-//            holder.gp_datestart.setText(simpleDateFormat.format(travelCollection.getGP_DATESTART()));
-//            holder.gp_dateend.setText(simpleDateFormat.format(travelCollection.getGP_DATEEND()));
-//            holder.gp_eventstart.setText(simpleDateFormat.format(travelCollection.getGP_EVENTDATE()));
+            holder.travelName.setText(travelCollection.getTravel_name());
             //增加行程按鈕監聽
-//            holder.itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//
-//                }
-//            });
-            //增加按鈕常按事件
-        }
+           holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+               @Override
+               public boolean onLongClick(final View v) {
+                   PopupMenu popupMenu = new PopupMenu(activity, v, Gravity.END);
+                   popupMenu.inflate(R.menu.popup_menu);
+                   popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                       @Override
+                       public boolean onMenuItemClick(MenuItem item) {
+                           switch (item.getItemId()) {
+                               case R.id.update:
+                                   Bundle bundle = new Bundle();
+                                   bundle.putSerializable("travelCollection", travelCollection);
+                                   Navigation.findNavController(v).navigate(R.id.action_travelCollectionFragment_to_travel_collection_insert, bundle);
+                                   break;
+                               case R.id.delete:
+                                   if (Common.networkConnected(activity)) {
+                                       String url = Common.URL_SERVER + "/TravelCollectionServlet";
+                                       JsonObject jsonObject = new JsonObject();
+                                       jsonObject.addProperty("action", "delete");
+                                       jsonObject.addProperty("travelId", travelCollection.getTravel_id());
+                                       int count = 0;
+                                       try {
+                                           travelCollectionDeleteTask = new CommonTask(url, jsonObject.toString());
+                                           String result = travelCollectionDeleteTask.execute().get();
+                                           count = Integer.valueOf(result);
+                                       } catch (Exception e) {
+                                           Log.d(TAG, "onMenuItemClick: ");
+                                       }
+                                       if (count == 0) {
+                                           Common.showToast(activity, R.string.textDeleteFail);
+                                       } else {
+                                           travelCollections.remove(travelCollection);
+                                           TravelCollectionAdapter.this.notifyDataSetChanged();
+                                           //外部travelCollections也必須刪除
+                                           TravelCollectionFragment.this.travelCollections.remove(travelCollection);
+                                           Common.showToast(activity, R.string.textDeleteSuccess);
+                                       }
+                                   } else {
+                                       Common.showToast(activity, R.string.textNoNetwork);
+                                   }
+                           }
+                           return true;
+                       }
+                   });
+                    popupMenu.show();
+                    return true;
+               }
+           });
 
+        }
     }
 
 

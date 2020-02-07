@@ -184,7 +184,7 @@ public class TravelListFragment extends Fragment {
     private List<Travel> getTravels() {
         List<Travel> travels = null;
         if (Common.networkConnected(activity)) {
-            String url = Common.URL_SERVER + "TravelServlet";
+            String url = Common.URL_SERVER + "/TravelServlet";
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "getAll");
             String jsonOut = jsonObject.toString();
@@ -261,8 +261,9 @@ public class TravelListFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull TravelAdapter.MyViewHolder holder, int position) {
             final Travel travel = travels.get(position);
-            String url = Common.URL_SERVER + "TravelServlet";
+            String url = Common.URL_SERVER + "/TravelServlet";
             int travel_id = travel.getTravel_id();
+            holder.imageView.setImageResource(R.drawable.no_image);
             travelImageTask = new ImageTask(url, travel_id, imageSize, holder.imageView);
             travelImageTask.execute();
             holder.travel_id.setText(String.valueOf(travel.getTravel_id()));
@@ -272,7 +273,7 @@ public class TravelListFragment extends Fragment {
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("travel", travel);
-                    Navigation.findNavController(v).navigate(R.id.action_fragment_travel_to_travel_detail, bundle);
+                    Navigation.findNavController(v).navigate(R.id.action_fragment_travel_to_travelDetailFragment, bundle);
                 }
             });
             holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {

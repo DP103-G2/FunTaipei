@@ -14,6 +14,12 @@ public class Travel implements Serializable {
 		this.travel_status = travel_status;
 	}
 
+	public Travel(int travel_id, String travel_name){
+		super();
+		this.travel_id = travel_id;
+		this.travel_name = travel_name;
+	}
+
 	public int getTravel_id() {
 		return travel_id;
 	}

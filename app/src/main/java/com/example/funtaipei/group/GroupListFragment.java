@@ -113,7 +113,7 @@ public class GroupListFragment extends Fragment {
     private List<Group> getGroups() {
         List<Group> groups = null;
         if (Common.networkConnected(activity)) {
-            String url = Common.URL_SERVER + "GroupServlet";
+            String url = Common.URL_SERVER + "/GroupServlet";
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "getAll");
             String jsonOut = jsonObject.toString();

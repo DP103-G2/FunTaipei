@@ -2,8 +2,16 @@ package com.example.funtaipei.travelDetail;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,16 +20,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.funtaipei.Common;
 import com.example.funtaipei.R;
@@ -35,13 +33,11 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
-
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
-import static androidx.recyclerview.widget.LinearLayoutManager.*;
 
 
 public class TravelDetailFragment extends Fragment {
@@ -53,13 +49,13 @@ public class TravelDetailFragment extends Fragment {
     private List<Group> groups;
     private RecyclerView travel_detail_recycleview;
     private CommonTask placeGetAllTask;
-    private CommonTask placeDeleteTask;
+    private CommonTask travelCollectionTask;
     private ImageTask placeImageTask;
     private RecyclerView group_recycleview;
     private RecyclerView stationRecycleView;
     private Button btnAddTravel;
     private Place places;
-    private Button btnAddGroup;
+    private Button btnAddGroup,signUpButton, collectionUpButton;
     private Travel travel;
 
 
@@ -89,8 +85,43 @@ public class TravelDetailFragment extends Fragment {
 //                Toast.makeText(activity, "收藏成功", Toast.LENGTH_SHORT).show();
 //            }
 //        });
+        //報名按鈕
+        signUpButton = view.findViewById(R.id.signUpButton);
+        signUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
 
+        //收藏按鈕
+        collectionUpButton = view.findViewById(R.id.collectionUpButton);
+        collectionUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences pref = activity.getSharedPreferences(Common.PREFERENCES_MEMBER, Context.MODE_PRIVATE);
+                int memId = pref.getInt("mb_no", 0);
+                int travelId = travel.getTravel_id();
+                String url = Common.URL_SERVER + "/TravelCollectionServlet";
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("action", "travelCollectionInsert");
+                jsonObject.addProperty("memId", memId);
+                jsonObject.addProperty("travelId", travelId);
+                travelCollectionTask = new CommonTask(url, jsonObject.toString());
+                int count = 0;
+                try {
+                    String result = travelCollectionTask.execute().get();
+                    count = Integer.parseInt(result);
+                } catch (Exception e) {
+                    Log.e(TAG, e.toString());
+                }
+                if (count == 1) {
+                    Common.showToast(activity, R.string.textFavoriteSuccess);
+                } else {
+                    Common.showToast(activity, R.string.textInsertFail);
+                }
+            }
+        });
 
         //這邊是接前一頁的圖片和ID
         ImageView imageView = view.findViewById(R.id.travel_imageview);
@@ -100,7 +131,7 @@ public class TravelDetailFragment extends Fragment {
         if (bundle != null) {
             travel = (Travel) bundle.getSerializable("travel");
             if (travel != null) {
-                String url = Common.URL_SERVER + "TravelServlet";
+                String url = Common.URL_SERVER + "/TravelServlet";
                 ImageTask imageTask = new ImageTask(url, travel.getTravel_id(), getResources().getDisplayMetrics().widthPixels / 4);
                 try {
                     Bitmap image = imageTask.execute().get();
@@ -160,7 +191,7 @@ public class TravelDetailFragment extends Fragment {
     private List<TravelDetail> getTravelDetails() {
         List<TravelDetail> travelDetails = null;
         if (Common.networkConnected(activity)) {
-            String url = Common.URL_SERVER + "TravelDetailServlet";
+            String url = Common.URL_SERVER + "/TravelDetailServlet";
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "findByTravelId");
             jsonObject.addProperty("id", travel.getTravel_id());
@@ -249,7 +280,7 @@ public class TravelDetailFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
-                    Navigation.findNavController(v).navigate(R.id.action_travel_detail_to_placeDetailsFragment, bundle);
+                    Navigation.findNavController(v).navigate(R.id.action_placeDetailsFragment_to_travelDetailFragment, bundle);
                 }
             });
 
@@ -266,7 +297,7 @@ public class TravelDetailFragment extends Fragment {
     private List<Group> getGroups() {
         List<Group> groups = null;
         if (Common.networkConnected(activity)) {
-            String url = Common.URL_SERVER + "GroupServlet";
+            String url = Common.URL_SERVER + "/GroupServlet";
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "findByTravelId");
             jsonObject.addProperty("id", travel.getTravel_id());
@@ -353,7 +384,7 @@ public class TravelDetailFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
             final Group group = groups.get(position);
-            String url = Common.URL_SERVER + "TravelDetailServlet";
+            String url = Common.URL_SERVER + "/TravelDetailServlet";
             int id = group.getGP_ID();
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             groupImageTask = new ImageTask(url, id, imageSize, holder.groupImage);

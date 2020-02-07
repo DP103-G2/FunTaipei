@@ -11,24 +11,20 @@
         android:label="fragment_fragment_travel"
         tools:layout="@layout/fragment_travel_list" >
         <action
-            android:id="@+id/action_fragment_travel_to_travel_detail"
-            app:destination="@id/travel_detail" />
-        <action
             android:id="@+id/action_fragment_travel_to_travel_update"
             app:destination="@id/travel_update" />
         <action
             android:id="@+id/action_fragment_travel_to_travelInsert"
             app:destination="@id/travelInsert" />
+        <action
+            android:id="@+id/action_fragment_travel_to_travelDetailFragment"
+            app:destination="@id/travelDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/travel_detail"
         android:name="com.example.funtaipei.travel.TravelDetailFragment"
         android:label="fragment_travel_detail"
-        tools:layout="@layout/fragment_travel_detail" >
-        <action
-            android:id="@+id/action_travel_detail_to_placeDetailsFragment"
-            app:destination="@id/placeDetailsFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_travel_detail" />
     <fragment
         android:id="@+id/travel_update"
         android:name="com.example.funtaipei.travel.TravelUpdateFragment"
@@ -121,7 +117,11 @@
         android:id="@+id/placeDetailsFragment"
         android:name="com.example.funtaipei.place.PlaceDetailsFragment"
         android:label="fragment_place_details"
-        tools:layout="@layout/fragment_place_details" />
+        tools:layout="@layout/fragment_place_details" >
+        <action
+            android:id="@+id/action_placeDetailsFragment_to_travelDetailFragment"
+            app:destination="@id/travelDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/restaurantFragment"
         android:name="com.example.funtaipei.place.RestaurantFragment"
@@ -199,5 +199,19 @@
         android:name="com.example.funtaipei.MygroupFragment"
         android:label="fragment_mygroup"
         tools:layout="@layout/fragment_mygroup" />
+    <fragment
+        android:id="@+id/tabCollectionFragment"
+        android:name="com.example.funtaipei.travelCollection.TabCollectionFragment"
+        android:label="fragment_tab_collection_fragment"
+        tools:layout="@layout/fragment_tab_collection_fragment" >
+        <action
+            android:id="@+id/action_tabCollectionFragment_to_travelDetailFragment"
+            app:destination="@id/travelDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/travelDetailFragment"
+        android:name="com.example.funtaipei.travelDetail.TravelDetailFragment"
+        android:label="fragment_travel_detail"
+        tools:layout="@layout/fragment_travel_detail" />
 
 </navigation>

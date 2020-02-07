@@ -1,19 +1,23 @@
 package com.example.funtaipei.travelCollection;
 
+import com.example.funtaipei.travel.Travel;
+
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
-public class TravelCollection {
-	
+public class TravelCollection implements Serializable {
+
 	private int mb_no;
 	private int travel_id;
 	private String mb_email;
 	private String mb_name;
 	private int gp_id;
 	private String gp_name;
+	private String travel_name;
 	private Timestamp GP_DATESTART, GP_DATEEND, GP_EVENTDATE;
 	public TravelCollection(int mb_no, int travel_id, String mb_email, String mb_name, int gp_id, String gp_name, Date gP_DATESTART,
-			Date gP_DATEEND, Date gP_EVENTDATE) {
+			Date gP_DATEEND, Date gP_EVENTDATE, String travel_name) {
 		super();
 		this.mb_no = mb_no;
 		this.travel_id = travel_id;
@@ -21,10 +25,24 @@ public class TravelCollection {
 		this.mb_name = mb_name;
 		this.gp_id = gp_id;
 		this.gp_name = gp_name;
+		this.travel_name = travel_name;
 		GP_DATESTART = (Timestamp) gP_DATESTART;
 		GP_DATEEND = (Timestamp) gP_DATEEND;
 		GP_EVENTDATE = (Timestamp) gP_EVENTDATE;
 	}
+
+	public TravelCollection(String travel_name) {
+		this.travel_name = travel_name;
+	}
+
+	public String getTravel_name() {
+		return travel_name;
+	}
+
+	public void setTravel_name(String travel_name) {
+		this.travel_name = travel_name;
+	}
+
 	public int getMb_no() {
 		return mb_no;
 	}

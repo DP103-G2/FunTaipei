@@ -80,7 +80,7 @@
     <string name="textCan">取消</string>
     <string name="tab1">我的行程</string>
     <string name="tab2">我的旅遊點</string>
-
+    <string name="textFavoriteSuccess">收藏成功</string>
 
 
 </resources>

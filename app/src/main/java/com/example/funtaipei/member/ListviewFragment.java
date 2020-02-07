@@ -97,7 +97,7 @@ public class ListviewFragment extends Fragment {
 
     private void initListMap() {
         memberList = new ArrayList<>();
-        memberIcon = new int[]{R.drawable.personcontact, R.drawable.group, R.drawable.logout};
+        memberIcon = new int[]{R.drawable.personcontact, R.drawable.group, R.drawable.login};
         memberTitle = new String[]{getString(R.string.textPersoncontact), getString(R.string.textGroup), getString(R.string.textLogout)};
         memberAction = new int[]{R.id.action_listviewFragment_to_memberDetailFragment, R.id.action_listviewFragment_to_mygroupFragment};
         guestList = new ArrayList<>();
