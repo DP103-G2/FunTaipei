@@ -124,7 +124,7 @@ public class GroupInsertFragment extends Fragment {
                         /* 設定圖示 */
                         .setIcon(R.drawable.alert)
                         /* 設定訊息文字 */
-                        //.setMessage(R.string.textGroupAlertMessage)
+                        .setMessage(R.string.textGroupAlertMessage)
                         /* 設定positive與negative按鈕上面的文字與點擊事件監聽器 */
                         .setPositiveButton(R.string.textYes, new DialogInterface.OnClickListener() {
                             @Override
@@ -144,7 +144,7 @@ public class GroupInsertFragment extends Fragment {
                                         return;
                                     }
 
-                                    //upper條件解決中...
+
                                     int upper = skPeople.getProgress();
 
                                     if (upper == 2) {
@@ -154,7 +154,7 @@ public class GroupInsertFragment extends Fragment {
                                     //String lower = "2";
                                     String notes = etNotes.getText().toString().trim();
                                     String url = Common.URL_SERVER + "GroupServlet";
-                                    Group group = new Group(0, 1238, name, 1, upper, 2, dateStart, dateEnd, eventDate, 1, notes, 10);
+                                    Group group = new Group(0, 1238, name, 1, upper, 2, dateStart, dateEnd, eventDate, 1, notes, 14);
                                     JsonObject jsonObject = new JsonObject();
                                     jsonObject.addProperty("action", "groupInsert");
                                     Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
@@ -173,6 +173,13 @@ public class GroupInsertFragment extends Fragment {
                                         Common.showToast(getActivity(), R.string.textInsertFail);
                                     } else {
                                         Common.showToast(getActivity(), R.string.textInsertSuccess);
+
+
+
+                                        //團主也要參團，所以我在修這裡嗚嗚～
+
+                                        int id = group.getGP_ID();
+
                                     }
                                 } else {
                                     Common.showToast(getActivity(), R.string.textNoNetwork);
@@ -190,6 +197,8 @@ public class GroupInsertFragment extends Fragment {
                                 dialog.cancel();
                             }
                         })
+
+
                         .show();
 
             }

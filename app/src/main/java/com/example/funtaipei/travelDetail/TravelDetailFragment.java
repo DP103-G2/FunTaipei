@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -128,6 +129,11 @@ public class TravelDetailFragment extends Fragment {
         TextView travel_title = view.findViewById(R.id.travel_title);
         TextView travel_id = view.findViewById(R.id.travel_id);
         Bundle bundle = getArguments();
+        if (bundle == null || bundle.getSerializable("travel") == null) {
+            Common.showToast(activity, R.string.textNoGroupsFound);
+//            navController.popBackStack();
+            return;
+        }
         if (bundle != null) {
             travel = (Travel) bundle.getSerializable("travel");
             if (travel != null) {

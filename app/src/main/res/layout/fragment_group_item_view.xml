@@ -33,9 +33,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_weight="1"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="0dp"
                 android:textAllCaps="false"
-                android:textColor="#009688"
+                android:textColor="#FF5722"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -44,17 +45,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_weight="1" />
-
-            <TextView
-                android:id="@+id/tvUpper"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:textColor="#E91E63"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_marginTop="0dp"
+                android:textColor="#E91E63" />
         </LinearLayout>
 
     </LinearLayout>

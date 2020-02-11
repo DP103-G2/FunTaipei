@@ -45,7 +45,7 @@
     <string name="textRegister">Register</string>
     <string name="emailEdit">Email</string>
     <string name="textMB_NO">Member NO</string>
-    <string name="textMemberName">姓名：</string>
+    <string name="textMemberName">MemberName</string>
     <string name="textName">Name</string>
     <string name="textMale">Male</string>
     <string name="textFemale">Female</string>
@@ -64,23 +64,24 @@
     <string name="travelCollection1">我的行程</string>
     <string name="placeCollection">我的旅遊點</string>
     <string name="textFinish">確定發起旅遊團嗎？</string>
-    <string name="textGroupAlertMessage">確定旅遊團資料正確嗎？</string>
+    <string name="textGroupAlertMessage">發起旅遊團後，資料無法更改</string>
     <string name="textYes">確定</string>
     <string name="textInsertGroupName">請輸入旅遊團名稱</string>
-    <string name="textChoseDate">請選擇日期</string>
+    <string name="textChoseDate">請選擇活動及報名日期</string>
     <string name="textNo">取消</string>
-    <string name="textMember">123</string>
-    <string name="textPersoncontact">會員資料</string>
-    <string name="textGroup">我的團體</string>
-    <string name="textLogout">登出</string>
-    <string name="textAccount">帳號：</string>
-    <string name="textGender">性別：</string>
-    <string name="textBdy">出生年月日：</string>
-    <string name="textOk">確定</string>
-    <string name="textCan">取消</string>
     <string name="tab1">我的行程</string>
     <string name="tab2">我的旅遊點</string>
+    <string name="textJoinGroup">確定報名此團嗎？</string>
+    <string name="textJoinFail">報名失敗</string>
+    <string name="textIJoinSuccess">報名成功</string>
+    <string name="textGender">性別</string>
+    <string name="textAccount">帳號</string>
+    <string name="textBdy">生日</string>
+    <string name="textOk">確定</string>
+    <string name="textCan">取消</string>
+    <string name="textGroup">團體</string>
+    <string name="textLogout">登出</string>
+    <string name="textPersoncontact">會員資料</string>
     <string name="textFavoriteSuccess">收藏成功</string>
-
 
 </resources>

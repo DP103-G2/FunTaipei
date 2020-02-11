@@ -166,7 +166,7 @@ public class GroupListFragment extends Fragment {
         class MyViewHolder extends RecyclerView.ViewHolder {
             ImageView imageView;
             Button button;
-            TextView tvName, tvEventdate, tvUpper;
+            TextView tvName, tvEventdate, tvNotes;
 
 
             public MyViewHolder(@NonNull View itemView) {
@@ -174,7 +174,7 @@ public class GroupListFragment extends Fragment {
                 imageView = itemView.findViewById(R.id.imageView);
                 tvName = itemView.findViewById(R.id.tvName);
                 tvEventdate = itemView.findViewById(R.id.tvEventdate);
-                tvUpper = itemView.findViewById(R.id.tvUpper);
+//                tvNotes = itemView.findViewById(R.id.tvNotes);
 
 
             }
@@ -196,14 +196,14 @@ public class GroupListFragment extends Fragment {
         public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
             final Group group = groups.get(position);
 
-            String url = Common.URL_SERVER + "GroupServlet";
+            String url = Common.URL_SERVER + "/GroupServlet";
             int id = group.getGP_ID();
 
             groupImageTask = new ImageTask(url, id , imageSize, myViewHolder.imageView);
             groupImageTask.execute();
             myViewHolder.tvName.setText(group.getGP_NAME());
             myViewHolder.tvEventdate.setText("活動日期：" + new SimpleDateFormat("yyyy/MM/dd").format(group.getGP_EVENTDATE()) + new SimpleDateFormat("（E）").format(group.getGP_EVENTDATE()));
-            myViewHolder.tvUpper.setText("可報 " + String.valueOf(group.getGP_UPPER()-group.getGP_ENROLLMENT()) + " 團位 " + String.valueOf(group.getGP_UPPER()));
+//            myViewHolder.tvNotes.setText(group.getGP_NOTES());
 
             myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

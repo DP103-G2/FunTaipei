@@ -24,17 +24,21 @@ public class Group implements Serializable {
         this.GP_EVENTDATE = gP_EVENTDATE;
         this.MB_NO = mB_NO;
     }
+    public void setGroup(int tRAVEL_ID, String gP_NAME, int gP_ENROLLMENT, int gP_UPPER, int gP_LOWER, Date gP_DATESTART, Date gP_DATEEND, Date gP_EVENTDATE, int gP_STATUS, String gP_NOTES, int mB_NO){
+        this.TRAVEL_ID = tRAVEL_ID;
+        this.GP_ENROLLMENT = gP_ENROLLMENT;
+        this.GP_UPPER = gP_UPPER;
+        this.GP_LOWER = gP_LOWER;
+        this.GP_STATUS = gP_STATUS;
+        this.GP_NAME = gP_NAME;
+        this.GP_NOTES = gP_NOTES;
+        this.GP_DATESTART = gP_DATESTART;
+        this.GP_DATEEND = gP_DATEEND;
+        this.GP_EVENTDATE = gP_EVENTDATE;
+        this.MB_NO = mB_NO;
+    }
 
-	public Group(int gP_ID, int tRAVEL_ID, String gP_NAME, Date gP_DATESTART, Date gP_DATEEND,
-			Date gP_EVENTDATE) {
-		super();
-		GP_ID = gP_ID;
-		TRAVEL_ID = tRAVEL_ID;
-		GP_NAME = gP_NAME;
-		GP_DATESTART = gP_DATESTART;
-		GP_DATEEND = gP_DATEEND;
-		GP_EVENTDATE = gP_EVENTDATE;
-	}
+
 
     public int getGP_ID() {
         return GP_ID;
@@ -110,4 +114,6 @@ public class Group implements Serializable {
     }
 
 
+
 }
+

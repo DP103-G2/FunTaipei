@@ -158,7 +158,11 @@
         android:id="@+id/groupDetailFragment"
         android:name="com.example.funtaipei.group.GroupDetailFragment"
         android:label="fragment_group_detail"
-        tools:layout="@layout/fragment_group_detail" />
+        tools:layout="@layout/fragment_group_detail" >
+        <action
+            android:id="@+id/action_groupDetailFragment_to_travelDetailFragment"
+            app:destination="@id/travelDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/listviewFragment"

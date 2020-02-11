@@ -3,22 +3,22 @@
     <item
         android:id="@+id/placeListFragment"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="Home"/>
+        android:title="首頁"/>
     <item
         android:id="@+id/groupListFragment"
         android:icon="@drawable/ic_people_black_24dp"
-        android:title="Group"/>
+        android:title="團體"/>
 
     <item
         android:id="@+id/fragment_travel"
         android:icon="@drawable/ic_airport_shuttle_black_24dp"
-        android:title="Travel"/>
+        android:title="攻略"/>
     <item
         android:id="@+id/tabCollectionFragment"
         android:icon="@drawable/baseline_favorite_border_black_36"
-        android:title="Favorite"/>
+        android:title="收藏"/>
     <item
         android:id="@+id/listviewFragment"
         android:icon="@drawable/ic_assignment_ind_black_24dp"
-        android:title="Profile"/>
+        android:title="個人"/>
 </menu>
