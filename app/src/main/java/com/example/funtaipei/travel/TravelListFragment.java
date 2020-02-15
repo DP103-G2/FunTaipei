@@ -271,9 +271,10 @@ public class TravelListFragment extends Fragment {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("travel", travel);
-                    Navigation.findNavController(v).navigate(R.id.action_fragment_travel_to_travelDetailFragment, bundle);
+                   Bundle bundle = new Bundle();
+                   bundle.putSerializable("travel", travel);
+                   Navigation.findNavController(v).navigate(R.id.action_fragment_travel_to_travelDetailFragment, bundle);
+
                 }
             });
             holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {

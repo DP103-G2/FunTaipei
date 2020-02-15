@@ -79,13 +79,7 @@ public class TravelDetailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
 
-//        starButton = view.findViewById(R.id.star_button);
-//        starButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(activity, "收藏成功", Toast.LENGTH_SHORT).show();
-//            }
-//        });
+
         //報名按鈕
         signUpButton = view.findViewById(R.id.signUpButton);
         signUpButton.setOnClickListener(new View.OnClickListener() {
@@ -130,8 +124,7 @@ public class TravelDetailFragment extends Fragment {
         TextView travel_id = view.findViewById(R.id.travel_id);
         Bundle bundle = getArguments();
         if (bundle == null || bundle.getSerializable("travel") == null) {
-            Common.showToast(activity, R.string.textNoGroupsFound);
-//            navController.popBackStack();
+
             return;
         }
         if (bundle != null) {
@@ -236,6 +229,7 @@ public class TravelDetailFragment extends Fragment {
     private class TravelDetailAdapter extends RecyclerView.Adapter<TravelDetailAdapter.MyViewHolder> {
         private LayoutInflater layoutInflater;
         private List<TravelDetail> travelDetails;
+        private List<Place> places;
         private int imageSize;
 
         TravelDetailAdapter(Context context, List<TravelDetail> travelDetails) {
@@ -257,7 +251,7 @@ public class TravelDetailFragment extends Fragment {
                 super(itemView);
                 imageView = itemView.findViewById(R.id.imageView);
                 travel_id = itemView.findViewById(R.id.travel_id);
-                pc_id = itemView.findViewById(R.id.pc_id);
+//                pc_id = itemView.findViewById(R.id.pc_id);
                 pc_name = itemView.findViewById(R.id.pc_name);
 
 
@@ -274,19 +268,19 @@ public class TravelDetailFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull final TravelDetailAdapter.MyViewHolder holder, int position) {
             final TravelDetail travelDetail = travelDetails.get(position);
-            String url = Common.URL_SERVER + "TravelDetailServlet";
-            int id = travelDetail.getTravel_id();
+            String url = Common.URL_SERVER + "/PlaceServlet";
+            int id = travelDetail.getPc_id();
             travelImageTask = new ImageTask(url, id, imageSize, holder.imageView);
             travelImageTask.execute();
-            holder.pc_id.setText(String.valueOf(travelDetail.getPc_id()));
+//            holder.pc_id.setText(String.valueOf(travelDetail.getPc_id()));
             holder.pc_name.setText(String.valueOf(travelDetail.getPc_name()));
 //            holder.stationRecycleView.setLayoutManager(new GridLayoutManager(activity));
             //下面這行是跳轉到旅遊點細節
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Bundle bundle = new Bundle();
-                    Navigation.findNavController(v).navigate(R.id.action_placeDetailsFragment_to_travelDetailFragment, bundle);
+
+                    Navigation.findNavController(v).navigate(R.id.action_travelDetailFragment_to_placeDetailsFragment);
                 }
             });
 

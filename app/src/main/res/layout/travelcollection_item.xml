@@ -12,10 +12,12 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+
+
     <com.example.funtaipei.CircleImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:src="@drawable/no_image"/>
     <TextView
         android:id="@+id/travelName"
@@ -23,7 +25,7 @@
         android:layout_height="wrap_content"
         android:text="Name"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="30dp"
         android:layout_toRightOf="@id/imageView"/>
     </RelativeLayout>
 

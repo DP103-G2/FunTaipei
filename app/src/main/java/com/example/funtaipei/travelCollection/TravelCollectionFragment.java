@@ -47,7 +47,6 @@ import java.util.List;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 
-
 public class TravelCollectionFragment extends Fragment {
     private Activity activity;
 
@@ -55,7 +54,6 @@ public class TravelCollectionFragment extends Fragment {
     private ImageTask travelCollectionImageTask;
     private CommonTask travelCollectionGetAllTask;
     private CommonTask travelCollectionDeleteTask;
-    private ImageView travelColleationImage, travelCollection_Memberimageview;
     private TextView travelCollection_MemberName, travelCollection_MemberEmail, travelCollection_MemberId;
     private List<TravelCollection> travelCollections;
     private Travel travel;
@@ -63,7 +61,7 @@ public class TravelCollectionFragment extends Fragment {
 
     private FloatingActionButton travelCollectionbtnAdd;
 
-    public static TravelCollectionFragment newInstance(){
+    public static TravelCollectionFragment newInstance() {
         return new TravelCollectionFragment();
     }
 
@@ -86,9 +84,6 @@ public class TravelCollectionFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-
-
-
         travelCollectionbtnAdd = view.findViewById(R.id.travelCollectionbtnAdd);
         travelCollectionbtnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +91,6 @@ public class TravelCollectionFragment extends Fragment {
                 Navigation.findNavController(v).navigate(R.id.travel_collection_insert);
             }
         });
-
 
 
         //TravelCollection資料
@@ -178,13 +172,12 @@ public class TravelCollectionFragment extends Fragment {
         }
 
         class MyViewHolder extends RecyclerView.ViewHolder {
-            Travel travel;
             ImageView imageView;
             TextView travelName;
 
             MyViewHolder(View itemView) {
                 super(itemView);
-                travelColleationImage = itemView.findViewById(R.id.imageView);
+                imageView = itemView.findViewById(R.id.imageView);
                 travelName = itemView.findViewById(R.id.travelName);
             }
 
@@ -201,65 +194,77 @@ public class TravelCollectionFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull TravelCollectionAdapter.MyViewHolder holder, int position) {
             final TravelCollection travelCollection = travelCollections.get(position);
-            String url = Common.URL_SERVER + "/TravelCollectionServlet";
-            int id = travelCollection.getTravel_id();
+            String url = Common.URL_SERVER + "/TravelServlet";
+            final int id = travelCollection.getTravel_id();
             travelCollectionImageTask = new ImageTask(url, id, imageSize, holder.imageView);
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             travelCollectionImageTask.execute();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             holder.travelName.setText(travelCollection.getTravel_name());
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("travelCollection", travelCollection);
+                    Navigation.findNavController(view).navigate(R.id.travel_Collection_detailFragment, bundle);
+                }
+            });
             //增加行程按鈕監聽
-           holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-               @Override
-               public boolean onLongClick(final View v) {
-                   PopupMenu popupMenu = new PopupMenu(activity, v, Gravity.END);
-                   popupMenu.inflate(R.menu.popup_menu);
-                   popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                       @Override
-                       public boolean onMenuItemClick(MenuItem item) {
-                           switch (item.getItemId()) {
-                               case R.id.update:
-                                   Bundle bundle = new Bundle();
-                                   bundle.putSerializable("travelCollection", travelCollection);
-                                   Navigation.findNavController(v).navigate(R.id.action_travelCollectionFragment_to_travel_collection_insert, bundle);
-                                   break;
-                               case R.id.delete:
-                                   if (Common.networkConnected(activity)) {
-                                       String url = Common.URL_SERVER + "/TravelCollectionServlet";
-                                       JsonObject jsonObject = new JsonObject();
-                                       jsonObject.addProperty("action", "delete");
-                                       jsonObject.addProperty("travelId", travelCollection.getTravel_id());
-                                       int count = 0;
-                                       try {
-                                           travelCollectionDeleteTask = new CommonTask(url, jsonObject.toString());
-                                           String result = travelCollectionDeleteTask.execute().get();
-                                           count = Integer.valueOf(result);
-                                       } catch (Exception e) {
-                                           Log.d(TAG, "onMenuItemClick: ");
-                                       }
-                                       if (count == 0) {
-                                           Common.showToast(activity, R.string.textDeleteFail);
-                                       } else {
-                                           travelCollections.remove(travelCollection);
-                                           TravelCollectionAdapter.this.notifyDataSetChanged();
-                                           //外部travelCollections也必須刪除
-                                           TravelCollectionFragment.this.travelCollections.remove(travelCollection);
-                                           Common.showToast(activity, R.string.textDeleteSuccess);
-                                       }
-                                   } else {
-                                       Common.showToast(activity, R.string.textNoNetwork);
-                                   }
-                           }
-                           return true;
-                       }
-                   });
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(final View v) {
+                    PopupMenu popupMenu = new PopupMenu(activity, v, Gravity.END);
+                    popupMenu.inflate(R.menu.popup_menu);
+                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            switch (item.getItemId()) {
+                                //更新
+//                                case R.id.update:
+//                                    Bundle bundle = new Bundle();
+//                                    bundle.putSerializable("travelCollection", travelCollection);
+//                                    Navigation.findNavController(v).navigate(R.id.action_travelCollectionFragment_to_travel_collection_insert, bundle);
+//                                    break;
+                                //刪除
+                                case R.id.delete:
+                                    if (Common.networkConnected(activity)) {
+                                        String url = Common.URL_SERVER + "/TravelCollectionServlet";
+                                        JsonObject jsonObject = new JsonObject();
+                                        jsonObject.addProperty("action", "travelCollectionDelete");
+                                        jsonObject.addProperty("memId", travelCollection.getMb_no());
+                                        jsonObject.addProperty("travel_id", travelCollection.getTravel_id());
+
+                                        int count = 0;
+                                        try {
+                                            travelCollectionDeleteTask = new CommonTask(url, jsonObject.toString());
+                                            String result = travelCollectionDeleteTask.execute().get();
+                                            count = Integer.valueOf(result);
+                                        } catch (Exception e) {
+                                            Log.d(TAG, "onMenuItemClick: ");
+                                        }
+                                        if (count == 0) {
+                                            Common.showToast(activity, R.string.textDeleteFail);
+                                        } else {
+                                            travelCollections.remove(travelCollection);
+                                            TravelCollectionAdapter.this.notifyDataSetChanged();
+                                            //外部travelCollections也必須刪除
+                                            TravelCollectionFragment.this.travelCollections.remove(travelCollection);
+                                            Common.showToast(activity, R.string.textDeleteSuccess);
+                                        }
+                                    } else {
+                                        Common.showToast(activity, R.string.textNoNetwork);
+                                    }
+                                    break;
+                            }
+                            return true;
+                        }
+                    });
                     popupMenu.show();
                     return true;
-               }
-           });
+                }
+            });
 
         }
     }
-
 
 
     @Override

@@ -53,6 +53,9 @@
         <action
             android:id="@+id/action_travelCollectionFragment_to_travel_collection_insert"
             app:destination="@id/travel_collection_insert" />
+        <action
+            android:id="@+id/action_travelCollectionFragment_to_travel_Collection_detailFragment"
+            app:destination="@id/travel_Collection_detailFragment" />
     </fragment>
     <fragment
         android:id="@+id/groupListFragment"
@@ -207,15 +210,19 @@
         android:id="@+id/tabCollectionFragment"
         android:name="com.example.funtaipei.travelCollection.TabCollectionFragment"
         android:label="fragment_tab_collection_fragment"
-        tools:layout="@layout/fragment_tab_collection_fragment" >
-        <action
-            android:id="@+id/action_tabCollectionFragment_to_travelDetailFragment"
-            app:destination="@id/travelDetailFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_tab_collection_fragment" />
     <fragment
         android:id="@+id/travelDetailFragment"
         android:name="com.example.funtaipei.travelDetail.TravelDetailFragment"
         android:label="fragment_travel_detail"
-        tools:layout="@layout/fragment_travel_detail" />
+        tools:layout="@layout/fragment_travel_detail" >
+        <action
+            android:id="@+id/action_travelDetailFragment_to_placeDetailsFragment"
+            app:destination="@id/placeDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/travel_Collection_detailFragment"
+        android:name="com.example.funtaipei.travelCollection.Travel_Collection_detailFragment"
+        android:label="Travel_Collection_detailFragment" />
 
 </navigation>
