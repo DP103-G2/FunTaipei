@@ -156,7 +156,7 @@ public class RegisterFragment extends Fragment {
                     }
                 }
                 if(Common.networkConnected(activity)){
-                    String url = Common.URL_SERVER + "MemberServlet";
+                    String url = Common.URL_SERVER + "/MemberServlet";
                     Member member = new Member(0,MB_EMAIL,MB_PASSWORD,MB_NAME,MB_GENDER,MB_BIRTHDAY,1);
                     JsonObject jsonObject = new JsonObject();
                     jsonObject.addProperty("action","memberInsert");
