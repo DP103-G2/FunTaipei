@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,6 +36,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -65,7 +67,6 @@ public class TravelDetailFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = getActivity();
-
     }
 
     @Override
@@ -85,7 +86,7 @@ public class TravelDetailFragment extends Fragment {
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Toast.makeText(activity, "按讚拉",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -124,7 +125,6 @@ public class TravelDetailFragment extends Fragment {
         TextView travel_id = view.findViewById(R.id.travel_id);
         Bundle bundle = getArguments();
         if (bundle == null || bundle.getSerializable("travel") == null) {
-
             return;
         }
         if (bundle != null) {
@@ -147,19 +147,6 @@ public class TravelDetailFragment extends Fragment {
         travel_detail_recycleview.setLayoutManager(new LinearLayoutManager(activity));
         travelDetails = getTravelDetails();
         showtravelDetail(travelDetails);
-        //Group的RecycleView
-//        group_recycleview = view.findViewById(R.id.group_recycleview);
-//        group_recycleview.setLayoutManager(new StaggeredGridLayoutManager(1, HORIZONTAL));
-//        groups = getGroups();
-//        showGroups(groups);
-//        //新增團體Button
-//        btnAddGroup = view.findViewById(R.id.btnAddGroup);
-//        btnAddGroup.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this,)
-//            }
-//        });
     }
 
     //Get PlaceDetail
@@ -180,7 +167,7 @@ public class TravelDetailFragment extends Fragment {
                 Log.e(TAG, e.toString());
             }
         } else {
-            Common.showToast(activity, R.string.textNoNetwork);
+            Common.showToast(activity, "沒有景點");
         }
         return places;
     }
@@ -206,14 +193,14 @@ public class TravelDetailFragment extends Fragment {
                 Log.d(TAG, "getTravelDetails: ");
             }
         } else {
-            Common.showToast(activity, R.string.textNoNetwork);
+            Common.showToast(activity, "沒有景點");
         }
         return travelDetails;
     }
-
+    //ShowTravelDetail
     private void showtravelDetail(List<TravelDetail> travelDetails) {
         if (travelDetails == null || travelDetails.isEmpty()) {
-            Common.showToast(activity, R.string.textNoNetwork);
+            Common.showToast(activity, "沒有景點");
             return;
         }
         TravelDetailAdapter travelDetailAdapter = (TravelDetailAdapter) travel_detail_recycleview.getAdapter();
@@ -244,15 +231,15 @@ public class TravelDetailFragment extends Fragment {
 
         class MyViewHolder extends RecyclerView.ViewHolder {
             ImageView imageView;
-            TextView travel_id, pc_name, pc_id;
-
+            TextView travel_id, pc_name, pc_id, travel_time;
 
             MyViewHolder(View itemView) {
                 super(itemView);
                 imageView = itemView.findViewById(R.id.imageView);
                 travel_id = itemView.findViewById(R.id.travel_id);
-//                pc_id = itemView.findViewById(R.id.pc_id);
                 pc_name = itemView.findViewById(R.id.pc_name);
+                travel_time = itemView.findViewById(R.id.travel_time);
+
 
 
             }
@@ -272,14 +259,13 @@ public class TravelDetailFragment extends Fragment {
             int id = travelDetail.getPc_id();
             travelImageTask = new ImageTask(url, id, imageSize, holder.imageView);
             travelImageTask.execute();
-//            holder.pc_id.setText(String.valueOf(travelDetail.getPc_id()));
             holder.pc_name.setText(String.valueOf(travelDetail.getPc_name()));
-//            holder.stationRecycleView.setLayoutManager(new GridLayoutManager(activity));
+            holder.travel_time.setText(new SimpleDateFormat("yyyy-MM-dd").format(travelDetail.getTravel_time()));
+//
             //下面這行是跳轉到旅遊點細節
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     Navigation.findNavController(v).navigate(R.id.action_travelDetailFragment_to_placeDetailsFragment);
                 }
             });
@@ -292,7 +278,7 @@ public class TravelDetailFragment extends Fragment {
         }
     }
 
-    //-----------------------------------------以下為Gruops---------------------------------------------------------------------------
+    //-----------------------------------------以下為GruopsRecycleView---------------------------------------------------------------------------
 
     private List<Group> getGroups() {
         List<Group> groups = null;
@@ -394,15 +380,7 @@ public class TravelDetailFragment extends Fragment {
             holder.gp_eventstart.setText(simpleDateFormat.format(group.getGP_EVENTDATE()));
             holder.gp_datestart.setText(simpleDateFormat.format(group.getGP_DATESTAR()));
             holder.gp_dateend.setText(simpleDateFormat.format(group.getGP_DATEEND()));
-            //以下為團體明細的Ｂｕｎｄｌｅ(報名頁面）
-//            holder.itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Bundle bundle = new Bundle();
-//                    bundle.putSerializable("group", group);
-//                    Navigation.findNavController(v).navigate(R.id.XXX,bundle);
-//                }
-//            });
+
         }
     }
 
@@ -425,51 +403,4 @@ public class TravelDetailFragment extends Fragment {
         }
     }
 }
-
-//行程內部圖片RecycleView.Hor
-
-//private class StationAdapter extends RecyclerView.Adapter<StationAdapter.MyViewHolder> {
-//    private LayoutInflater layoutInflater;
-//    private int imageSize;
-//    private List<Image> images;
-//
-//    StationAdapter(Context context, List<Image> images) {
-//        layoutInflater = LayoutInflater.from(context);
-//        this.images = images;
-//        imageSize = getResources().getDisplayMetrics().widthPixels / 4;
-//    }
-//
-//    void setImages(List<Image> images) {
-//        this.images = images;
-//    }
-//
-//    @Override
-//    public int getItemCount() {
-//        return images.size();
-//    }
-//
-//    class MyViewHolder extends RecyclerView.ViewHolder {
-//        ImageView imageView;
-//
-//        MyViewHolder(View itemView) {
-//            super(itemView);
-//            imageView = itemView.findViewById(R.id.travelDetailPic);
-//        }
-//    }
-//
-//    @NonNull
-//    @Override
-//    public StationAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        View itemView = layoutInflater.inflate(R.layout.travel_pic_item, parent, false);
-//        return new MyViewHolder(itemView);
-//    }
-//
-//    @Override
-//    public void onBindViewHolder(@NonNull StationAdapter.MyViewHolder holder, int position) {
-//        final Place place = places.get(position);
-//        String url = Common.URL_SERVER + "ImageServlet";
-//        travelDetailImageTask = new ImageTask(url,place.getPC_ID(),imageSize,holder.imageView);
-//        travelDetailImageTask.execute();
-//    }
-//
 

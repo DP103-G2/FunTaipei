@@ -34,14 +34,14 @@ import java.util.Map;
 public class ListviewFragment extends Fragment {
     private Activity activity;
     private ListView listView;
-    private ListAdapter memberAdapter, guestAdapter;
+    private ListAdapter memberAdapter, guestAdapter, travelManAdapter;
     //private int[] images = {R.drawable.personcontact,R.drawable.logout};
     //private String[] titles = {"會員資料","我的團體","登出"};
     private String[] memberTitle, guestTitle;
     private int[] memberIcon, guestIcon;
     private int[] memberAction, guestAction;
     //List<Map<String, Object>>data = new ArrayList<>();
-    private List<Map<String, Object>> memberList, guestList;
+    private List<Map<String, Object>> memberList, guestList, travelManList;
     private SharedPreferences preferences;
     private int Mb_no;
 
@@ -84,7 +84,7 @@ public class ListviewFragment extends Fragment {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                     NavController navController = Navigation.findNavController(v);
-                    if (position != 2) {
+                    if (position != 3) {
                         navController.navigate(memberAction[position]);
                     } else {
                         preferences.edit().putInt("mb_no", 0).commit();
@@ -92,14 +92,15 @@ public class ListviewFragment extends Fragment {
                     }
                 }
             }));
+
         }
     }
 
     private void initListMap() {
         memberList = new ArrayList<>();
-        memberIcon = new int[]{R.drawable.personcontact, R.drawable.group, R.drawable.login};
-        memberTitle = new String[]{getString(R.string.textPersoncontact), getString(R.string.textGroup), getString(R.string.textLogout)};
-        memberAction = new int[]{R.id.action_listviewFragment_to_memberDetailFragment, R.id.action_listviewFragment_to_mygroupFragment};
+        memberIcon = new int[]{R.drawable.personcontact, R.drawable.group,R.drawable.ic_card_travel_black_24dp, R.drawable.login};
+        memberTitle = new String[]{getString(R.string.textPersoncontact), getString(R.string.textGroup),getString(R.string.textTravelManage),getString(R.string.textLogout)};
+        memberAction = new int[]{R.id.action_listviewFragment_to_memberDetailFragment ,R.id.action_listviewFragment_to_mygroupFragment, R.id.action_listviewFragment_to_manageTravel};
         guestList = new ArrayList<>();
         guestIcon = new int[]{R.drawable.login};
         guestTitle = new String[]{getString(R.string.textLogin)};
@@ -110,6 +111,7 @@ public class ListviewFragment extends Fragment {
             memberItem.put("title", memberTitle[i]);
             memberList.add(memberItem);
         }
+
         for (int i = 0; i < guestIcon.length; i++) {
             Map<String, Object> guestItem = new HashMap<>();
             guestItem.put("icon", guestIcon[i]);

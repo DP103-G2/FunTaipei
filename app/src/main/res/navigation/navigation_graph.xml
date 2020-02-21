@@ -181,6 +181,9 @@
         <action
             android:id="@+id/action_listviewFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_listviewFragment_to_manageTravel"
+            app:destination="@id/manageTravel" />
     </fragment>
     <fragment
         android:id="@+id/updateMemberFragment"
@@ -224,5 +227,10 @@
         android:id="@+id/travel_Collection_detailFragment"
         android:name="com.example.funtaipei.travelCollection.Travel_Collection_detailFragment"
         android:label="Travel_Collection_detailFragment" />
+    <fragment
+        android:id="@+id/manageTravel"
+        android:name="com.example.funtaipei.travel.ManageTravel"
+        android:label="fragment_manage_travel"
+        tools:layout="@layout/fragment_manage_travel" />
 
 </navigation>

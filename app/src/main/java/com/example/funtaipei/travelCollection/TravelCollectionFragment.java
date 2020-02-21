@@ -30,6 +30,7 @@ import android.widget.TextView;
 
 import com.example.funtaipei.Common;
 import com.example.funtaipei.R;
+import com.example.funtaipei.member.Member;
 import com.example.funtaipei.task.CommonTask;
 import com.example.funtaipei.task.ImageTask;
 import com.example.funtaipei.travel.Travel;
@@ -57,6 +58,7 @@ public class TravelCollectionFragment extends Fragment {
     private TextView travelCollection_MemberName, travelCollection_MemberEmail, travelCollection_MemberId;
     private List<TravelCollection> travelCollections;
     private Travel travel;
+    private Member member;
 
 
     private FloatingActionButton travelCollectionbtnAdd;
@@ -84,13 +86,7 @@ public class TravelCollectionFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-        travelCollectionbtnAdd = view.findViewById(R.id.travelCollectionbtnAdd);
-        travelCollectionbtnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.travel_collection_insert);
-            }
-        });
+
 
 
         //TravelCollection資料
@@ -204,7 +200,7 @@ public class TravelCollectionFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("travelCollection", travelCollection);
+                    bundle.putSerializable("travel", travel);
                     Navigation.findNavController(view).navigate(R.id.travel_Collection_detailFragment, bundle);
                 }
             });
@@ -218,19 +214,13 @@ public class TravelCollectionFragment extends Fragment {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
                             switch (item.getItemId()) {
-                                //更新
-//                                case R.id.update:
-//                                    Bundle bundle = new Bundle();
-//                                    bundle.putSerializable("travelCollection", travelCollection);
-//                                    Navigation.findNavController(v).navigate(R.id.action_travelCollectionFragment_to_travel_collection_insert, bundle);
-//                                    break;
                                 //刪除
                                 case R.id.delete:
                                     if (Common.networkConnected(activity)) {
                                         String url = Common.URL_SERVER + "/TravelCollectionServlet";
                                         JsonObject jsonObject = new JsonObject();
                                         jsonObject.addProperty("action", "travelCollectionDelete");
-                                        jsonObject.addProperty("memId", travelCollection.getMb_no());
+                                        jsonObject.addProperty("mb_no", travelCollection.getMb_no());
                                         jsonObject.addProperty("travel_id", travelCollection.getTravel_id());
 
                                         int count = 0;
