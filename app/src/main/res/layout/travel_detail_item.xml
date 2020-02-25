@@ -18,14 +18,6 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_directions_walk_black_24dp" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/pc_id"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginLeft="15dp"-->
-<!--            android:layout_toRightOf="@id/imageView"-->
-<!--            android:text="PCID"-->
-<!--            android:textColor="#000000" />-->
 
         <TextView
             android:id="@+id/pc_name"
@@ -36,14 +28,7 @@
             android:text="台北101"
             android:textColor="#000000"
             android:textSize="26sp" />
-        <TextView
-            android:id="@+id/travel_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/pc_name"
-            android:layout_toRightOf="@id/imageView"
-            android:layout_marginLeft="15dp"
-            android:text="2020-01-01"/>
+
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

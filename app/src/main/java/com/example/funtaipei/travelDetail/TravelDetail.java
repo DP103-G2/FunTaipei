@@ -8,6 +8,7 @@ public class TravelDetail {
 	private int pc_id;
 	private String pc_name;
 	private Date travel_time;
+
 	public TravelDetail(int travel_id, int pc_id, String pc_name) {
 		super();
 		this.travel_id = travel_id;
@@ -15,6 +16,14 @@ public class TravelDetail {
 		this.pc_name = pc_name;
 		this.travel_time = travel_time;
 	}
+
+	public TravelDetail(int travel_id, int pc_id){
+		super();
+		this.travel_id = travel_id;
+		this.pc_id = pc_id;
+	}
+
+
 	public int getTravel_id() {
 		return travel_id;
 	}

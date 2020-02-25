@@ -84,20 +84,7 @@ public class TravelUpdateFragment extends Fragment {
             navController.popBackStack();
             return;
         }
-//        statusSwitch = view.findViewById(R.id.statusSwitch);
-//        statusSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if(isChecked == true){
-//                   travel_status = 1;
-//                    Toast.makeText(getContext(),"上架",Toast.LENGTH_SHORT).show();
-//                }else{
-//                    travel_status = 0;
-//                    Toast.makeText(getContext(),"下架",Toast.LENGTH_SHORT).show();
-//                }
 
-//            }
-//        });
 
         travel = (Travel) bundle.getSerializable("travel");
         travel_id = Integer.parseInt(String.valueOf(travel_id));
@@ -154,9 +141,9 @@ public class TravelUpdateFragment extends Fragment {
                         Log.e(TAG, e.toString());
                     }
                     if (count == 0) {
-                        Common.showToast(getActivity(), "Update Fail");
+                        Common.showToast(getActivity(), "Insert Fail");
                     } else {
-                        Common.showToast(getActivity(), "Update Successfully");
+                        Common.showToast(getActivity(), "Insert Successfully");
                     }
                 } else {
                     Common.showToast(getActivity(), "No NetWork Connection");

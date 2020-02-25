@@ -197,6 +197,7 @@ public class TravelDetailFragment extends Fragment {
         }
         return travelDetails;
     }
+
     //ShowTravelDetail
     private void showtravelDetail(List<TravelDetail> travelDetails) {
         if (travelDetails == null || travelDetails.isEmpty()) {
@@ -231,17 +232,13 @@ public class TravelDetailFragment extends Fragment {
 
         class MyViewHolder extends RecyclerView.ViewHolder {
             ImageView imageView;
-            TextView travel_id, pc_name, pc_id, travel_time;
+            TextView travel_id, pc_name;
 
             MyViewHolder(View itemView) {
                 super(itemView);
                 imageView = itemView.findViewById(R.id.imageView);
                 travel_id = itemView.findViewById(R.id.travel_id);
                 pc_name = itemView.findViewById(R.id.pc_name);
-                travel_time = itemView.findViewById(R.id.travel_time);
-
-
-
             }
         }
 
@@ -253,6 +250,11 @@ public class TravelDetailFragment extends Fragment {
         }
 
         @Override
+        public int getItemCount() {
+            return travelDetails.size();
+        }
+
+        @Override
         public void onBindViewHolder(@NonNull final TravelDetailAdapter.MyViewHolder holder, int position) {
             final TravelDetail travelDetail = travelDetails.get(position);
             String url = Common.URL_SERVER + "/PlaceServlet";
@@ -260,8 +262,7 @@ public class TravelDetailFragment extends Fragment {
             travelImageTask = new ImageTask(url, id, imageSize, holder.imageView);
             travelImageTask.execute();
             holder.pc_name.setText(String.valueOf(travelDetail.getPc_name()));
-            holder.travel_time.setText(new SimpleDateFormat("yyyy-MM-dd").format(travelDetail.getTravel_time()));
-//
+
             //下面這行是跳轉到旅遊點細節
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -272,10 +273,7 @@ public class TravelDetailFragment extends Fragment {
 
         }
 
-        @Override
-        public int getItemCount() {
-            return travelDetails.size();
-        }
+
     }
 
     //-----------------------------------------以下為GruopsRecycleView---------------------------------------------------------------------------
