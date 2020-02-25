@@ -82,22 +82,31 @@ public class GroupListFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String newText) {
-                if (newText.isEmpty()) {
-                    showGroups(groups);
-                } else {
-                    List<Group> searchGroups = new ArrayList<>();
-                    for (Group group : groups) {
-                        if (group.getGP_NAME().toUpperCase().contains(newText.toUpperCase())) {
-                            searchGroups.add(group);
-                        }
-                    }
-                    showGroups(searchGroups);
-                }
-                return true;
+
+                return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                GroupAdapter groupAdapter = (GroupAdapter) rvGroup.getAdapter();
+                if (groupAdapter != null) {
+                    if (newText.isEmpty()) {
+                        showGroups(groups);
+                    } else {
+                        List<Group> searchGroups = new ArrayList<>();
+                        for (Group group : groups) {
+                            if (group.getGP_NAME().toUpperCase().contains(newText.toUpperCase())) {
+                                searchGroups.add(group);
+                            }
+                            if (String.valueOf(group.getGP_ID()).contains(newText.toUpperCase())) {
+                                searchGroups.add(group);
+                            }
+                        }
+                        groupAdapter.setGroups(searchGroups);
+                    }
+                    groupAdapter.notifyDataSetChanged();
+                    return true;
+                }
                 return false;
             }
         });
@@ -199,7 +208,7 @@ public class GroupListFragment extends Fragment {
             String url = Common.URL_SERVER + "/GroupServlet";
             int id = group.getGP_ID();
 
-            groupImageTask = new ImageTask(url, id , imageSize, myViewHolder.imageView);
+            groupImageTask = new ImageTask(url, id, imageSize, myViewHolder.imageView);
             groupImageTask.execute();
             myViewHolder.tvName.setText(group.getGP_NAME());
             myViewHolder.tvEventdate.setText("活動日期：" + new SimpleDateFormat("yyyy/MM/dd").format(group.getGP_EVENTDATE()) + new SimpleDateFormat("（E）").format(group.getGP_EVENTDATE()));
@@ -209,8 +218,8 @@ public class GroupListFragment extends Fragment {
                 public void onClick(View view) {
 
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("group",group);
-                    Navigation.findNavController(view).navigate(R.id.action_groupListFragment_to_groupDetailFragment,bundle);
+                    bundle.putSerializable("group", group);
+                    Navigation.findNavController(view).navigate(R.id.action_groupListFragment_to_groupDetailFragment, bundle);
                 }
             });
 

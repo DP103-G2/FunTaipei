@@ -34,19 +34,19 @@
 
             <Button
                 android:id="@+id/btTakePicture"
-                style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@string/textTakePicture" />
+                android:text="@string/textTakePicture"
+                android:background="@drawable/bluebuttonstyle"/>
 
             <Button
                 android:id="@+id/btPickPicture"
-                style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@string/textPickPicture" />
+                android:text="@string/textPickPicture"
+                android:background="@drawable/bluebuttonstyle"/>
 
         </LinearLayout>
 
@@ -154,23 +154,35 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
         <Button
             android:id="@+id/btFinishUpdate"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="12dp"
             android:text="@string/textOk"
-            app:layout_constraintEnd_toStartOf="@+id/btCancel"
-            app:layout_constraintTop_toTopOf="@+id/btCancel" />
+            android:background="@drawable/okbuttonstyle"
+            android:textColor="#FCFAFA"
+            app:layout_constraintBottom_toTopOf="@+id/btCancel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etBdy" />
 
         <Button
             android:id="@+id/btCancel"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="12dp"
             android:text="@string/textCan"
-            app:layout_constraintEnd_toEndOf="@+id/etBdy"
-            app:layout_constraintTop_toBottomOf="@+id/etBdy" />
+            android:textColor="#FCFAFA"
+            android:background="@drawable/cancelbuttonstyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btFinishUpdate" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

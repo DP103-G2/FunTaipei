@@ -1,8 +1,10 @@
 package com.example.funtaipei.group;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -18,6 +20,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.os.Environment;
+import android.preference.PreferenceScreen;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
@@ -36,6 +39,7 @@ import android.widget.Toast;
 import com.example.funtaipei.Common;
 import com.example.funtaipei.R;
 import com.example.funtaipei.task.CommonTask;
+import com.example.funtaipei.travel.Travel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -48,17 +52,24 @@ import java.util.Date;
 import java.util.Calendar;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.MODE_PRIVATE;
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 
 public class GroupInsertFragment extends Fragment {
     private final static String TAG = "TAG_GroupInsertFragment";
+    private final static String DEFAULT_TRAVEL_NAME = "";
+    private final static String PREFERENCES_NAME = "TravelDetail";
+    private final static int TRAVEL_ID = 0;
     private FragmentActivity activity;
+    private CommonTask travelDetailGetAllTask, groupGetAllTask;
     private ImageView ivGroup;
     private EditText etName, etNotes;
     private TextView tvDateTime;
     private TextView tvDateTime2;
     private TextView tvDateTime3;
     private TextView tvPeople;
+    private TextView tvTravelName;
     private Date date1, date2, date3;
     private SimpleDateFormat simpleDateFormat;
     private byte[] image;
@@ -71,12 +82,14 @@ public class GroupInsertFragment extends Fragment {
     private Button btCancel, btFinshInsert;
     private Button btTravelPickr;
     private SeekBar skPeople;
+    private Travel travel;
+    private SharedPreferences preferences;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = getActivity();
-        activity.setTitle("新增旅遊團");
+
 
     }
 
@@ -93,13 +106,14 @@ public class GroupInsertFragment extends Fragment {
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final NavController navController = Navigation.findNavController(view);
+        activity.setTitle("新增旅遊團");
         simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
         ivGroup = view.findViewById(R.id.ivGroup);
 
         etName = view.findViewById(R.id.etName);
         etNotes = view.findViewById(R.id.etNotes);
-
+        tvTravelName = view.findViewById(R.id.tvTravelName);
         tvDateTime = view.findViewById(R.id.tvDateTime);
         tvDateTime2 = view.findViewById(R.id.tvDateTime2);
         tvDateTime3 = view.findViewById(R.id.tvDateTime3);
@@ -114,7 +128,12 @@ public class GroupInsertFragment extends Fragment {
         btCancel = view.findViewById(R.id.btCancel);
         btFinshInsert = view.findViewById(R.id.btFinishInsert);
         btTravelPickr = view.findViewById(R.id.btTravelPicker);
+        preferences = activity.getSharedPreferences(PREFERENCES_NAME, MODE_PRIVATE);
+        String TravelName = preferences.getString("travelName", DEFAULT_TRAVEL_NAME);
+        if (TravelName != "") {
+            tvTravelName.append(": " + TravelName);
 
+        }
         btFinshInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,6 +154,11 @@ public class GroupInsertFragment extends Fragment {
                                         Common.showToast(getActivity(), R.string.textInsertGroupName);
                                         return;
                                     }
+                                    int travelId = preferences.getInt("travelid", TRAVEL_ID);
+                                    if(travelId == 0){
+                                        Common.showToast(getActivity(),R.string.textChoseTravel);
+                                        return;
+                                    }
 
                                     Date eventDate = date1;
                                     Date dateStart = date2;
@@ -151,13 +175,19 @@ public class GroupInsertFragment extends Fragment {
                                         tvPeople.setText("可報名人數: " + skPeople.getProgress() + "人");
                                     }
 
+
                                     //String lower = "2";
                                     String notes = etNotes.getText().toString().trim();
-                                    String url = Common.URL_SERVER + "GroupServlet";
-                                    Group group = new Group(0, 1238, name, 1, upper, 2, dateStart, dateEnd, eventDate, 1, notes, 14);
+                                    if (notes.length() <= 0) {
+                                        Common.showToast(getActivity(), R.string.textInsertNotes);
+                                        return;
+                                    }
+                                    String url = Common.URL_SERVER + "/GroupServlet";
+                                    Group group = new Group(0, travelId, name, 1, upper, 2, dateStart, dateEnd, eventDate, 1, notes, 14);
                                     JsonObject jsonObject = new JsonObject();
                                     jsonObject.addProperty("action", "groupInsert");
                                     Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
+//                                    Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
                                     jsonObject.addProperty("group", gson.toJson(group));
                                     if (image != null) {
                                         jsonObject.addProperty("imageBase64", Base64.encodeToString(image, Base64.DEFAULT));
@@ -175,16 +205,17 @@ public class GroupInsertFragment extends Fragment {
                                         Common.showToast(getActivity(), R.string.textInsertSuccess);
 
 
-
-                                        //團主也要參團，所以我在修這裡嗚嗚～
-
-                                        int id = group.getGP_ID();
-
+                                        //團主也要參團，嗚嗚～
+//                                        int id = group.getGP_ID();
+                                        preferences.edit().clear().commit();
                                     }
                                 } else {
                                     Common.showToast(getActivity(), R.string.textNoNetwork);
                                 }
-                                /* 回前一個Fragment */
+
+
+
+
                                 navController.popBackStack();
 
 
@@ -208,6 +239,8 @@ public class GroupInsertFragment extends Fragment {
         btTravelPickr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_groupInsertFragment_to_groupInsertTravelFragment);
+
 
             }
         });
@@ -315,20 +348,16 @@ public class GroupInsertFragment extends Fragment {
         btDatePicker3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar calendar = Calendar.getInstance();
+                final Calendar calendar = Calendar.getInstance();
                 DatePickerDialog datePickerDialog =
-                        new DatePickerDialog(
-                                activity,
-                                new DatePickerDialog.OnDateSetListener() {
-                                    @Override
-                                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                        date3 = new Date(year - 1900, month, dayOfMonth);
-                                        tvDateTime3.setText(R.string.textDateEnd);
-                                        tvDateTime3.append(":" + simpleDateFormat.format(date3));
-
-                                    }
-                                },
-                                calendar.getTime().getYear() + 1900, calendar.getTime().getMonth(), calendar.getTime().getDate());
+                        new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+//                                calendar.set(year, month, dayOfMonth, 23, 59, 59);
+                                date3 = new Date(year - 1900, month, dayOfMonth);
+                                tvDateTime3.append(":" + simpleDateFormat.format(date3));
+                            }
+                        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 
                 DatePicker datePicker = datePickerDialog.getDatePicker();
 
@@ -339,6 +368,7 @@ public class GroupInsertFragment extends Fragment {
                 calendar.setTime(date1);
                 calendar.add(Calendar.DAY_OF_MONTH, -2);
                 datePicker.setMaxDate(calendar.getTimeInMillis());
+
                 datePickerDialog.show();
             }
         });
@@ -347,6 +377,7 @@ public class GroupInsertFragment extends Fragment {
         btCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                preferences.edit().clear().commit();
                 /* 回前一個Fragment */
                 navController.popBackStack();
             }

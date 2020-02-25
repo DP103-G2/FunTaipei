@@ -74,6 +74,7 @@ public class LoginFragment extends Fragment {
                 } catch (Exception e) {
                     Log.e(TAG, e.toString());
                 }
+//                JsonObject jsonObject1 = new JsonObject();
                 //登入成功
                 if(isValid){
                     Common.showToast(getActivity(),R.string.textLoginSuccess);

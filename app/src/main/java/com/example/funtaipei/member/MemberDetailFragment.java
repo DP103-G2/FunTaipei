@@ -33,7 +33,7 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 
 
 public class MemberDetailFragment extends Fragment {
-    private TextView tvMemberName, tvEmail, tvMember, tvGender, tvBday;
+    private TextView tvEmail, tvMember, tvGender, tvBday;
     private ImageView ivPeopleimage;
     private Button btUpdate;
     private FragmentActivity activity;
@@ -63,7 +63,6 @@ public class MemberDetailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         pref = activity.getSharedPreferences(Common.PREFERENCES_MEMBER, Context.MODE_PRIVATE);
         mb_no = pref.getInt("mb_no", 0);
-        tvMemberName = view.findViewById(R.id.tvMemberName);
         tvEmail = view.findViewById(R.id.tvEmail);
         tvMember = view.findViewById(R.id.tvMember);
         tvGender = view.findViewById(R.id.tvGender);
@@ -104,10 +103,13 @@ public class MemberDetailFragment extends Fragment {
         }
         tvEmail.setText(member.getMb_email());
         tvMember.setText(member.getMb_name());
+
         tvGender.setText(member.getMb_gender());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
         tvBday.setText(simpleDateFormat.format(member.getMb_birthday()));
+
     }
 }
+
 
 

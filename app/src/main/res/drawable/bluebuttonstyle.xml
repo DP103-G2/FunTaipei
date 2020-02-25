@@ -7,18 +7,19 @@
             <!--設定圓角，當設置的圓角半徑很大，就可變成弧形邊了-->
             <corners android:radius="15dip" />
             <!--邊框-->
-            <stroke android:width="1dip" android:color="#538394" />
+<!--            <stroke android:width="1dip" android:color="#707070" />-->
             <!--漸層顏色-->
-            <gradient android:angle="-90" android:startColor="#0099CC" android:endColor="#017DAB"  />
+            <gradient android:angle="-90" android:endColor="#FFFFFF" android:startColor="#FFFFFF" />
+
         </shape>
     </item>
 
     <!-- 預設時 -->
-    <item android:color="@android:color/black">
-        <shape android:shape="rectangle"  >
+    <item>
+        <shape android:shape="rectangle">
             <corners android:radius="15dip" />
-            <stroke android:width="1dip" android:color="#071E54" />
-            <gradient android:angle="-90" android:startColor="#0E2252" android:endColor="#1D2C50"  />
+<!--            <stroke android:width="1dip" android:color="#707070" />-->
+            <gradient android:angle="-90" android:endColor="#A3DDF1" android:startColor="#A3DDF1" />
         </shape>
     </item>
 </selector>

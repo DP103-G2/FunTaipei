@@ -95,7 +95,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.526"
         app:layout_constraintStart_toStartOf="parent"
-        tools:text="查看行程" />
+        tools:text="查看行程"
+        />
 
     <TextView
         android:id="@+id/tvNotes"
