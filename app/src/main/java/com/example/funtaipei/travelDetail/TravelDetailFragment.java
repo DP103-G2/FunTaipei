@@ -238,8 +238,6 @@ public class TravelDetailFragment extends Fragment {
                 imageView = itemView.findViewById(R.id.imageView);
                 travel_id = itemView.findViewById(R.id.travel_id);
                 pc_name = itemView.findViewById(R.id.pc_name);
-                travel_time = itemView.findViewById(R.id.travel_time);
-
 
 
             }
