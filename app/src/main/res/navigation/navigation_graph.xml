@@ -73,7 +73,11 @@
         android:id="@+id/groupInsertFragment"
         android:name="com.example.funtaipei.group.GroupInsertFragment"
         android:label="fragment_insert"
-        tools:layout="@layout/fragment_group_insert" />
+        tools:layout="@layout/fragment_group_insert" >
+        <action
+            android:id="@+id/action_groupInsertFragment_to_groupInsertTravelFragment"
+            app:destination="@id/groupInsertTravelFragment" />
+    </fragment>
     <fragment
         android:id="@+id/placeListFragment"
         android:name="com.example.funtaipei.place.PlaceListFragment"
@@ -203,7 +207,7 @@
     </fragment>
     <fragment
         android:id="@+id/mygroupFragment"
-        android:name="com.example.funtaipei.MygroupFragment"
+        android:name="com.example.funtaipei.group.MygroupFragment"
         android:label="fragment_mygroup"
         tools:layout="@layout/fragment_mygroup" />
     <fragment
@@ -224,5 +228,24 @@
         android:id="@+id/travel_Collection_detailFragment"
         android:name="com.example.funtaipei.travelCollection.Travel_Collection_detailFragment"
         android:label="Travel_Collection_detailFragment" />
+    <fragment
+        android:id="@+id/groupInsertTravelFragment"
+        android:name="com.example.funtaipei.group.GroupInsertTravelFragment"
+        android:label="fragment_group_insert_travel"
+        tools:layout="@layout/fragment_group_insert_travel" >
+        <action
+            android:id="@+id/action_groupInsertTravelFragment_to_travelDetailFragment"
+            app:destination="@id/travelDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/doinGroupFragment"
+        android:name="com.example.funtaipei.group.DoinGroupFragment"
+        android:label="fragment_doin_group"
+        tools:layout="@layout/fragment_doin_group" />
+    <fragment
+        android:id="@+id/endGroupFragment"
+        android:name="com.example.funtaipei.group.EndGroupFragment"
+        android:label="fragment_end_group"
+        tools:layout="@layout/fragment_end_group" />
 
 </navigation>

@@ -13,8 +13,10 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -42,7 +44,7 @@ public class RegisterFragment extends Fragment {
     private Activity activity;
     private EditText etEmail, etPassword, etName;
     private TextView tvDate;
-    private Button btOK, btBack,btDatePicker;
+    private Button btOK, btBack;
     private Date Date1;
     private SimpleDateFormat simpleDateFormat;
     private RadioGroup rgGender;
@@ -84,37 +86,29 @@ public class RegisterFragment extends Fragment {
 
         tvDate = view.findViewById(R.id.tvDate);
         simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
-        btDatePicker = view.findViewById(R.id.btDatePicker);
-        btDatePicker.setOnClickListener(new View.OnClickListener() {
+
+        tvDate.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                //tvDateTime2.setText(R.string.textDateStart);
-                //tvDateTime3.setText(R.string.textDateEnd);
-                //btDatePicker3.setEnabled(false);
-                Calendar calendar = Calendar.getInstance();
-                DatePickerDialog datePickerDialog =
-                        new DatePickerDialog(
-                                activity,
-                                new DatePickerDialog.OnDateSetListener() {
-                                    @Override
-                                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                        Date1 = new Date(year - 1900, month, dayOfMonth);
-                                        tvDate.setText(simpleDateFormat.format(Date1));
-                                        //btDatePicker2.setEnabled(true);
-                                    }
-                                },
-                                calendar.getTime().getYear() + 1900, calendar.getTime().getMonth(), calendar.getTime().getDate());
-
-//                DatePicker datePicker = datePickerDialog.getDatePicker();
-
-//                calendar.add(Calendar.DATE, 3);
-//                datePicker.setMinDate(calendar.getTimeInMillis());
-//                calendar.add(Calendar.MONTH, 1);
-//                calendar.add(Calendar.DAY_OF_MONTH, -7);
-//                datePicker.setMaxDate(calendar.getTimeInMillis());
-
-                datePickerDialog.show();
-
+            public boolean onTouch(View v, MotionEvent event) {
+                Log.d(TAG, String.valueOf(event.getAction()));
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    int inType = tvDate.getInputType();
+                    tvDate.setInputType(InputType.TYPE_NULL);
+                    tvDate.onTouchEvent(event);
+                    tvDate.setInputType(inType);
+                    Calendar calendar = Calendar.getInstance();
+                    DatePickerDialog datePickerDialog = new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                            Date1 = new Date(year - 1900, month, dayOfMonth);
+                            tvDate.setText(simpleDateFormat.format(Date1));
+                            //btDatePicker2.setEnabled(true);
+                        }
+                    },
+                            calendar.getTime().getYear() + 1900, calendar.getTime().getMonth(), calendar.getTime().getDate());
+                    datePickerDialog.show();
+                }
+                return true;
             }
         });
         btOK = view.findViewById(R.id.btOk);
@@ -138,7 +132,7 @@ public class RegisterFragment extends Fragment {
                     Common.showToast(activity, R.string.textNameIsInvalid);
                     return;
                 }
-                String MB_GENDER = rgGender.getCheckedRadioButtonId() == R.id.rbMale ? "M" : "F";
+                String MB_GENDER = rgGender.getCheckedRadioButtonId() == R.id.rbMale ? "男" : "女";
                 if (MB_GENDER.length() <= 0){
                     Common.showToast(activity,R.string.textGenderIsInvalid);
                     return;
@@ -171,7 +165,10 @@ public class RegisterFragment extends Fragment {
                     }
                     if (count == 0) {
                         Common.showToast(getActivity(), R.string.textRegisterFail);
-                    } else {
+                    } else if(count == -1){ //判斷已註冊的帳號
+                        Common.showToast(getActivity(), R.string.textRegistered);
+                    }
+                    else {
                         Common.showToast(getActivity(), R.string.textRegisterSuccess);
                     }
                 } else {
