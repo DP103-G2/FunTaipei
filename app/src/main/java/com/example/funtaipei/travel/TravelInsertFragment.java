@@ -115,8 +115,8 @@ public class TravelInsertFragment extends Fragment {
                     return;
                 }
                 if (Common.networkConnected(activity)) {
-                    String url = Common.URL_SERVER + "TravelServlet";
-                    Travel travel = new Travel(0, travel_title, null, 1);
+                    String url = Common.URL_SERVER + "/TravelServlet";
+                    Travel travel = new Travel(travel_id, travel_title);
                     JsonObject jsonObject = new JsonObject();
                     jsonObject.addProperty("action", "travelInsert");
                     jsonObject.addProperty("travel", new Gson().toJson(travel));

@@ -138,8 +138,8 @@ public class TravelUpdateFragment extends Fragment {
                     return;
                 }
                 if (Common.networkConnected(activity)) {
-                    String url = Common.URL_SERVER + "TravelServlet";
-                    travel.setTravel_name(travel_id, travel_title);
+                    String url = Common.URL_SERVER + "/TravelServlet";
+                    travel.setTravel_name(travel_title);
                     JsonObject jsonObject = new JsonObject();
                     jsonObject.addProperty("action", "update");
                     jsonObject.addProperty("travel", new Gson().toJson(travel));

@@ -39,6 +39,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -155,31 +156,11 @@ public class TravelListFragment extends Fragment {
 
 
         });
-//        btnInsert = view.findViewById(R.id.btnInsert);
-//        btnInsert.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Navigation.findNavController(v).navigate(R.id.action_fragment_travel_to_travelInsert);
-//            }
-//        });
-
     }
 
 
-        //取得Image資料
-//    private List<Image> getImages(){
-//        List<Image> images = null;
-//        if (Common.networkConnected(activity)){
-//            String url = Common.URL_SERVER + "ImageServlet";
-//            JsonObject jsonObject = new JsonObject();
-//            jsonObject.addProperty("action", "getAll");
-//            String jsonOut = jsonObject.toString();
-//            ImageGetAllTask = new CommonTask(url, jsonOut);
-//            try{
-//                String jsonIn = ImageGetAllTask.execute().get();
-//            }
-//        }
-//    }
+
+
         //取得Travel資料
     private List<Travel> getTravels() {
         List<Travel> travels = null;
@@ -205,7 +186,6 @@ public class TravelListFragment extends Fragment {
     //Show出Travel資料
     private void showTravels(List<Travel> travels) {
         if (travels == null || travels.isEmpty()) {
-            Common.showToast(activity, "No Travel Found");
             return;
         }
         TravelAdapter travelAdapter = (TravelAdapter) recyclerView.getAdapter();
@@ -272,58 +252,11 @@ public class TravelListFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                    Bundle bundle = new Bundle();
-                   bundle.putSerializable("travel", travel);
+                   bundle.putSerializable("travel",  travel);
                    Navigation.findNavController(v).navigate(R.id.action_fragment_travel_to_travelDetailFragment, bundle);
 
                 }
             });
-            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(final View v) {
-                    PopupMenu popupMenu = new PopupMenu(activity, v, Gravity.END);
-                    popupMenu.inflate(R.menu.popup_menu);
-                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(MenuItem item) {
-                            switch (item.getItemId()) {
-                                case R.id.update:
-                                    Bundle bundle = new Bundle();
-                                    bundle.putSerializable("travel", travel);
-                                    Navigation.findNavController(v).navigate(R.id.action_fragment_travel_to_travel_update, bundle);
-                                case R.id.delete:
-                                    if (Common.networkConnected(activity)) {
-                                        String url = Common.URL_SERVER + "/TravelServlet";
-                                        JsonObject jsonObject = new JsonObject();
-                                        jsonObject.addProperty("action", "travelDelete");
-                                        jsonObject.addProperty("travelId", travel.getTravel_id());
-                                        int count = 0;
-                                        try {
-                                            travelDeleteTask = new CommonTask(url, jsonObject.toString());
-                                            String result = travelDeleteTask.execute().get();
-                                            count = Integer.valueOf(result);
-                                        } catch (Exception e) {
-                                            Log.d(TAG, "onMenuItemClick: " + e);
-                                        }
-                                        if (count == 0) {
-                                            Common.showToast(activity, R.string.textDeleteFail);
-                                        } else {
-                                            travels.remove(travel);
-                                            TravelAdapter.this.notifyDataSetChanged();
-                                            TravelListFragment.this.travels.remove(travel);
-                                            Common.showToast(activity, R.string.textDeleteSucess);
-                                        }
-                                    } else {
-                                        Common.showToast(activity, R.string.textNoNetwork);
-                                    }
-                            }
-                            return true;
-                        }
-                    });
-                    popupMenu.show();
-                    return true;
-                }
-            });
-
         }
 
 

@@ -212,7 +212,6 @@ public class GroupListFragment extends Fragment {
             groupImageTask.execute();
             myViewHolder.tvName.setText(group.getGP_NAME());
             myViewHolder.tvEventdate.setText("活動日期：" + new SimpleDateFormat("yyyy/MM/dd").format(group.getGP_EVENTDATE()) + new SimpleDateFormat("（E）").format(group.getGP_EVENTDATE()));
-//            myViewHolder.tvNotes.setText(group.getGP_NOTES());
 
             myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
