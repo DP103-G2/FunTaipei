@@ -76,6 +76,7 @@ public class Travel_collection_insert extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final NavController navigation = Navigation.findNavController(view);
+        imageView = view.findViewById(R.id.imageView);
 
        edtTitle = view.findViewById(R.id.edtTitle);
         //拍照

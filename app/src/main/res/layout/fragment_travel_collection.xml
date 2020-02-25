@@ -20,15 +20,6 @@
         </androidx.recyclerview.widget.RecyclerView>
 
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/travelCollectionbtnAdd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right|bottom"
-        android:backgroundTint="#3F51B5"
-        android:src="@android:drawable/ic_input_add">
-
-    </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
