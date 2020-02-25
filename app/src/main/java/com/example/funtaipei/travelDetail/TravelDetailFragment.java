@@ -79,7 +79,13 @@ public class TravelDetailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
 
-
+//        starButton = view.findViewById(R.id.star_button);
+//        starButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(activity, "收藏成功", Toast.LENGTH_SHORT).show();
+//            }
+//        });
         //報名按鈕
         signUpButton = view.findViewById(R.id.signUpButton);
         signUpButton.setOnClickListener(new View.OnClickListener() {
@@ -124,11 +130,12 @@ public class TravelDetailFragment extends Fragment {
         TextView travel_id = view.findViewById(R.id.travel_id);
         Bundle bundle = getArguments();
         if (bundle == null || bundle.getSerializable("travel") == null) {
-
+            Common.showToast(activity, R.string.textNoGroupsFound);
+//            navController.popBackStack();
             return;
         }
         if (bundle != null) {
-            travel = (Travel) bundle.getSerializable("travel");
+            travel = (Travel) bundle.get("travel");
             if (travel != null) {
                 String url = Common.URL_SERVER + "/TravelServlet";
                 ImageTask imageTask = new ImageTask(url, travel.getTravel_id(), getResources().getDisplayMetrics().widthPixels / 4);
@@ -140,13 +147,35 @@ public class TravelDetailFragment extends Fragment {
                 }
                 travel_id.setText(String.valueOf(travel.getTravel_id()));
                 travel_title.setText(travel.getTravel_name());
+                travelDetails = getTravelDetails();
+                showtravelDetail(travelDetails);
+            } if(travel == null){
+                int id = bundle.getInt("travel");
+                if (Common.networkConnected(activity)) {
+                    String url = Common.URL_SERVER + "/TravelDetailServlet";
+                    JsonObject jsonObject = new JsonObject();
+                    jsonObject.addProperty("action", "findByTravelId");
+                    jsonObject.addProperty("id", id);
+                    String jsonOut = jsonObject.toString();
+
+                    travelDetailGetAllTask = new CommonTask(url, jsonOut);
+                    try {
+                        String jsonIn = travelDetailGetAllTask.execute().get();
+                        Type listType = new TypeToken<List<TravelDetail>>() {
+                        }.getType();
+                        travelDetails = new Gson().fromJson(jsonIn, listType);
+                    } catch (Exception e) {
+                        Log.d(TAG, "getTravelDetails: ");
+                    }
+                } else {
+                    Common.showToast(activity, R.string.textNoNetwork);
+                }
             }
         }
         //Detail的RecycleView
         travel_detail_recycleview = view.findViewById(R.id.travel_detail_recycleview);
         travel_detail_recycleview.setLayoutManager(new LinearLayoutManager(activity));
-        travelDetails = getTravelDetails();
-        showtravelDetail(travelDetails);
+
         //Group的RecycleView
 //        group_recycleview = view.findViewById(R.id.group_recycleview);
 //        group_recycleview.setLayoutManager(new StaggeredGridLayoutManager(1, HORIZONTAL));
@@ -229,7 +258,6 @@ public class TravelDetailFragment extends Fragment {
     private class TravelDetailAdapter extends RecyclerView.Adapter<TravelDetailAdapter.MyViewHolder> {
         private LayoutInflater layoutInflater;
         private List<TravelDetail> travelDetails;
-        private List<Place> places;
         private int imageSize;
 
         TravelDetailAdapter(Context context, List<TravelDetail> travelDetails) {
@@ -268,19 +296,19 @@ public class TravelDetailFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull final TravelDetailAdapter.MyViewHolder holder, int position) {
             final TravelDetail travelDetail = travelDetails.get(position);
-            String url = Common.URL_SERVER + "/PlaceServlet";
-            int id = travelDetail.getPc_id();
+            String url = Common.URL_SERVER + "TravelDetailServlet";
+            int id = travelDetail.getTravel_id();
             travelImageTask = new ImageTask(url, id, imageSize, holder.imageView);
             travelImageTask.execute();
-//            holder.pc_id.setText(String.valueOf(travelDetail.getPc_id()));
+            holder.pc_id.setText(String.valueOf(travelDetail.getPc_id()));
             holder.pc_name.setText(String.valueOf(travelDetail.getPc_name()));
 //            holder.stationRecycleView.setLayoutManager(new GridLayoutManager(activity));
             //下面這行是跳轉到旅遊點細節
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    Navigation.findNavController(v).navigate(R.id.action_travelDetailFragment_to_placeDetailsFragment);
+                    Bundle bundle = new Bundle();
+                    Navigation.findNavController(v).navigate(R.id.action_placeDetailsFragment_to_travelDetailFragment, bundle);
                 }
             });
 
@@ -425,51 +453,3 @@ public class TravelDetailFragment extends Fragment {
         }
     }
 }
-
-//行程內部圖片RecycleView.Hor
-
-//private class StationAdapter extends RecyclerView.Adapter<StationAdapter.MyViewHolder> {
-//    private LayoutInflater layoutInflater;
-//    private int imageSize;
-//    private List<Image> images;
-//
-//    StationAdapter(Context context, List<Image> images) {
-//        layoutInflater = LayoutInflater.from(context);
-//        this.images = images;
-//        imageSize = getResources().getDisplayMetrics().widthPixels / 4;
-//    }
-//
-//    void setImages(List<Image> images) {
-//        this.images = images;
-//    }
-//
-//    @Override
-//    public int getItemCount() {
-//        return images.size();
-//    }
-//
-//    class MyViewHolder extends RecyclerView.ViewHolder {
-//        ImageView imageView;
-//
-//        MyViewHolder(View itemView) {
-//            super(itemView);
-//            imageView = itemView.findViewById(R.id.travelDetailPic);
-//        }
-//    }
-//
-//    @NonNull
-//    @Override
-//    public StationAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        View itemView = layoutInflater.inflate(R.layout.travel_pic_item, parent, false);
-//        return new MyViewHolder(itemView);
-//    }
-//
-//    @Override
-//    public void onBindViewHolder(@NonNull StationAdapter.MyViewHolder holder, int position) {
-//        final Place place = places.get(position);
-//        String url = Common.URL_SERVER + "ImageServlet";
-//        travelDetailImageTask = new ImageTask(url,place.getPC_ID(),imageSize,holder.imageView);
-//        travelDetailImageTask.execute();
-//    }
-//
-

@@ -111,7 +111,7 @@ public class GroupDetailFragment extends Fragment {
                                         Common.showToast(getActivity(), R.string.textIJoinSuccess);
 
 
-                                        //這裡報名人數要+1還沒解決
+                                        //這裡報名人數要+1解決
 
                                         int tvid = group.getTRAVEL_ID();
                                         String name = group.getGP_NAME();
@@ -169,10 +169,10 @@ public class GroupDetailFragment extends Fragment {
         btTravel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int travel = group.getTRAVEL_ID();
-                Bundle bunle = new Bundle();
-                bunle.putSerializable("travel", travel);
-                Navigation.findNavController(view).navigate(R.id.action_groupDetailFragment_to_travelDetailFragment, bunle);
+                int travelId = group.getTRAVEL_ID();
+                Bundle bundle = new Bundle();
+                bundle.putInt("travelId", travelId);
+                Navigation.findNavController(view).navigate(R.id.action_groupDetailFragment_to_travelDetailFragment, bundle);
             }
         });
 

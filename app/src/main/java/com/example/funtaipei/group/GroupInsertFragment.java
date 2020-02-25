@@ -151,13 +151,19 @@ public class GroupInsertFragment extends Fragment {
                                         tvPeople.setText("可報名人數: " + skPeople.getProgress() + "人");
                                     }
 
+
                                     //String lower = "2";
                                     String notes = etNotes.getText().toString().trim();
-                                    String url = Common.URL_SERVER + "GroupServlet";
+                                    if (notes.length() <= 0) {
+                                        Common.showToast(getActivity(), R.string.textInsertNotes);
+                                        return;
+                                    }
+                                    String url = Common.URL_SERVER + "/GroupServlet";
                                     Group group = new Group(0, 1238, name, 1, upper, 2, dateStart, dateEnd, eventDate, 1, notes, 14);
                                     JsonObject jsonObject = new JsonObject();
                                     jsonObject.addProperty("action", "groupInsert");
                                     Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
+//                                    Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
                                     jsonObject.addProperty("group", gson.toJson(group));
                                     if (image != null) {
                                         jsonObject.addProperty("imageBase64", Base64.encodeToString(image, Base64.DEFAULT));
@@ -176,9 +182,9 @@ public class GroupInsertFragment extends Fragment {
 
 
 
-                                        //團主也要參團，所以我在修這裡嗚嗚～
+                                        //團主也要參團，嗚嗚～
 
-                                        int id = group.getGP_ID();
+//                                        int id = group.getGP_ID();
 
                                     }
                                 } else {
@@ -315,20 +321,16 @@ public class GroupInsertFragment extends Fragment {
         btDatePicker3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar calendar = Calendar.getInstance();
+                final Calendar calendar = Calendar.getInstance();
                 DatePickerDialog datePickerDialog =
-                        new DatePickerDialog(
-                                activity,
-                                new DatePickerDialog.OnDateSetListener() {
-                                    @Override
-                                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                        date3 = new Date(year - 1900, month, dayOfMonth);
-                                        tvDateTime3.setText(R.string.textDateEnd);
-                                        tvDateTime3.append(":" + simpleDateFormat.format(date3));
-
-                                    }
-                                },
-                                calendar.getTime().getYear() + 1900, calendar.getTime().getMonth(), calendar.getTime().getDate());
+                        new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                                calendar.set(year, month, dayOfMonth, 23, 59, 59);
+                                date3 = new Date(calendar.getTimeInMillis());
+                                tvDateTime3.append(":" + simpleDateFormat.format(date3));
+                            }
+                        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 
                 DatePicker datePicker = datePickerDialog.getDatePicker();
 

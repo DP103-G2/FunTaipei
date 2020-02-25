@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
     android:foreground="?selectableItemBackground"
-    app:cardBackgroundColor="@color/common_google_signin_btn_text_dark_default"
+    app:cardBackgroundColor="@color/design_default_color_on_primary"
     app:cardCornerRadius="16dp"
     app:cardElevation="6dp">
 
