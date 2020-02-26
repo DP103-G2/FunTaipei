@@ -171,10 +171,12 @@ public class TravelDetailFragment extends Fragment {
             }
         } else {
             Common.showToast(activity, R.string.textNoGroupsFound);
-                       navController.popBackStack();
+            navController.popBackStack();
             return;
         }
         //Detail的RecycleView
+//        travelDetails = getTravelDetails();
+//        showtravelDetail(travelDetails);
         travel_detail_recycleview = view.findViewById(R.id.travel_detail_recycleview);
         travel_detail_recycleview.setLayoutManager(new LinearLayoutManager(activity));
 
@@ -502,4 +504,3 @@ public class TravelDetailFragment extends Fragment {
 //        travelDetailImageTask.execute();
 //    }
 //
-
