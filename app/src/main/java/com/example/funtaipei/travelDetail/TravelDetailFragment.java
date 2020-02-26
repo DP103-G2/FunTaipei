@@ -258,7 +258,7 @@ public class TravelDetailFragment extends Fragment {
             travelImageTask = new ImageTask(url, id, imageSize, holder.imageView);
             travelImageTask.execute();
             holder.pc_name.setText(String.valueOf(travelDetail.getPc_name()));
-            holder.travel_time.setText(new SimpleDateFormat("yyyy-MM-dd").format(travelDetail.getTravel_time()));
+
 //
             //下面這行是跳轉到旅遊點細節
             holder.itemView.setOnClickListener(new View.OnClickListener() {

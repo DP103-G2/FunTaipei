@@ -25,6 +25,7 @@ import com.example.funtaipei.R;
 import com.example.funtaipei.task.CommonTask;
 import com.example.funtaipei.task.ImageTask;
 import com.example.funtaipei.travel.Image;
+import com.example.funtaipei.travel.Place;
 import com.example.funtaipei.travel.Travel;
 import com.example.funtaipei.travelDetail.TravelDetail;
 import com.google.gson.Gson;
@@ -50,6 +51,7 @@ public class Travel_Collection_detailFragment extends Fragment {
     private RecyclerView recyclerView;
     private List<TravelDetail> travelDetails;
     private Travel travel;
+    private Place place;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +75,7 @@ public class Travel_Collection_detailFragment extends Fragment {
         if(bundle != null){
             travelCollection = (TravelCollection) bundle.getSerializable("travelCollection");
             String url = Common.URL_SERVER + "/TravelServlet";
-            ImageTask imageTask = new ImageTask(url, travelCollection.getTravel_id(), getResources().getDisplayMetrics().widthPixels / 4);
+            ImageTask imageTask = new ImageTask(url, travel.getTravel_id(), getResources().getDisplayMetrics().widthPixels / 4);
             try{
                 Bitmap bitmap = imageTask.execute().get();
                 imageView.setImageBitmap(bitmap);

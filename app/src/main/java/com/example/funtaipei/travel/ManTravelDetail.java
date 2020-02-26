@@ -15,10 +15,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 
@@ -45,10 +48,11 @@ public class ManTravelDetail extends Fragment {
     private List<TravelDetail> travelDetails;
     private FloatingActionButton manBtnAdd;
     private CommonTask travelDetailGetAllTask;
-    private CommonTask travelDeleteTask;
+    private CommonTask travelDetailDeleteTask;
     private ImageTask travelDetailImageTask;
     final String TAG = "getTravelDetails Error";
     private RecyclerView td_recycleView;
+    private Place place;
 
 
 
@@ -193,6 +197,53 @@ public class ManTravelDetail extends Fragment {
             imageTask.execute();
             //文字設定
             holder.travelName.setText(travelDetail.getPc_name());
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    PopupMenu popupMenu = new PopupMenu(activity, v, Gravity.END);
+                    popupMenu.inflate(R.menu.popup_menu);
+                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            switch (item.getItemId()){
+                                case R.id.delete:
+                                    if(Common.networkConnected(activity)){
+                                        String url = Common.URL_SERVER + "/TravelDetailServlet";
+                                        JsonObject jsonObject = new JsonObject();
+                                        jsonObject.addProperty("action", "travelDetailDelete");
+                                        jsonObject.addProperty("travel_id", travelDetail.getTravel_id());
+                                        jsonObject.addProperty("pc_id", travelDetail.getPc_id());
+
+
+                                        int count = 0;
+                                        try{
+                                            travelDetailDeleteTask = new CommonTask(url, jsonObject.toString());
+                                            String result = travelDetailDeleteTask.execute().get();
+                                            count = Integer.valueOf(result);
+                                        }catch(Exception e){
+                                            Log.d(TAG, "onMenuItemClick: ");
+                                        }
+                                        if(count == 0){
+                                            Common.showToast(activity, R.string.textDeleteFail);
+                                        } else {
+                                            travelDetails.remove(travelDetail);
+                                            ManTravelAdapter.this.notifyDataSetChanged();
+                                            ManTravelAdapter.this.travelDetails.remove(travelDetail);
+                                            Common.showToast(activity, R.string.textDeleteSuccess);
+                                        }
+                                    } else {
+                                        Common.showToast(activity, R.string.textNoNetwork);
+                                    }
+                                    break;
+                            }
+
+                            return true;
+                        }
+                    });
+                    popupMenu.show();
+                    return true;
+                }
+            });
         }
 
 
@@ -212,9 +263,9 @@ public class ManTravelDetail extends Fragment {
             travelDetailGetAllTask = null;
         }
 
-        if (travelDeleteTask != null) {
-            travelDeleteTask.cancel(true);
-            travelDeleteTask = null;
+        if (travelDetailDeleteTask != null) {
+            travelDetailDeleteTask.cancel(true);
+            travelDetailDeleteTask = null;
         }
     }
 
