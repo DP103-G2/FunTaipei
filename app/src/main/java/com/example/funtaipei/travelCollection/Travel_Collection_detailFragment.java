@@ -59,8 +59,8 @@ public class Travel_Collection_detailFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         return inflater.inflate(R.layout.fragment_travel__collection_detail, container, false);
     }
 
@@ -75,7 +75,7 @@ public class Travel_Collection_detailFragment extends Fragment {
         if(bundle != null){
             travelCollection = (TravelCollection) bundle.getSerializable("travelCollection");
             String url = Common.URL_SERVER + "/TravelServlet";
-            ImageTask imageTask = new ImageTask(url, travel.getTravel_id(), getResources().getDisplayMetrics().widthPixels / 4);
+//            ImageTask imageTask = new ImageTask(url, travel.getTravel_id(), getResources().getDisplayMetrics().widthPixels / 4);
             try{
                 Bitmap bitmap = imageTask.execute().get();
                 imageView.setImageBitmap(bitmap);
@@ -98,7 +98,7 @@ public class Travel_Collection_detailFragment extends Fragment {
     public List<TravelDetail> getTravelDetail(){
         List<TravelDetail> travelDetails = null;
         if (Common.networkConnected(activity)) {
-            String url = Common.URL_SERVER + "/TravelServlet";
+            String url = Common.URL_SERVER + "/TravelDetailServlet";
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "findByTravelId");
             jsonObject.addProperty("id", travel.getTravel_id());

@@ -119,17 +119,7 @@ public class TravelListFragment extends Fragment {
             }
         });
 
-
-
-
-        //行程明細
-        recyclerView = view.findViewById(R.id.recycleview);
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        travels = getTravels();
-        showTravels(travels);
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
             @Override
             public boolean onQueryTextChange(String newText) {
                 if (newText.isEmpty()) {
@@ -156,6 +146,12 @@ public class TravelListFragment extends Fragment {
 
 
         });
+
+        //行程明細
+        recyclerView = view.findViewById(R.id.recycleview);
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        travels = getTravels();
+        showTravels(travels);
     }
 
 

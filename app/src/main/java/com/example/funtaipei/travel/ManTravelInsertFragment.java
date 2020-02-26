@@ -100,8 +100,9 @@ public class ManTravelInsertFragment extends Fragment {
                         if (place.getPC_NAME().toUpperCase().contains(newText.toUpperCase())){
                             searchPlace.add(place);
                         }
+                        showPlace(searchPlace);
                     }
-                    showPlace(searchPlace);
+
                 }
                 return true;
             }
