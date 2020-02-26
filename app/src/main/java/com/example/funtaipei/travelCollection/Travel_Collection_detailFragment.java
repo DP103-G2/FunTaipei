@@ -75,7 +75,7 @@ public class Travel_Collection_detailFragment extends Fragment {
         if(bundle != null){
             travelCollection = (TravelCollection) bundle.getSerializable("travelCollection");
             String url = Common.URL_SERVER + "/TravelServlet";
-//            ImageTask imageTask = new ImageTask(url, travel.getTravel_id(), getResources().getDisplayMetrics().widthPixels / 4);
+            ImageTask imageTask = new ImageTask(url, travelCollection.getTravel_id(), getResources().getDisplayMetrics().widthPixels / 4);
             try{
                 Bitmap bitmap = imageTask.execute().get();
                 imageView.setImageBitmap(bitmap);
@@ -101,7 +101,7 @@ public class Travel_Collection_detailFragment extends Fragment {
             String url = Common.URL_SERVER + "/TravelDetailServlet";
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "findByTravelId");
-            jsonObject.addProperty("id", travel.getTravel_id());
+            jsonObject.addProperty("id", travelCollection.getTravel_id());
             String jsonOut = jsonObject.toString();
 
             getAllTask = new CommonTask(url, jsonOut);
@@ -119,7 +119,7 @@ public class Travel_Collection_detailFragment extends Fragment {
        return travelDetails;
     }
 
-    public void showTravelDetail(List<TravelDetail> travelDetails){
+    private void showTravelDetail(List<TravelDetail> travelDetails){
         TravelDetailAdapter travelDetailAdapter = (TravelDetailAdapter) recyclerView.getAdapter();
         if(travelDetailAdapter == null){
             recyclerView.setAdapter(new TravelDetailAdapter(activity, travelDetails));
@@ -171,7 +171,7 @@ public class Travel_Collection_detailFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
             final TravelDetail travelDetail = travelDetails.get(position);
-            String url = Common.URL_SERVER + "/TravelServlet";
+            String url = Common.URL_SERVER + "/PlaceServlet";
             int id = travelDetail.getPc_id();
             imageTask = new ImageTask(url, id, imageSize, holder.imageView);
             imageTask.execute();
