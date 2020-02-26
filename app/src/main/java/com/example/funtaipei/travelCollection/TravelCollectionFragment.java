@@ -200,7 +200,7 @@ public class TravelCollectionFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("travel", travel);
+                    bundle.putSerializable("travelCollection", travelCollection);
                     Navigation.findNavController(view).navigate(R.id.travel_Collection_detailFragment, bundle);
                 }
             });

@@ -17,10 +17,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.example.funtaipei.Common;
 import com.example.funtaipei.R;
 import com.example.funtaipei.task.CommonTask;
+import com.example.funtaipei.travel.Image;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -34,6 +36,7 @@ public class LoginFragment extends Fragment {
     private EditText etEmail,etPassword;
     private List<Member> members;
     private CommonTask memberGetIdTask, loginTask;
+    private ImageView image;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,6 +54,8 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         activity.setTitle("會員專區");
+        image = view.findViewById(R.id.logo);
+
         etEmail = view.findViewById(R.id.etEmail);
         etPassword = view.findViewById(R.id.etPassword);
         btLogin = view.findViewById(R.id.btLogin);
@@ -74,7 +79,7 @@ public class LoginFragment extends Fragment {
                 } catch (Exception e) {
                     Log.e(TAG, e.toString());
                 }
-                
+//                JsonObject jsonObject1 = new JsonObject();
                 //登入成功
                 if(isValid){
                     Common.showToast(getActivity(),R.string.textLoginSuccess);
@@ -91,7 +96,7 @@ public class LoginFragment extends Fragment {
 //                    return;
 //                }
 //                tvMsg.setText("");
-               // Navigation.findNavController(v).navigate((R.id.action_loginFragment_to_listviewFragment));
+                //Navigation.findNavController(v).navigate((R.id.action_loginFragment_to_listviewFragment));
 
             }
         });
@@ -126,6 +131,19 @@ public class LoginFragment extends Fragment {
             Common.showToast(activity, R.string.textNoNetwork);
         }
         return mb_no;
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(memberGetIdTask != null) {
+            memberGetIdTask.cancel(true);
+            memberGetIdTask = null;
+        }
+        if(loginTask != null) {
+            loginTask.cancel(true);
+            loginTask = null;
+        }
+
     }
 }
 

@@ -9,10 +9,10 @@
     tools:context=".member.LoginFragment">
 
 
-    <com.example.funtaipei.CircleImageView
-        android:layout_width="wrap_content"
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="100dp"
         android:src="@drawable/funtaipei_green" />
 
     <com.google.android.material.textfield.TextInputLayout

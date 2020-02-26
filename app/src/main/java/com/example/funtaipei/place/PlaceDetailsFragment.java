@@ -21,6 +21,9 @@ import android.widget.TextView;
 import com.example.funtaipei.Common;
 import com.example.funtaipei.R;
 import com.example.funtaipei.task.ImageTask;
+import com.google.gson.JsonObject;
+
+import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
@@ -32,16 +35,13 @@ public class PlaceDetailsFragment extends Fragment {
     private TextView tvPhone;
     private  TextView tvName;
     private ImageView ivPlace;
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = getActivity();
         place = (Place) (getArguments() != null ? getArguments().getSerializable("place") : null);
-    }
-
-
-    public PlaceDetailsFragment() {
-        // Required empty public constructor
     }
 
 
@@ -82,8 +82,6 @@ public class PlaceDetailsFragment extends Fragment {
             }
         }
     }
-
-
 
 
 

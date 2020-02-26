@@ -169,6 +169,12 @@
         <action
             android:id="@+id/action_groupDetailFragment_to_travelDetailFragment"
             app:destination="@id/travelDetailFragment" />
+        <action
+            android:id="@+id/action_groupDetailFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_groupDetailFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
     </fragment>
 
     <fragment
@@ -254,6 +260,24 @@
         android:id="@+id/manageTravel"
         android:name="com.example.funtaipei.travel.ManageTravel"
         android:label="fragment_manage_travel"
-        tools:layout="@layout/fragment_manage_travel" />
+        tools:layout="@layout/fragment_manage_travel" >
+        <action
+            android:id="@+id/action_manageTravel_to_manTravelDetail"
+            app:destination="@id/manTravelDetail" />
+    </fragment>
+    <fragment
+        android:id="@+id/manTravelDetail"
+        android:name="com.example.funtaipei.travel.ManTravelDetail"
+        android:label="fragment_man_travel_detail"
+        tools:layout="@layout/fragment_man_travel_detail" >
+        <action
+            android:id="@+id/action_manTravelDetail_to_manTravelInsertFragment"
+            app:destination="@id/manTravelInsertFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/manTravelInsertFragment"
+        android:name="com.example.funtaipei.travel.ManTravelInsertFragment"
+        android:label="fragment_man_travel_insert"
+        tools:layout="@layout/fragment_man_travel_insert" />
 
 </navigation>

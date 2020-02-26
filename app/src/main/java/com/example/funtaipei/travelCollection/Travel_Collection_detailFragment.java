@@ -25,6 +25,7 @@ import com.example.funtaipei.R;
 import com.example.funtaipei.task.CommonTask;
 import com.example.funtaipei.task.ImageTask;
 import com.example.funtaipei.travel.Image;
+import com.example.funtaipei.travel.Place;
 import com.example.funtaipei.travel.Travel;
 import com.example.funtaipei.travelDetail.TravelDetail;
 import com.google.gson.Gson;
@@ -50,6 +51,7 @@ public class Travel_Collection_detailFragment extends Fragment {
     private RecyclerView recyclerView;
     private List<TravelDetail> travelDetails;
     private Travel travel;
+    private Place place;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +73,7 @@ public class Travel_Collection_detailFragment extends Fragment {
         TextView textView = view.findViewById(R.id.detailTextView);
         Bundle bundle = getArguments();
         if(bundle != null){
-            travel = (Travel) bundle.getSerializable("travel");
+            travelCollection = (TravelCollection) bundle.getSerializable("travelCollection");
             String url = Common.URL_SERVER + "/TravelServlet";
             ImageTask imageTask = new ImageTask(url, travel.getTravel_id(), getResources().getDisplayMetrics().widthPixels / 4);
             try{
@@ -80,7 +82,7 @@ public class Travel_Collection_detailFragment extends Fragment {
             }catch(Exception e){
                 e.printStackTrace();
             }
-            textView.setText(travel.getTravel_name());
+            textView.setText(travelCollection.getTravel_name());
         }
       // RecycleView
 
@@ -96,7 +98,7 @@ public class Travel_Collection_detailFragment extends Fragment {
     public List<TravelDetail> getTravelDetail(){
         List<TravelDetail> travelDetails = null;
         if (Common.networkConnected(activity)) {
-            String url = Common.URL_SERVER + "/TravelDetailServlet";
+            String url = Common.URL_SERVER + "/TravelServlet";
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "findByTravelId");
             jsonObject.addProperty("id", travel.getTravel_id());
@@ -127,7 +129,7 @@ public class Travel_Collection_detailFragment extends Fragment {
         }
 
     }
-
+//======================RecycleView======================//
 
         private class TravelDetailAdapter extends RecyclerView.Adapter<TravelDetailAdapter.MyViewHolder> {
 
@@ -154,9 +156,6 @@ public class Travel_Collection_detailFragment extends Fragment {
                 textView = itemView.findViewById(R.id.pc_name);
             }
         }
-
-
-
             @Override
             public int getItemCount() {
                 return travelDetails.size();
@@ -171,9 +170,8 @@ public class Travel_Collection_detailFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-
             final TravelDetail travelDetail = travelDetails.get(position);
-            String url = Common.URL_SERVER + "/PlaceServlet";
+            String url = Common.URL_SERVER + "/TravelServlet";
             int id = travelDetail.getPc_id();
             imageTask = new ImageTask(url, id, imageSize, holder.imageView);
             imageTask.execute();
