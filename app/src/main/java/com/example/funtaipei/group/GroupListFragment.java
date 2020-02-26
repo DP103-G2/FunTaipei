@@ -2,18 +2,22 @@ package com.example.funtaipei.group;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -43,9 +47,12 @@ public class GroupListFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView rvGroup;
     private Activity activity;
-    private CommonTask groupGetAllTask;
+    private CommonTask groupGetAllTask, memberGetIdTask, loginTask;
     private ImageTask groupImageTask;
     private List<Group> groups;
+    private EditText etEmail, etPassword;
+    private Button btLogin, btRegister;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -112,9 +119,79 @@ public class GroupListFragment extends Fragment {
         });
         FloatingActionButton btAdd = view.findViewById(R.id.btAdd);
         btAdd.setOnClickListener(new View.OnClickListener() {
+
             @Override
-            public void onClick(View v) {
-                Navigation.findNavController(view).navigate(R.id.action_groupListFragment_to_groupInsertFragment);
+            public void onClick(final View view) {
+                final SharedPreferences pref = activity.getSharedPreferences(Common.PREFERENCES_MEMBER, Context.MODE_PRIVATE);
+                final int MB_NO = pref.getInt("mb_no", 0);
+                if (MB_NO == 0){
+                    LayoutInflater inflater = LayoutInflater.from(activity);
+                    final View v = inflater.inflate(R.layout.fragment_login,null);
+
+                    final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
+                    final AlertDialog alert = alertDialogBuilder.create();
+                    alert.setTitle(R.string.textPleaseLogin);
+                    alert.setIcon(R.drawable.alert);
+                    alert.setView(v);
+                    alert.show();
+
+
+
+
+
+
+
+                    etEmail = v.findViewById(R.id.etEmail);
+                    etPassword = v.findViewById(R.id.etPassword);
+                    btLogin = v.findViewById(R.id.btLogin);
+                    btLogin.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String MB_EMAIL = etEmail.getText().toString();
+                            String MB_PASSWORD = etPassword.getText().toString();
+                            String url = Common.URL_SERVER + "/MemberServlet";
+                            JsonObject jsonObject = new JsonObject();
+                            //對應server的login
+                            jsonObject.addProperty("action", "login");
+                            jsonObject.addProperty("email", MB_EMAIL);
+                            jsonObject.addProperty("password", MB_PASSWORD);
+
+                            loginTask = new CommonTask(url, new Gson().toJson(jsonObject));
+                            boolean isValid = false;
+                            try {
+                                String inStr = loginTask.execute().get();
+                                isValid = Boolean.parseBoolean(inStr);
+                            } catch (Exception e) {
+                                Log.e(TAG, e.toString());
+                            }
+
+                            if(isValid){
+                                Common.showToast(getActivity(), R.string.textLoginSuccess);
+
+                                pref.edit().putString("email",MB_EMAIL)
+                                        .putString("password", MB_PASSWORD)
+                                        .putInt("mb_no",getUserIdByEmail(MB_EMAIL))
+                                        .apply();
+                                alert.cancel();
+                            } else {
+                                Common.showToast(getActivity(), R.string.textLoginFail);
+                            }
+
+                        }
+                    });
+                    btRegister = v.findViewById(R.id.btRegister);
+                    btRegister.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Navigation.findNavController(view).navigate(R.id.registerFragment);
+                            alert.cancel();
+                        }
+                    });
+
+                }
+                if (MB_NO != 0) {
+                    Navigation.findNavController(view).navigate(R.id.action_groupListFragment_to_groupInsertFragment);
+                }
             }
         });
     }
@@ -226,10 +303,41 @@ public class GroupListFragment extends Fragment {
         }
 
     }
-
+    private int getUserIdByEmail(String mb_email) {
+        int mb_no = 0;
+        if(Common.networkConnected(activity)){
+            String url = Common.URL_SERVER + "/MemberServlet";
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("action", "getUserIdByEmail");
+            jsonObject.addProperty("email", mb_email);
+            String jsonOut = jsonObject.toString();
+            memberGetIdTask = new CommonTask(url , jsonOut);
+            try {
+                //傳入string 回傳string轉型 int(id)
+                String result = memberGetIdTask.execute().get();
+                Log.d(TAG, result);
+                mb_no = Integer.parseInt(result);
+            }catch (Exception e){
+                Log.e(TAG, e.toString());
+            }
+        }else{
+            Common.showToast(activity, R.string.textNoNetwork);
+        }
+        return mb_no;
+    }
     @Override
     public void onStop() {
         super.onStop();
+        if(memberGetIdTask != null) {
+            memberGetIdTask.cancel(true);
+            memberGetIdTask = null;
+        }
+
+        if(loginTask != null) {
+            loginTask.cancel(true);
+            loginTask = null;
+        }
+
         if (groupGetAllTask != null) {
             groupGetAllTask.cancel(true);
             groupGetAllTask = null;

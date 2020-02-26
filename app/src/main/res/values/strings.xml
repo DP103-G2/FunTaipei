@@ -89,5 +89,6 @@
     <string name="textnoTravelDetailsFound">找不到行程明細</string>
     <string name="textRegistered">此賬號已註冊</string>
     <string name="textTravelManage">我的行程</string>
+    <string name="textPleaseLogin">請先登入</string>
 
 </resources>

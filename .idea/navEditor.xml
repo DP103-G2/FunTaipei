@@ -95,6 +95,16 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_groupDetailFragment_to_loginFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_groupDetailFragment_to_registerFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_groupDetailFragment_to_travelDetailFragment">
                               <value>
                                 <LayoutPositions />
@@ -228,6 +238,11 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_listviewFragment_to_loginFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_listviewFragment_to_manageTravel">
                               <value>
                                 <LayoutPositions />
                               </value>

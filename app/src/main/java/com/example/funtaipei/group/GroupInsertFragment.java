@@ -134,6 +134,8 @@ public class GroupInsertFragment extends Fragment {
             tvTravelName.append(": " + TravelName);
 
         }
+        final SharedPreferences pref = activity.getSharedPreferences(Common.PREFERENCES_MEMBER, Context.MODE_PRIVATE);
+        final int MB_NO = pref.getInt("mb_no", 0);
         btFinshInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -182,8 +184,9 @@ public class GroupInsertFragment extends Fragment {
                                         Common.showToast(getActivity(), R.string.textInsertNotes);
                                         return;
                                     }
+
                                     String url = Common.URL_SERVER + "/GroupServlet";
-                                    Group group = new Group(0, travelId, name, 1, upper, 2, dateStart, dateEnd, eventDate, 1, notes, 14);
+                                    Group group = new Group(0, travelId, name, 1, upper, 2, dateStart, dateEnd, eventDate, 1, notes, MB_NO);
                                     JsonObject jsonObject = new JsonObject();
                                     jsonObject.addProperty("action", "groupInsert");
                                     Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
