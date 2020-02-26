@@ -138,7 +138,6 @@ public class ManageTravel extends Fragment {
 
         private LayoutInflater layoutInflater;
         private int imageSize;
-        private List<TravelCollection> travelCollections;
         private List<Travel> travels;
 
         TravelAdapter(Context context, List<Travel> travelList){
@@ -188,7 +187,7 @@ public class ManageTravel extends Fragment {
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("travel", travel);
-                    Navigation.findNavController(v).navigate(R.id.travel_Collection_detailFragment, bundle);
+                    Navigation.findNavController(v).navigate(R.id.action_manageTravel_to_manTravelDetail, bundle);
                 }
             });
             //選項長按點擊事件
@@ -205,8 +204,10 @@ public class ManageTravel extends Fragment {
                                     if(Common.networkConnected(activity)){
                                         String url = Common.URL_SERVER + "/TravelServlet";
                                         JsonObject jsonObject = new JsonObject();
-                                        jsonObject.addProperty("action", "travelDelete");
                                         jsonObject.addProperty("action" , travel.getTravel_id());
+                                        jsonObject.addProperty("action", "travelDelete");
+
+
 
                                         int count = 0;
                                         try{

@@ -110,13 +110,14 @@ public class TravelInsertFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String title = edtTitle.getText().toString().trim();
+
                 if (title.length() <= 0) {
                     Common.showToast(getActivity(), "Title Can't be Empty");
                     return;
                 }
                 if (Common.networkConnected(activity)) {
                     String url = Common.URL_SERVER + "/TravelServlet";
-                    Travel travel = new Travel(travel_id, travel_title);
+                    Travel travel = new Travel(travel_id, title);
                     JsonObject jsonObject = new JsonObject();
                     jsonObject.addProperty("action", "travelInsert");
                     jsonObject.addProperty("travel", new Gson().toJson(travel));

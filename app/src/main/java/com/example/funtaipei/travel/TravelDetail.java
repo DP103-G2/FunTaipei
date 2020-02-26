@@ -1,4 +1,4 @@
-package com.example.funtaipei.travelDetail;
+package com.example.funtaipei.travel;
 
 import java.util.Date;
 
@@ -7,22 +7,21 @@ public class TravelDetail {
 	private int travel_id;
 	private int pc_id;
 	private String pc_name;
-	private Date travel_time;
 
 	public TravelDetail(int travel_id, int pc_id, String pc_name) {
 		super();
 		this.travel_id = travel_id;
 		this.pc_id = pc_id;
 		this.pc_name = pc_name;
-		this.travel_time = travel_time;
+
 	}
 
-	public TravelDetail(int travel_id, int pc_id){
-		super();
+
+
+	public TravelDetail(int travel_id, int pc_id) {
 		this.travel_id = travel_id;
 		this.pc_id = pc_id;
 	}
-
 
 	public int getTravel_id() {
 		return travel_id;
@@ -43,11 +42,5 @@ public class TravelDetail {
 		this.pc_name = pc_name;
 	}
 
-	public Date getTravel_time() {
-		return travel_time;
-	}
 
-	public void setTravel_time(Date travel_time) {
-		this.travel_time = travel_time;
-	}
 }

@@ -81,4 +81,8 @@ public class Travel implements Serializable{
 		this.mb_no = mb_no;
 	}
 
+	public int setTravel_id() {
+		this.travel_id = travel_id;
+		return travel_id;
+	}
 }
