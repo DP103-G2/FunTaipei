@@ -15,20 +15,26 @@
         app:tabMode="fixed"
         app:tabGravity="fill">
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_travelCollection"
+            android:id="@+id/DoingGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="進行中"/>
+
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_placeCollection"
+            android:id="@+id/EndGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="已結束"/>
+            android:text="參團紀錄" />
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/Master"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="我的團體"/>
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPaper"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
 </LinearLayout>

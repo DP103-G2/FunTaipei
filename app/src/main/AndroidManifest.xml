@@ -39,8 +39,11 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Splash"
-            android:theme="@style/Theme.Design.Light.NoActionBar">
+        <activity
+            android:name=".Splash"
+            android:theme="@style/Theme.Design.Light.NoActionBar"
+            android:logo="@drawable/funtaipei_green">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

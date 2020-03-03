@@ -186,7 +186,7 @@ public class GroupInsertFragment extends Fragment {
                                     }
 
                                     String url = Common.URL_SERVER + "/GroupServlet";
-                                    Group group = new Group(0, travelId, name, 1, upper, 2, dateStart, dateEnd, eventDate, 1, notes, MB_NO);
+                                    Group group = new Group(0, travelId, name, 1, upper, 2, dateStart, dateEnd, eventDate, 1, notes, MB_NO,0,1);
                                     JsonObject jsonObject = new JsonObject();
                                     jsonObject.addProperty("action", "groupInsert");
                                     Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
@@ -202,25 +202,18 @@ public class GroupInsertFragment extends Fragment {
                                     } catch (Exception e) {
                                         Log.e(TAG, e.toString());
                                     }
-                                    if (count == 0) {
+                                    if (count == 0 || count == 1) {
                                         Common.showToast(getActivity(), R.string.textInsertFail);
-                                    } else {
+                                    } else if (count == 2) {
                                         Common.showToast(getActivity(), R.string.textInsertSuccess);
 
-
-                                        //團主也要參團，嗚嗚～
-//                                        int id = group.getGP_ID();
-                                        preferences.edit().clear().commit();
                                     }
                                 } else {
                                     Common.showToast(getActivity(), R.string.textNoNetwork);
                                 }
 
-
-
-
                                 navController.popBackStack();
-
+                                preferences.edit().clear().commit();
 
                             }
                         })
@@ -358,6 +351,7 @@ public class GroupInsertFragment extends Fragment {
                             public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
 //                                calendar.set(year, month, dayOfMonth, 23, 59, 59);
                                 date3 = new Date(year - 1900, month, dayOfMonth);
+                                tvDateTime3.setText(R.string.textDateEnd);
                                 tvDateTime3.append(":" + simpleDateFormat.format(date3));
                             }
                         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
