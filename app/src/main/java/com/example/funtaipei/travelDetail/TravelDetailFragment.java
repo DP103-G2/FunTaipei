@@ -175,29 +175,6 @@ public class TravelDetailFragment extends Fragment {
         showtravelDetail(travelDetails);
     }
 
-    //Get PlaceDetail
-    private List<com.example.funtaipei.place.Place> getPlaces() {
-        List<com.example.funtaipei.place.Place> places = null;
-        if (Common.networkConnected(activity)) {
-            String url = Common.URL_SERVER + "/PlaceServlet";
-            JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("action", "getAll");
-            String jsonOut = jsonObject.toString();
-            placeGetAllTask = new CommonTask(url, jsonOut);
-            try {
-                String jsonIn = placeGetAllTask.execute().get();
-                Type listType = new TypeToken<List<com.example.funtaipei.place.Place>>() {
-                }.getType();
-                places = new Gson().fromJson(jsonIn, listType);
-            } catch (Exception e) {
-                Log.e(TAG, e.toString());
-            }
-        } else {
-            Common.showToast(activity, "沒有景點");
-        }
-        return places;
-    }
-
 
     //Get Travel Detail
     private List<TravelDetail> getTravelDetails() {

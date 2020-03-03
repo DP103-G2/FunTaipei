@@ -55,10 +55,6 @@ public class Travel_collection_insert extends Fragment {
     private static final int REQ_CROP_PICTURE = 2;
     private Uri contentUri;
 
-    public Travel_collection_insert() {
-
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

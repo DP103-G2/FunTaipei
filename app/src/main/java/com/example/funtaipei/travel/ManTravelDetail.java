@@ -2,14 +2,17 @@ package com.example.funtaipei.travel;
 
 
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,7 +38,11 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+
+import static android.graphics.Color.LTGRAY;
 
 
 /**
@@ -53,6 +60,7 @@ public class ManTravelDetail extends Fragment {
     final String TAG = "getTravelDetails Error";
     private RecyclerView td_recycleView;
     private Place place;
+    private ManTravelAdapter manTravelAdapter;
 
 
 
@@ -97,6 +105,11 @@ public class ManTravelDetail extends Fragment {
         travelDetails = getTravelDetails();
         showTravelDetail(travelDetails);
 
+
+        //長按移動
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemDrag());
+        itemTouchHelper.attachToRecyclerView(td_recycleView);
 
         //Floation Button
         manBtnAdd = view.findViewById(R.id.manBtnAdd);
@@ -144,6 +157,7 @@ public class ManTravelDetail extends Fragment {
         } else {
             manTravelAdapter.setManTravelDetail(travelDetails);
             manTravelAdapter.notifyDataSetChanged();
+
 
         }
     }
@@ -247,6 +261,59 @@ public class ManTravelDetail extends Fragment {
         }
 
 
+    }
+    //拖拉改變位置功能
+    class ItemDrag extends ItemTouchHelper.Callback{
+
+
+        @Override
+        public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+            int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
+            int swipeFlags = 0;
+            return makeMovementFlags(dragFlags, swipeFlags);
+        }
+
+
+
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            int fromPosition = viewHolder.getAdapterPosition();
+            int toPosition = target.getAdapterPosition();
+            Collections.swap(getTravelDetails(), fromPosition, toPosition);
+
+            manTravelAdapter.notifyItemMoved(fromPosition, toPosition);
+
+            return true;
+        }
+        @Override
+        public boolean isLongPressDragEnabled() {
+            return true;
+        }
+
+        @Override
+        public boolean isItemViewSwipeEnabled() {
+            return true;
+        }
+
+               @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+        }
+
+        @Override
+        public void onSelectedChanged(@Nullable RecyclerView.ViewHolder viewHolder, int actionState) {
+            if(actionState != ItemTouchHelper.ACTION_STATE_DRAG){
+                viewHolder.itemView.setBackgroundColor(Color.LTGRAY);
+            }
+            super.onSelectedChanged(viewHolder, actionState);
+        }
+
+        @Override
+        public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+            super.clearView(recyclerView, viewHolder);
+            viewHolder.itemView.setBackgroundColor(0);
+
+        }
     }
 
 
