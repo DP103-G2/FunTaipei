@@ -14,15 +14,6 @@
         android:orientation="vertical">
 
 
-        <SearchView
-            android:id="@+id/searchView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:iconifiedByDefault="false"
-            android:queryHint="搜尋 團體名稱 或 編號" >
-
-        </SearchView>
-
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipeRefreshLayout"
             android:layout_width="match_parent"
@@ -30,7 +21,7 @@
             android:layout_margin="8dp">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvGroup"
+                android:id="@+id/rvMember"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
@@ -38,16 +29,5 @@
 
 
     </LinearLayout>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btAdd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:src="@android:drawable/ic_input_add"
-        app:backgroundTint="#3F51B5"
-        app:elevation="6dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

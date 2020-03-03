@@ -1,6 +1,8 @@
 package com.example.funtaipei.main;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
@@ -20,6 +22,7 @@ import com.example.funtaipei.travelCollection.TabCollectionFragment;
 import com.example.funtaipei.travel.TravelListFragment;
 import com.example.funtaipei.travelCollection.TabCollectionFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
     private static int SPLASH_TIME_OUT = 3000;
@@ -29,12 +32,20 @@ public class MainActivity extends AppCompatActivity {
     private TravelListFragment travelListFragment;
 //    private TravelCollectionFragment travelCollectionFragment;
     private TabCollectionFragment tabCollectionFragment;
+    private NavigationView navigationView;
+    private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+//        ActionBar actionBar = getSupportActionBar();
+//        if (actionBar != null){
+//            actionBar.setLogo(R.drawable.logo);
+//            actionBar.setDisplayUseLogoEnabled(true);
+//            actionBar.setDisplayShowHomeEnabled(true);
+////            actionBar.
+//        }
 
         placeListFragment = new PlaceListFragment();
         groupListFragment = new GroupListFragment();

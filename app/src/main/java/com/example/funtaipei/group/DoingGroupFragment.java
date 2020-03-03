@@ -1,6 +1,4 @@
 package com.example.funtaipei.group;
-
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -35,8 +33,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 
-public class EndGroupFragment extends Fragment {
-
+public class DoingGroupFragment extends Fragment {
     private static final String TAG = "TAG_DoingGroupFragment";
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView rvGroup;
@@ -45,22 +42,25 @@ public class EndGroupFragment extends Fragment {
     private ImageTask groupImageTask;
     private List<Group> groups;
 
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = getActivity();
     }
 
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_end_group, container, false);
+        return inflater.inflate(R.layout.fragment_doin_group, container, false);
     }
+
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        activity.setTitle("團體-已結束");
+//        activity.setTitle("團體-進行中");
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         rvGroup = view.findViewById(R.id.rvGroup);
         rvGroup.setLayoutManager(new LinearLayoutManager(activity));
@@ -84,7 +84,7 @@ public class EndGroupFragment extends Fragment {
         if (Common.networkConnected(activity)) {
             String url = Common.URL_SERVER + "/GroupServlet";
             JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("action", "end");
+            jsonObject.addProperty("action", "doing");
             jsonObject.addProperty("id",MB_NO);
             String jsonOut = jsonObject.toString();
             groupGetByIdTask = new CommonTask(url, jsonOut);
@@ -150,13 +150,13 @@ public class EndGroupFragment extends Fragment {
 
         @NonNull
         @Override
-        public GroupAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View itemView = layoutInflater.inflate(R.layout.fragment_group_item_view, parent, false);
-            return new GroupAdapter.MyViewHolder(itemView);
+            return new MyViewHolder(itemView);
         }
 
         @Override
-        public void onBindViewHolder(@NonNull GroupAdapter.MyViewHolder myViewHolder, int position) {
+        public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
             final Group group = groups.get(position);
             String url = Common.URL_SERVER + "/GroupServlet";
             int id = group.getGP_ID();

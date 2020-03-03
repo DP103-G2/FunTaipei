@@ -35,9 +35,11 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 
-public class EndGroupFragment extends Fragment {
-
-    private static final String TAG = "TAG_DoingGroupFragment";
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class MasterFragment extends Fragment {
+    private static final String TAG = "TAG_MasterFragment";
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView rvGroup;
     private Activity activity;
@@ -55,12 +57,13 @@ public class EndGroupFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_end_group, container, false);
+        return inflater.inflate(R.layout.fragment_master, container, false);
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        activity.setTitle("團體-已結束");
+        activity.setTitle("我的揪團");
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         rvGroup = view.findViewById(R.id.rvGroup);
         rvGroup.setLayoutManager(new LinearLayoutManager(activity));
@@ -84,7 +87,7 @@ public class EndGroupFragment extends Fragment {
         if (Common.networkConnected(activity)) {
             String url = Common.URL_SERVER + "/GroupServlet";
             JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("action", "end");
+            jsonObject.addProperty("action", "master");
             jsonObject.addProperty("id",MB_NO);
             String jsonOut = jsonObject.toString();
             groupGetByIdTask = new CommonTask(url, jsonOut);
@@ -105,7 +108,7 @@ public class EndGroupFragment extends Fragment {
     }
     private void showGroups(List<Group> groups) {
         if (groups == null || groups.isEmpty()) {
-//            Common.showToast(activity, R.string.textNoGroupsFound);
+//            Common.showToast(activity, R.string.textNoInsertGroup);
         }
         GroupAdapter groupAdapter = (GroupAdapter) rvGroup.getAdapter();
         if (groupAdapter == null) {
@@ -169,8 +172,9 @@ public class EndGroupFragment extends Fragment {
                 public void onClick(View view) {
 
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("group", group);
-                    Navigation.findNavController(view).navigate(R.id.groupDetailFragment, bundle);
+                    int id = group.getGP_ID();
+                    bundle.putInt("gpid", id);
+                    Navigation.findNavController(view).navigate(R.id.action_masterFragment_to_myGroupMemberFragment, bundle);
                 }
             });
 

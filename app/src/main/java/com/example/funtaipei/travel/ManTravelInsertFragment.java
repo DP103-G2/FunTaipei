@@ -87,6 +87,12 @@ public class ManTravelInsertFragment extends Fragment {
             }
         }
 
+        //RecycleView
+        tc_RecycleView = view.findViewById(R.id.tc_recycleview);
+        tc_RecycleView.setLayoutManager(new LinearLayoutManager(activity));
+        places = getPlaces();
+        showPlace(places);
+
         //SearchView
         tc_insertSearch = view.findViewById(R.id.tc_insertSearch);
         tc_insertSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -102,7 +108,6 @@ public class ManTravelInsertFragment extends Fragment {
                         }
                         showPlace(searchPlace);
                     }
-
                 }
                 return true;
             }
@@ -112,12 +117,6 @@ public class ManTravelInsertFragment extends Fragment {
                 return false;
             }
         });
-
-        //RecycleView
-        tc_RecycleView = view.findViewById(R.id.tc_recycleview);
-        tc_RecycleView.setLayoutManager(new LinearLayoutManager(activity));
-        places = getPlaces();
-        showPlace(places);
 
     }
 
@@ -248,9 +247,7 @@ public class ManTravelInsertFragment extends Fragment {
                     navController.popBackStack();
                 }
             });
-
         }
-
     }
     @Override
     public void onStop() {

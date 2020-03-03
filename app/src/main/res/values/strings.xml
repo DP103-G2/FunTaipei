@@ -91,5 +91,11 @@
     <string name="textRegistered">此賬號已註冊</string>
     <string name="textTravelManage">我的行程</string>
     <string name="textPleaseLogin">請先登入</string>
+    <string name="textdoingGroup">進行中</string>
+    <string name="textEndGroup">已結束</string>
+    <string name="textMyGroup">我的團體</string>
+    <string name="textNoInsertGroup">您尚未發起團體</string>
+    <string name="textmyNewGroup">我的揪團</string>
+    <string name="textNoMemberJoin">尚未有人報名</string>
 
 </resources>

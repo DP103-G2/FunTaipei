@@ -4,13 +4,13 @@ package com.example.funtaipei.group;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Group implements Serializable {
-    private int MB_NO;
-    private int GP_ID, TRAVEL_ID, GP_ENROLLMENT, GP_UPPER, GP_LOWER, GP_STATUS;
+public class Group implements Serializable{
+
+    private int GP_ID, TRAVEL_ID, GP_ENROLLMENT, GP_UPPER, GP_LOWER, GP_STATUS, MB_NO, CHECK_IN, MASTER;
     private String GP_NAME, GP_NOTES;
     private Date GP_DATESTART, GP_DATEEND, GP_EVENTDATE;
 
-    public Group(int gP_ID, int tRAVEL_ID, String gP_NAME, int gP_ENROLLMENT, int gP_UPPER, int gP_LOWER, Date gP_DATESTART, Date gP_DATEEND, Date gP_EVENTDATE, int gP_STATUS, String gP_NOTES, int mB_NO) {
+    public Group(int gP_ID, int tRAVEL_ID, String gP_NAME, int gP_ENROLLMENT, int gP_UPPER, int gP_LOWER, Date gP_DATESTART, Date gP_DATEEND, Date gP_EVENTDATE, int gP_STATUS, String gP_NOTES, int mB_NO, int cHECK_IN, int mASTER) {
         super();
         this.GP_ID = gP_ID;
         this.TRAVEL_ID = tRAVEL_ID;
@@ -24,8 +24,11 @@ public class Group implements Serializable {
         this.GP_DATEEND = gP_DATEEND;
         this.GP_EVENTDATE = gP_EVENTDATE;
         this.MB_NO = mB_NO;
+        this.CHECK_IN = cHECK_IN;
+        this.MASTER = mASTER;
+
     }
-    public void setGroup(int tRAVEL_ID, String gP_NAME, int gP_ENROLLMENT, int gP_UPPER, int gP_LOWER, Date gP_DATESTART, Date gP_DATEEND, Date gP_EVENTDATE, int gP_STATUS, String gP_NOTES, int mB_NO){
+    public void setGroup(int tRAVEL_ID, String gP_NAME, int gP_ENROLLMENT, int gP_UPPER, int gP_LOWER, Date gP_DATESTART, Date gP_DATEEND, Date gP_EVENTDATE, int gP_STATUS, String gP_NOTES){
         this.TRAVEL_ID = tRAVEL_ID;
         this.GP_ENROLLMENT = gP_ENROLLMENT;
         this.GP_UPPER = gP_UPPER;
@@ -36,10 +39,34 @@ public class Group implements Serializable {
         this.GP_DATESTART = gP_DATESTART;
         this.GP_DATEEND = gP_DATEEND;
         this.GP_EVENTDATE = gP_EVENTDATE;
-        this.MB_NO = mB_NO;
+
+    }
+    public Group(int gP_ID, int tRAVEL_ID, String gP_NAME, int gP_ENROLLMENT, int gP_UPPER, int gP_LOWER, Date gP_DATESTART, Date gP_DATEEND, Date gP_EVENTDATE, int gP_STATUS, String gP_NOTES) {
+        super();
+        this.GP_ID = gP_ID;
+        this.TRAVEL_ID = tRAVEL_ID;
+        this.GP_ENROLLMENT = gP_ENROLLMENT;
+        this.GP_UPPER = gP_UPPER;
+        this.GP_LOWER = gP_LOWER;
+        this.GP_STATUS = gP_STATUS;
+        this.GP_NAME = gP_NAME;
+        this.GP_NOTES = gP_NOTES;
+        this.GP_DATESTART = gP_DATESTART;
+        this.GP_DATEEND = gP_DATEEND;
+        this.GP_EVENTDATE = gP_EVENTDATE;
+
     }
 
-
+    public Group(int gP_ID, int tRAVEL_ID, String gP_NAME, Date gP_DATESTART, Date gP_DATEEND,
+                 Date gP_EVENTDATE) {
+        super();
+        GP_ID = gP_ID;
+        TRAVEL_ID = tRAVEL_ID;
+        GP_NAME = gP_NAME;
+        GP_DATESTART = gP_DATESTART;
+        GP_DATEEND = gP_DATEEND;
+        GP_EVENTDATE = gP_EVENTDATE;
+    }
 
     public int getGP_ID() {
         return GP_ID;
@@ -107,14 +134,31 @@ public class Group implements Serializable {
     public void setGP_EVENTDATE(Date gP_EVENTDATE) {
         this.GP_EVENTDATE = gP_EVENTDATE;
     }
-    public void setGP_NO(int mB_NO) {
-        this.MB_NO = mB_NO;
-    }
+
     public int getMB_NO() {
         return MB_NO;
+    }
+
+    public void setMB_NO(int mB_NO) {
+        MB_NO = mB_NO;
+    }
+
+    public int getCHECK_IN() {
+        return CHECK_IN;
+    }
+
+    public void setCHECK_IN(int cHECK_IN) {
+        CHECK_IN = cHECK_IN;
+    }
+
+    public int getMASTER() {
+        return MASTER;
+    }
+
+    public void setMASTER(int mASTER) {
+        MASTER = mASTER;
     }
 
 
 
 }
-

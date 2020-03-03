@@ -176,8 +176,6 @@ public class Travel_Collection_detailFragment extends Fragment {
             imageTask = new ImageTask(url, id, imageSize, holder.imageView);
             imageTask.execute();
             holder.textView.setText(travelDetail.getPc_name());
-            //要寫刪 and 增
-
         }
 
 

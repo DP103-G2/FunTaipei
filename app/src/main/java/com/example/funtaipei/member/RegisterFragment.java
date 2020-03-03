@@ -165,18 +165,18 @@ public class RegisterFragment extends Fragment {
                     }
                     if (count == 0) {
                         Common.showToast(getActivity(), R.string.textRegisterFail);
-                    }
-                    else if(count == -1){ //判斷已註冊的帳號
+                    } else if(count == -1){ //判斷已註冊的帳號
                         Common.showToast(getActivity(), R.string.textRegistered);
+
                     }
                     else if(count == 1){
                         Common.showToast(getActivity(), R.string.textRegisterSuccess);
-                        /* 回前一個Fragment */
                         navController.popBackStack();
                     }
                 } else {
                     Common.showToast(getActivity(), R.string.textNoNetwork);
                 }
+                /* 回前一個Fragment */
 
             }
         });
