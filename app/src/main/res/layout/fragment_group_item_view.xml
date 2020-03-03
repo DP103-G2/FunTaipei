@@ -7,7 +7,7 @@
     android:layout_margin="4dp"
     android:foreground="?selectableItemBackground"
     app:cardBackgroundColor="@color/design_default_color_on_primary"
-    app:cardCornerRadius="16dp"
+    app:cardCornerRadius="5dp"
     app:cardElevation="6dp">
 
     <LinearLayout
@@ -19,6 +19,7 @@
             android:id="@+id/imageView"
             android:layout_width="100px"
             android:layout_height="200px"
+            android:layout_marginLeft="5dp"
             android:layout_weight="1"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
 

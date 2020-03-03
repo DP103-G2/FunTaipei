@@ -171,7 +171,7 @@ public class GroupDetailFragment extends Fragment {
 
                                     if (Common.networkConnected(activity)) {
                                         String url = Common.URL_SERVER + "/JoinGroupServlet";
-                                        JoinGroup jg = new JoinGroup(id, MB_NO, 0);
+                                        JoinGroup jg = new JoinGroup(id, MB_NO, 0,0);
                                         JsonObject jsonObject = new JsonObject();
                                         jsonObject.addProperty("action", "jgInsert");
                                         jsonObject.addProperty("jg", new Gson().toJson(jg));
@@ -188,7 +188,7 @@ public class GroupDetailFragment extends Fragment {
                                             Common.showToast(getActivity(), R.string.textIJoinSuccess);
 
 
-                                            //這裡報名人數要+1解決
+                                            //這裡報名人數要+1已解決
 
                                             int tvid = group.getTRAVEL_ID();
                                             String name = group.getGP_NAME();
@@ -200,11 +200,11 @@ public class GroupDetailFragment extends Fragment {
                                             Date eventDate = group.getGP_EVENTDATE();
                                             int status = group.getGP_STATUS();
                                             String notes = group.getGP_NOTES();
-                                            int MB_NO = group.getMB_NO();
+
 
                                             if (Common.networkConnected(activity)) {
                                                 String url2 = Common.URL_SERVER + "/GroupServlet";
-                                                group.setGroup(tvid, name, ENROLLMENT, upper, lower, dateStart, dateEnd, eventDate, status, notes, MB_NO);
+                                                group.setGroup(tvid, name, ENROLLMENT, upper, lower, dateStart, dateEnd, eventDate, status, notes);
 
                                                 jsonObject.addProperty("action", "groupUpdate");
                                                 Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();

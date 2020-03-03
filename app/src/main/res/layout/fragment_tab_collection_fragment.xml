@@ -11,19 +11,21 @@
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/colorPrimary"
-        app:tabMode="fixed"
-        app:tabGravity="fill">
-    <com.google.android.material.tabs.TabItem
-        android:id="@+id/tab_travelCollection"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="我的行程"/>
-    <com.google.android.material.tabs.TabItem
-        android:id="@+id/tab_placeCollection"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="我的旅遊點"/>
+        android:background="@color/colorPrimaryDark"
+        app:tabGravity="fill"
+        app:tabMode="fixed">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/DoingGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="我的行程" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/Master"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="我的旅遊點" />
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager.widget.ViewPager

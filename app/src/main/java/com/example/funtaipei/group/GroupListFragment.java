@@ -2,7 +2,6 @@ package com.example.funtaipei.group;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -54,10 +53,16 @@ public class GroupListFragment extends Fragment {
     private Button btLogin, btRegister;
 
 
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = getActivity();
+//        Toolbar toolbar = getView().findViewById(R.id.toolbar);
+
+
+
+
 
     }
 
@@ -65,11 +70,13 @@ public class GroupListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         return inflater.inflate(R.layout.fragment_group_list, container, false);
+
     }
 
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         activity.setTitle("旅遊團體");
         SearchView searchView = view.findViewById(R.id.searchView);
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
@@ -261,7 +268,7 @@ public class GroupListFragment extends Fragment {
                 tvName = itemView.findViewById(R.id.tvName);
                 tvEventdate = itemView.findViewById(R.id.tvEventdate);
 //                tvNotes = itemView.findViewById(R.id.tvNotes);
-
+//
 
             }
         }
@@ -274,7 +281,7 @@ public class GroupListFragment extends Fragment {
         @NonNull
         @Override
         public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View itemView = layoutInflater.inflate(R.layout.fragment_group_item_view, parent, false);
+            View itemView = layoutInflater.inflate(R.layout.group_item_home, parent, false);
             return new MyViewHolder(itemView);
         }
 
@@ -284,7 +291,6 @@ public class GroupListFragment extends Fragment {
 
             String url = Common.URL_SERVER + "/GroupServlet";
             int id = group.getGP_ID();
-
             groupImageTask = new ImageTask(url, id, imageSize, myViewHolder.imageView);
             groupImageTask.execute();
             myViewHolder.tvName.setText(group.getGP_NAME());

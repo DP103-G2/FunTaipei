@@ -194,6 +194,12 @@
         <action
             android:id="@+id/action_listviewFragment_to_manageTravel"
             app:destination="@id/manageTravel" />
+        <action
+            android:id="@+id/action_listviewFragment_to_doinGroupFragment"
+            app:destination="@id/doinGroupFragment" />
+        <action
+            android:id="@+id/action_listviewFragment_to_masterFragment"
+            app:destination="@id/masterFragment" />
     </fragment>
     <fragment
         android:id="@+id/updateMemberFragment"
@@ -248,7 +254,7 @@
     </fragment>
     <fragment
         android:id="@+id/doinGroupFragment"
-        android:name="com.example.funtaipei.group.DoinGroupFragment"
+        android:name="com.example.funtaipei.group.DoingGroupFragment"
         android:label="fragment_doin_group"
         tools:layout="@layout/fragment_doin_group" />
     <fragment
@@ -273,9 +279,6 @@
         <action
             android:id="@+id/action_manTravelDetail_to_manTravelInsertFragment"
             app:destination="@id/manTravelInsertFragment" />
-        <action
-            android:id="@+id/action_manTravelDetail_to_manEditFragment"
-            app:destination="@id/manEditFragment" />
     </fragment>
     <fragment
         android:id="@+id/manTravelInsertFragment"
@@ -283,9 +286,18 @@
         android:label="fragment_man_travel_insert"
         tools:layout="@layout/fragment_man_travel_insert" />
     <fragment
-        android:id="@+id/manEditFragment"
-        android:name="com.example.funtaipei.ManEditFragment"
-        android:label="fragment_man_edit"
-        tools:layout="@layout/fragment_man_edit" />
+        android:id="@+id/masterFragment"
+        android:name="com.example.funtaipei.group.MasterFragment"
+        android:label="fragment_master"
+        tools:layout="@layout/fragment_master" >
+        <action
+            android:id="@+id/action_masterFragment_to_myGroupMemberFragment"
+            app:destination="@id/myGroupMemberFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myGroupMemberFragment"
+        android:name="com.example.funtaipei.group.MyGroupMemberFragment"
+        android:label="fragment_my_group_member"
+        tools:layout="@layout/fragment_my_group_member" />
 
 </navigation>

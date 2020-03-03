@@ -124,23 +124,49 @@ public class TravelDetailFragment extends Fragment {
         TextView travel_title = view.findViewById(R.id.travel_title);
         TextView travel_id = view.findViewById(R.id.travel_id);
         Bundle bundle = getArguments();
-        if (bundle == null || bundle.getSerializable("travel") == null) {
-            return;
-        }
-        if (bundle != null) {
-            travel = (Travel) bundle.getSerializable("travel");
-            if (travel != null) {
-                String url = Common.URL_SERVER + "/TravelServlet";
-                ImageTask imageTask = new ImageTask(url, travel.getTravel_id(), getResources().getDisplayMetrics().widthPixels / 4);
-                try {
-                    Bitmap image = imageTask.execute().get();
-                    imageView.setImageBitmap(image);
-                } catch (Exception e) {
-                    e.printStackTrace();
+        if (bundle != null || bundle.getSerializable("travel") != null || bundle.getInt("travelId") != 0) {
+            if (bundle != null) {
+                travel = (Travel) bundle.get("travel");
+                if (travel == null) {
+                    int id = bundle.getInt("travelId");
+
+                    if (Common.networkConnected(activity)) {
+                        String url = Common.URL_SERVER + "/TravelServlet";
+                        JsonObject jsonObject = new JsonObject();
+                        jsonObject.addProperty("action", "findById");
+                        jsonObject.addProperty("id", id);
+                        String jsonOut = jsonObject.toString();
+
+                        travelDetailGetAllTask = new CommonTask(url, jsonOut);
+                        try {
+                            String jsonIn = travelDetailGetAllTask.execute().get();
+                            travel = new Gson().fromJson(jsonIn, Travel.class);
+                        } catch (Exception e) {
+                            Log.d(TAG, "getTravelDetails: ");
+                        }
+                    } else {
+                        Common.showToast(activity, R.string.textNoNetwork);
+                    }
                 }
-                travel_id.setText(String.valueOf(travel.getTravel_id()));
-                travel_title.setText(travel.getTravel_name());
+                if (travel != null) {
+                    String url = Common.URL_SERVER + "/TravelServlet";
+                    ImageTask imageTask = new ImageTask(url, travel.getTravel_id(), getResources().getDisplayMetrics().widthPixels / 4);
+                    try {
+                        Bitmap image = imageTask.execute().get();
+                        imageView.setImageBitmap(image);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    travel_id.setText(String.valueOf(travel.getTravel_id()));
+                    travel_title.setText(travel.getTravel_name());
+                    travelDetails = getTravelDetails();
+                    showtravelDetail(travelDetails);
+                }
             }
+        } else {
+            Common.showToast(activity, R.string.textNoGroupsFound);
+            //           navController.popBackStack();
+            return;
         }
         //Detail的RecycleView
         travel_detail_recycleview = view.findViewById(R.id.travel_detail_recycleview);
