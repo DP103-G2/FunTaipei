@@ -1,8 +1,9 @@
-package com.example.funtaipei.travelCollection;
+package com.example.funtaipei.favoritePlace;
 
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -28,7 +29,6 @@ import android.widget.TextView;
 
 import com.example.funtaipei.Common;
 import com.example.funtaipei.R;
-import com.example.funtaipei.place.Place;
 import com.example.funtaipei.task.CommonTask;
 import com.example.funtaipei.task.ImageTask;
 import com.google.gson.Gson;
@@ -36,8 +36,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
+
+
 
 
 
@@ -49,32 +50,30 @@ public class FavoritePlaceFragment extends Fragment {
     private CommonTask placeGetAllTask;
     private CommonTask placeDeleteTask;
     private ImageTask placeImageTask;
-    private List<Place> places;
-    private View v;
+    private List<FavoritePlace> favoriteplaces;
+    private int mbNo;
 
     public static FavoritePlaceFragment newInstance(){
         return new FavoritePlaceFragment();
     }
 
-
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = getActivity();
-
+        mbNo = Common.getmb_No(activity);
     }
-
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        v = inflater.inflate(R.layout.fragment_favorite_place, container, false);
-        return v;
+        return inflater.inflate(R.layout.fragment_favorite_place, container, false);
+
 
     }
+
 
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
@@ -84,89 +83,67 @@ public class FavoritePlaceFragment extends Fragment {
         //rvPlace.setLayoutManager(new LinearLayoutManager(activity));//直上直下
         //rvPlace.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL,false)); //橫向滑動
         rvPlace.setLayoutManager(new StaggeredGridLayoutManager(6, StaggeredGridLayoutManager.HORIZONTAL));
-        places = getPlaces();
-        showPlaces(places);
-
-
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                // 如果搜尋條件為空字串，就顯示原始資料；否則就顯示搜尋後結果
-                if (newText.isEmpty()) {
-                    showPlaces(places);
-                } else {
-                    List<Place> searchPlaces = new ArrayList<>();
-                    // 搜尋原始資料內有無包含關鍵字(不區別大小寫)
-                    for (Place place : places) {
-                        if (place.getPC_NAME().toUpperCase().contains(newText.toUpperCase())) {
-                            searchPlaces.add(place);
-                        }
-                    }
-                    showPlaces(searchPlaces);
-                }
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-        });
+        favoriteplaces = getFavoritePlaces();
+        showFavoritePlaces(favoriteplaces);
+        activity.setTitle("我的收藏");
+        SharedPreferences pref = activity.getSharedPreferences(Common.PREFERENCES_MEMBER, Context.MODE_PRIVATE);
 
     }
 
-    private List<Place> getPlaces() {
-        List<Place> places = null;
+    private List<FavoritePlace> getFavoritePlaces() {
+        List<FavoritePlace> favoritePlaces = null;
         if (Common.networkConnected(activity)) {
-            String url = Common.URL_SERVER + "/PlaceServlet";
+            String url = Common.URL_SERVER + "/FavoritePlaceServlet";
             JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("action", "getAll");
+            jsonObject.addProperty("action", "getAll");//要指定會員的話用action-"findById"(還沒完成）
+            jsonObject.addProperty("mbNo", mbNo);
             String jsonOut = jsonObject.toString();
             placeGetAllTask = new CommonTask(url, jsonOut);
             try {
                 String jsonIn = placeGetAllTask.execute().get();
-                Type listType = new TypeToken<List<Place>>() {
+                Type listType = new TypeToken<List<FavoritePlace>>() {
                 }.getType();
-                places = new Gson().fromJson(jsonIn, listType);
+                favoritePlaces = new Gson().fromJson(jsonIn, listType);
             } catch (Exception e) {
                 Log.e(TAG, e.toString());
             }
         } else {
             Common.showToast(activity, R.string.textNoNetwork);
         }
-        return places;
+        return favoritePlaces;
+
     }
 
-    private void showPlaces(List<Place> places) {
-        if (places == null || places.isEmpty()) {
+
+    private void showFavoritePlaces(List<FavoritePlace> favoritePlaces) {
+        if (favoritePlaces == null || favoritePlaces.isEmpty()) {
             Common.showToast(activity, R.string.textNoPlacesFound);
         }
-        FavoritePlaceFragment.FavoritePlaceAdapter favoritePlaceAdapter = ( FavoritePlaceFragment.FavoritePlaceAdapter) rvPlace.getAdapter();
 
-        if (favoritePlaceAdapter == null) {
-            rvPlace.setAdapter(new FavoritePlaceFragment.FavoritePlaceAdapter(activity, places));
+        FavoritePlaceAdapter favoritePlaceAdapter = (FavoritePlaceAdapter) rvPlace.getAdapter();
+        if (favoritePlaceAdapter ==null){
+            rvPlace.setAdapter(new FavoritePlaceAdapter(activity, favoritePlaces));
         } else {
-            favoritePlaceAdapter.setPlaces(places);
+            favoritePlaceAdapter.setPlaces(favoritePlaces);
             favoritePlaceAdapter.notifyDataSetChanged();
         }
     }
 
     public class FavoritePlaceAdapter extends RecyclerView.Adapter<FavoritePlaceFragment.FavoritePlaceAdapter.MyViewHolder> {
         private LayoutInflater layoutInflater;
-        private List<Place> places;
+        private List<FavoritePlace> favoriteplaces;
         private int imageSize;
 
-        FavoritePlaceAdapter(Context context, List<Place> places) {
+        FavoritePlaceAdapter(Context context, List<FavoritePlace> favoritePlaces) {
             layoutInflater = LayoutInflater.from(context);
-            this.places = places;
+            this.favoriteplaces = favoritePlaces;
             /* 螢幕寬度除以4當作將圖的尺寸 */
             imageSize = getResources().getDisplayMetrics().widthPixels / 4;
         }
 
-        void setPlaces(List<Place> places) {
+        void setPlaces(List<FavoritePlace> favoriteplaces) {
 
-            this.places = places;
+            this.favoriteplaces = favoriteplaces;
         }
 
         class MyViewHolder extends RecyclerView.ViewHolder {
@@ -192,19 +169,21 @@ public class FavoritePlaceFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull FavoritePlaceFragment.FavoritePlaceAdapter.MyViewHolder holder, int position) {
-            final Place place = places.get(position);
+            final FavoritePlace favoritePlace = favoriteplaces.get(position);
             String url = Common.URL_SERVER + "/PlaceServlet";
-            int id = place.getPC_ID();
+            int id = favoritePlace.getGp_id();
             placeImageTask = new ImageTask(url, id, imageSize, holder.imageView);
             placeImageTask.execute();
-            holder.tvName.setText(place.getPC_NAME());
+            holder.tvName.setText(favoritePlace.getPc_name());
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("place", place);
-                    Navigation.findNavController(view).navigate(R.id.action_favoritePlaceFragment_to_placeDetailsFragment, bundle);
+                    bundle.putSerializable("place", favoritePlace);
+                    // Navigation.findNavController(view).navigate(R.id.action_favoritePlaceFragment_to_favoritePlaceDetailsFragment, bundle);
+                    Navigation.findNavController(view).navigate(R.id.favoritePlaceDetailsFragment, bundle);
+
                 }
             });
             holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -222,17 +201,17 @@ public class FavoritePlaceFragment extends Fragment {
 //                                    break;
                                 case R.id.update:
                                     Bundle bundle = new Bundle();
-                                    bundle.putSerializable("place", place);
+                                    bundle.putSerializable("favoriteplace", favoritePlace);
                                     Navigation.findNavController(view)
-                                            .navigate(R.id.action_favoritePlaceFragment_to_placeDetailsFragment, bundle);
+                                            .navigate(R.id.action_favoritePlaceFragment_to_favoritePlaceDetailsFragment, bundle);
                                     break;
 
                                 case R.id.delete:
                                     if (Common.networkConnected(activity)) {
-                                        String url = Common.URL_SERVER + "/PlaceServlet";
+                                        String url = Common.URL_SERVER + "/FavoritePlaceServlet";
                                         JsonObject jsonObject = new JsonObject();
-                                        jsonObject.addProperty("action", "placeDelete");
-                                        jsonObject.addProperty("placeId", place.getPC_NAME());
+                                        jsonObject.addProperty("action", "favoriteplaceDelete");
+                                        jsonObject.addProperty("favoriteplaceId", favoritePlace.getGp_name());
                                         int count = 0;
                                         try {
                                             placeDeleteTask = new CommonTask(url, jsonObject.toString());
@@ -244,10 +223,11 @@ public class FavoritePlaceFragment extends Fragment {
                                         if (count == 0) {
                                             Common.showToast(activity, R.string.textDeleteFail);
                                         } else {
-                                            places.remove(place);
+                                            favoriteplaces.remove(favoritePlace);
+
                                             FavoritePlaceFragment.FavoritePlaceAdapter.this.notifyDataSetChanged();
                                             // 外面spots也必須移除選取的spot
-                                            FavoritePlaceFragment.this.places.remove(place);
+                                            FavoritePlaceFragment.this.favoriteplaces.remove(favoritePlace);
                                             Common.showToast(activity, R.string.textDeleteSuccess);
                                         }
                                     } else {
@@ -266,7 +246,7 @@ public class FavoritePlaceFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return places.size();
+            return favoriteplaces.size();
 
         }
     }

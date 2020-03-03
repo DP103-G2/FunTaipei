@@ -1,4 +1,4 @@
-package com.example.funtaipei.place;
+package com.example.funtaipei.favoritePlace;
 
 
 import android.content.Context;
@@ -26,8 +26,8 @@ import android.widget.TextView;
 
 import com.example.funtaipei.Common;
 import com.example.funtaipei.R;
-import com.example.funtaipei.favoritePlace.FavoritePlace;
 import com.example.funtaipei.favoritePlace.InsertFavoritePlace;
+import com.example.funtaipei.place.Place;
 import com.example.funtaipei.task.CommonTask;
 import com.example.funtaipei.task.ImageTask;
 import com.google.android.gms.maps.CameraUpdate;
@@ -45,9 +45,10 @@ import com.google.gson.JsonObject;
 import static android.content.ContentValues.TAG;
 
 
-public class PlaceDetailsFragment extends Fragment {
+public class FavoritePlaceDetailsFragment extends Fragment {
     private FragmentActivity activity;
     private Place place;
+    private FavoritePlace favoritePlace;
     private TextView tvAddress;
     private TextView tvPhone;
     private  TextView tvName;
@@ -56,13 +57,12 @@ public class PlaceDetailsFragment extends Fragment {
     private  CommonTask favoritePlaceTask;
     private GoogleMap map;
     private  int mbNo;
-    private FavoritePlace favoritePlace;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = getActivity();
-       place = (Place) (getArguments() != null ? getArguments().getSerializable("place") : null);
+        favoritePlace = (FavoritePlace) (getArguments() != null ? getArguments().getSerializable("place") : null);
         mbNo = Common.getmb_No(activity);
 
     }
@@ -86,14 +86,13 @@ public class PlaceDetailsFragment extends Fragment {
         tvAddress = view.findViewById(R.id.tvAddress);
         Bundle bundle = getArguments();
         if (bundle != null) {
-
-            place = (Place) bundle.getSerializable("place");
+            place = (Place) bundle.getSerializable("favoriteplace");
             showPlace(place);
             if (bundle != null) {
-                tvName.setText(place.getPC_NAME());
-                tvPhone.setText(String.valueOf(place.getPC_PHONE()).trim());
-                tvAddress.setText(place.getPC_ADDRESS());
-
+                tvName.setText(favoritePlace.getPc_name());
+                tvPhone.setText(String.valueOf(favoritePlace.getPC_PHONE()).trim());
+                tvAddress.setText(favoritePlace.getPc_address());
+//
                 Button btCancel = view.findViewById(R.id.btCanceldt);
                 btCancel.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -102,7 +101,7 @@ public class PlaceDetailsFragment extends Fragment {
                         navController.popBackStack();
                     }
                 });
-
+//
                 //按下收藏按鈕新增至收藏
                 btFavorite = view.findViewById(R.id.btFavorite);
                 btFavorite.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +110,7 @@ public class PlaceDetailsFragment extends Fragment {
 
 
 //                        int mbNo = pref.getInt("mb_no", 0);
-                        int pcId = place.getPC_ID();
+                        int pcId =favoritePlace.getPc_id();
                         String url = Common.URL_SERVER + "/FavoritePlaceServlet";
                         InsertFavoritePlace insertFavoritePlace = new InsertFavoritePlace(mbNo,pcId);
                         // InsertFavoritePlace insertFavoritePlace = new InsertFavoritePlace(1,2);
@@ -156,9 +155,9 @@ public class PlaceDetailsFragment extends Fragment {
 
 
 //               LatLng position = (new LatLng(50.379444, 2.773611));
-                LatLng position = new LatLng(place.getLAT(), place.getLNG());
-                String title = place.getPC_NAME();
-                String snippet = place.getPC_ADDRESS();
+                LatLng position = new LatLng(favoritePlace.getLAT(), favoritePlace.getLNG());
+                String title = favoritePlace.getPc_name();
+                String snippet = favoritePlace.getPc_address();
 
                 // 打標記並移動地圖至標記所在地
                 map.addMarker(new MarkerOptions()
@@ -176,9 +175,9 @@ public class PlaceDetailsFragment extends Fragment {
 
 
 
-    private void showPlace(Place place) {
+    private void showPlace(Place Place) {
         String url = Common.URL_SERVER + "/PlaceServlet";
-        int id = place.getPC_ID();
+        int id = favoritePlace.getPc_id();
         int imageSize = getResources().getDisplayMetrics().widthPixels / 3;
         Bitmap bitmap = null;
         try {
@@ -192,10 +191,10 @@ public class PlaceDetailsFragment extends Fragment {
             ivPlace.setImageResource(R.drawable.no_image);
         }
 
-        tvName.setText(place.getPC_NAME());
-        tvPhone.setText(String.valueOf(place.getPC_PHONE()));
-        tvAddress.setText(place.getPC_ADDRESS());
-        if(place.getLAT() < -180||place.getLNG() < -180)
+        tvName.setText(favoritePlace.getPc_name());
+        tvPhone.setText(String.valueOf(favoritePlace.getPC_PHONE()));
+        tvAddress.setText(favoritePlace.getPc_address());
+        if(favoritePlace.getLAT() < -180||favoritePlace.getLNG() < -180)
 
         {
             Common.showToast(activity, "place not found");
@@ -206,6 +205,9 @@ public class PlaceDetailsFragment extends Fragment {
 
 
     }
+
+
+
 
 
 

@@ -104,6 +104,12 @@
         <action
             android:id="@+id/action_favoritePlaceFragment_to_placeDetailsFragment"
             app:destination="@id/placeDetailsFragment" />
+        <action
+            android:id="@+id/action_favoritePlaceFragment_to_placeFavoriteFragment"
+            app:destination="@id/placeFavoriteFragment" />
+        <action
+            android:id="@+id/action_favoritePlaceFragment_to_favoritePlaceDetailsFragment"
+            app:destination="@id/favoritePlaceDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/hotelFragment"
@@ -279,5 +285,16 @@
         android:name="com.example.funtaipei.travel.ManTravelInsertFragment"
         android:label="fragment_man_travel_insert"
         tools:layout="@layout/fragment_man_travel_insert" />
+    <fragment
+        android:id="@+id/placeFavoriteFragment"
+        android:name="com.example.funtaipei.PlaceFavoriteFragment"
+        android:label="fragment_place_favorite"
+        tools:layout="@layout/fragment_place_favorite" />
+    <fragment
+        android:id="@+id/favoritePlaceDetailsFragment"
+        android:name="com.example.funtaipei.favoritePlace.FavoritePlaceDetailsFragment"
+        android:label="fragment_favorite_place_details"
+        tools:layout="@layout/fragment_favorite_place_details" />
+
 
 </navigation>

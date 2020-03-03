@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
+    android:background="@color/lightgray"
     tools:context=".place.HotelFragment">
 
     <LinearLayout
@@ -21,69 +22,80 @@
 
         </SearchView>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="match_parent"
-            android:layout_height="208dp">
-
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="0dp"
-                android:layout_height="150dp"
-                android:background="#6CA0B2"
-                android:src="@drawable/hotel"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/btView"
-                android:layout_width="96dp"
-                android:layout_height="46dp"
-                android:layout_marginStart="32dp"
-                android:background="@drawable/little_blue_button"
-                android:text="景點"
-                android:textColor="#000000"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView4" />
-
-            <Button
-                android:id="@+id/btResturant"
-                android:layout_width="96dp"
-                android:layout_height="46dp"
-                android:layout_marginStart="32dp"
-                android:background="@drawable/little_blue_button"
-                android:text="餐廳"
-                android:textColor="#000000"
-                app:layout_constraintStart_toEndOf="@+id/btView"
-                app:layout_constraintTop_toBottomOf="@+id/imageView4" />
-
-            <Button
-                android:id="@+id/btHotel"
-                android:layout_width="96dp"
-                android:layout_height="46dp"
-                android:layout_marginStart="32dp"
-                android:background="@drawable/little_blue_button"
-                android:text="飯店"
-                android:textColor="#000000"
-                app:layout_constraintStart_toEndOf="@+id/btResturant"
-                app:layout_constraintTop_toBottomOf="@+id/imageView4" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipeRefreshLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp">
+            android:layout_gravity="top">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvPlace"
+
+            <RelativeLayout
+                android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="208dp">
 
-            </androidx.recyclerview.widget.RecyclerView>
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="409dp"
+                    android:layout_height="150dp"
+                    app:layout_constraintBottom_toTopOf="@+id/btView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/hotel" />
+
+
+                <Button
+                    android:id="@+id/btView"
+                    android:layout_width="137dp"
+                    android:layout_height="46dp"
+                    android:layout_below="@id/imageView2"
+                    android:background="@android:color/white"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:text="景點"
+                    android:textColor="@android:color/background_dark" />
+
+                <Button
+                    android:id="@+id/btResturant"
+                    android:layout_width="137dp"
+                    android:layout_height="46dp"
+                    android:layout_below="@id/imageView2"
+                    android:layout_toRightOf="@id/btView"
+                    android:background="@android:color/white"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:text="餐廳"
+                    android:textColor="@android:color/background_dark" />
+
+                <Button
+                    android:id="@+id/btHotel"
+                    android:layout_width="137dp"
+                    android:layout_height="46dp"
+                    android:layout_below="@id/imageView2"
+                    android:layout_toRightOf="@id/btResturant"
+                    android:background="@android:color/white"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:text="飯店"
+                    android:textColor="@android:color/background_dark" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvPlace"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/btHotel"
+                    android:layout_marginTop="0dp">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+
+            </RelativeLayout>
+
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

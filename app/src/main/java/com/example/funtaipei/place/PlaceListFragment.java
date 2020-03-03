@@ -69,7 +69,6 @@ public class PlaceListFragment extends Fragment{
         super.onCreateView(inflater, container, savedInstanceState);
         v = inflater.inflate(R.layout.fragment_hotel,container,false);
         btHotel =(Button)v.findViewById(R.id.btHotel);
-
         return inflater.inflate(R.layout.fragment_place_list, container, false);
 
 
@@ -137,7 +136,7 @@ public class PlaceListFragment extends Fragment{
         });
 
     }
-//
+    //
     private List<Place> getPlaces() {
         List<Place> places = null;
         if (Common.networkConnected(activity)) {
@@ -230,61 +229,66 @@ public class PlaceListFragment extends Fragment{
                     Navigation.findNavController(view).navigate(R.id.action_placeListFragment_to_placeDetailsFragment, bundle);
                 }
             });
-            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-                @Override
-                public boolean onLongClick(final View view) {
-                    PopupMenu popupMenu = new PopupMenu(activity, view, Gravity.END);
-                    popupMenu.inflate(R.menu.popup_menu);
-                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(MenuItem item) {
-                            switch (item.getItemId()) {
-                                case R.id.update:
-                                    Bundle bundle = new Bundle();
-                                    bundle.putSerializable("place", place);
-                                    Navigation.findNavController(view)
-                                            .navigate(R.id.action_placeListFragment_to_placeDetailsFragment, bundle);
-                                    break;
 
-                                case R.id.delete:
-                                    if (Common.networkConnected(activity)) {
-                                        String url = Common.URL_SERVER + "/PlaceServlet";
-                                        JsonObject jsonObject = new JsonObject();
-                                        jsonObject.addProperty("action", "placeDelete");
-                                        jsonObject.addProperty("placeId", place.getPC_NAME());
-                                        int count = 0;
-                                        try {
-                                            placeDeleteTask = new CommonTask(url, jsonObject.toString());
-                                            String result = placeDeleteTask.execute().get();
-                                            count = Integer.valueOf(result);
-                                        } catch (Exception e) {
-                                            Log.e(TAG, e.toString());
-                                        }
-                                        if (count == 0) {
-                                            Common.showToast(activity, R.string.textDeleteFail);
-                                        } else {
-                                            places.remove(place);
-                                            PlaceAdapter.this.notifyDataSetChanged();
-                                            // 外面spots也必須移除選取的spot
-                                            PlaceListFragment.this.places.remove(place);
-                                            Common.showToast(activity, R.string.textDeleteSuccess);
-                                        }
-                                    } else {
-                                        Common.showToast(activity, R.string.textNoNetwork);
-                                    }
-                                    break;
-                            }
-                            return true;
-                        }
-                    });
-                    popupMenu.show();
-                    return true;
-                }
-            });
+            //更新刪除部分
+//            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+//                @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+//                @Override
+//                public boolean onLongClick(final View view) {
+//                    PopupMenu popupMenu = new PopupMenu(activity, view, Gravity.END);
+//                    popupMenu.inflate(R.menu.popup_menu);
+//                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//                        @Override
+//                        public boolean onMenuItemClick(MenuItem item) {
+//                            switch (item.getItemId()) {
+////                                case R.id.insert:
+////                                    Navigation.findNavController(view).navigate(R.id.action_placeListFragment_to_placeDetailsFragment);
+////                                    break;
+//                                case R.id.update:
+//                                    Bundle bundle = new Bundle();
+//                                    bundle.putSerializable("place", place);
+//                                    Navigation.findNavController(view)
+//                                            .navigate(R.id.action_placeListFragment_to_placeDetailsFragment, bundle);
+//                                    break;
+//
+//                                case R.id.delete:
+//                                    if (Common.networkConnected(activity)) {
+//                                        String url = Common.URL_SERVER + "/PlaceServlet";
+//                                        JsonObject jsonObject = new JsonObject();
+//                                        jsonObject.addProperty("action", "placeDelete");
+//                                        jsonObject.addProperty("placeId", place.getPC_NAME());
+//                                        int count = 0;
+//                                        try {
+//                                            placeDeleteTask = new CommonTask(url, jsonObject.toString());
+//                                            String result = placeDeleteTask.execute().get();
+//                                            count = Integer.valueOf(result);
+//                                        } catch (Exception e) {
+//                                            Log.e(TAG, e.toString());
+//                                        }
+//                                        if (count == 0) {
+//                                            Common.showToast(activity, R.string.textDeleteFail);
+//                                        } else {
+//                                            places.remove(place);
+//                                            PlaceAdapter.this.notifyDataSetChanged();
+//                                            // 外面spots也必須移除選取的spot
+//                                            PlaceListFragment.this.places.remove(place);
+//                                            Common.showToast(activity, R.string.textDeleteSuccess);
+//                                        }
+//                                    } else {
+//                                        Common.showToast(activity, R.string.textNoNetwork);
+//                                    }
+//                                    break;
+//                            }
+//                            return true;
+//                        }
+//                    });
+//                    popupMenu.show();
+//                    return true;
+//                }
+//            });
         }
 
-      @Override
+        @Override
         public int getItemCount() {
             return places.size();
 

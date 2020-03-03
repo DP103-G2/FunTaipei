@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,6 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyCaUyLC6Fgg5Vu75Y--nDp6cEannIq6ckg" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -28,9 +33,15 @@
         <activity
             android:name=".main.MainActivity"
             android:windowSoftInputMode="adjustPan">
+            <!--            <meta-data-->
+            <!--                android:name="android.support.PARENT_FRAGMENT"-->
+            <!--                android:value=".MainActivity" />-->
+
             <meta-data
-                android:name="android.support.PARENT_FRAGMENT"
-                android:value=".MainActivity" />
+                android:name="com.google.android.gms.version"
+                android:value="@integer/google_play_services_version" />
+
+
 
 
             <intent-filter>
@@ -43,7 +54,7 @@
             android:theme="@style/Theme.Design.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
 
             </intent-filter>
