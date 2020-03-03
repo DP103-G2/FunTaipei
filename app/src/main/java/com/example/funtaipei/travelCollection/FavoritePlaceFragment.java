@@ -1,4 +1,4 @@
-package com.example.funtaipei.favoritePlace;
+package com.example.funtaipei.travelCollection;
 
 
 import android.app.Activity;
@@ -29,6 +29,7 @@ import android.widget.TextView;
 
 import com.example.funtaipei.Common;
 import com.example.funtaipei.R;
+import com.example.funtaipei.favoritePlace.FavoritePlace;
 import com.example.funtaipei.task.CommonTask;
 import com.example.funtaipei.task.ImageTask;
 import com.google.gson.Gson;
@@ -95,7 +96,7 @@ public class FavoritePlaceFragment extends Fragment {
         if (Common.networkConnected(activity)) {
             String url = Common.URL_SERVER + "/FavoritePlaceServlet";
             JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("action", "getAll");//要指定會員的話用action-"findById"(還沒完成）
+            jsonObject.addProperty("action", "findById");
             jsonObject.addProperty("mbNo", mbNo);
             String jsonOut = jsonObject.toString();
             placeGetAllTask = new CommonTask(url, jsonOut);
@@ -171,7 +172,7 @@ public class FavoritePlaceFragment extends Fragment {
         public void onBindViewHolder(@NonNull FavoritePlaceFragment.FavoritePlaceAdapter.MyViewHolder holder, int position) {
             final FavoritePlace favoritePlace = favoriteplaces.get(position);
             String url = Common.URL_SERVER + "/PlaceServlet";
-            int id = favoritePlace.getGp_id();
+            int id = favoritePlace.getPc_id();
             placeImageTask = new ImageTask(url, id, imageSize, holder.imageView);
             placeImageTask.execute();
             holder.tvName.setText(favoritePlace.getPc_name());
@@ -181,6 +182,7 @@ public class FavoritePlaceFragment extends Fragment {
                 public void onClick(View view) {
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("place", favoritePlace);
+
                     // Navigation.findNavController(view).navigate(R.id.action_favoritePlaceFragment_to_favoritePlaceDetailsFragment, bundle);
                     Navigation.findNavController(view).navigate(R.id.favoritePlaceDetailsFragment, bundle);
 

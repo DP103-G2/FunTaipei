@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.funtaipei.R;
+import com.example.funtaipei.travelCollection.FavoritePlaceFragment;
 
 import java.util.ArrayList;
 import java.util.List;
