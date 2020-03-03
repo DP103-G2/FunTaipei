@@ -23,7 +23,8 @@
                 android:id="@+id/searchView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:iconifiedByDefault="false"/>
+                android:iconifiedByDefault="false"
+                android:queryHint="搜尋 行程名稱 或 編號"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/toprecycler"

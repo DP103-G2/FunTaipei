@@ -2,12 +2,10 @@ package com.example.funtaipei.travel;
 
 
 import android.app.Activity;
-import android.content.ClipData;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -15,8 +13,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -26,8 +22,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-
-
 import com.example.funtaipei.Common;
 import com.example.funtaipei.R;
 import com.example.funtaipei.task.CommonTask;
@@ -36,13 +30,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-
 import java.lang.reflect.Type;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import static android.graphics.Color.LTGRAY;
 
 
 /**
@@ -52,15 +43,14 @@ public class ManTravelDetail extends Fragment {
 
     private Activity activity;
     private Travel travel;
-    private List<TravelDetail> travelDetails;
+    private List<TravelDetail> travelDetails = new ArrayList<>();
     private FloatingActionButton manBtnAdd;
     private CommonTask travelDetailGetAllTask;
     private CommonTask travelDetailDeleteTask;
-    private ImageTask travelDetailImageTask;
     final String TAG = "getTravelDetails Error";
     private RecyclerView td_recycleView;
-    private Place place;
-    private ManTravelAdapter manTravelAdapter;
+
+
 
 
 
@@ -98,18 +88,15 @@ public class ManTravelDetail extends Fragment {
             textView.setText(travel.getTravel_name());
         }
 
-
         //RecycleView
         td_recycleView = view.findViewById(R.id.td_recycleView);
         td_recycleView.setLayoutManager(new LinearLayoutManager(activity));
         travelDetails = getTravelDetails();
         showTravelDetail(travelDetails);
 
-
-        //長按移動
-
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemDrag());
-        itemTouchHelper.attachToRecyclerView(td_recycleView);
+        //ItemHelp
+        ItemTouchHelper touchHelper = new ItemTouchHelper(new MyItemTouchHelperCallback());
+        touchHelper.attachToRecyclerView(td_recycleView);
 
         //Floation Button
         manBtnAdd = view.findViewById(R.id.manBtnAdd);
@@ -147,23 +134,21 @@ public class ManTravelDetail extends Fragment {
         return travelDetails;
     }
     //show
-    private void showTravelDetail(List<TravelDetail> travelDetails){
-        if(travelDetails == null){
+    private void showTravelDetail(List<TravelDetail> travelDetails) {
+        if (travelDetails == null) {
             return;
         }
         ManTravelAdapter manTravelAdapter = (ManTravelAdapter) td_recycleView.getAdapter();
-        if(manTravelAdapter == null){
+        if (manTravelAdapter == null) {
             td_recycleView.setAdapter(new ManTravelAdapter(activity, travelDetails));
         } else {
             manTravelAdapter.setManTravelDetail(travelDetails);
             manTravelAdapter.notifyDataSetChanged();
-
-
         }
     }
     //======================================RecycleView=================================//
 
-    private class ManTravelAdapter extends RecyclerView.Adapter<ManTravelAdapter.MyViewHolder>{
+    public class ManTravelAdapter extends RecyclerView.Adapter<ManTravelAdapter.MyViewHolder> {
 
         private LayoutInflater layoutInflater;
         private List<TravelDetail> travelDetails;
@@ -179,16 +164,19 @@ public class ManTravelDetail extends Fragment {
            this.travelDetails = travelDetails;
         }
 
-        class MyViewHolder extends RecyclerView.ViewHolder{
-                ImageView imageView;
-                TextView travelName;
 
-               MyViewHolder(View itemView){
-                   super(itemView);
-                   imageView = itemView.findViewById(R.id.imageView);
-                   travelName = itemView.findViewById(R.id.travelName);
-               }
+
+        public class MyViewHolder extends RecyclerView.ViewHolder{
+            ImageView imageView;
+            TextView travelName;
+
+            MyViewHolder(View itemView) {
+                super(itemView);
+                imageView = itemView.findViewById(R.id.imageView);
+                travelName = itemView.findViewById(R.id.travelName);
+            }
         }
+
         @NonNull
         @Override
         public ManTravelAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -201,8 +189,9 @@ public class ManTravelDetail extends Fragment {
             return travelDetails.size();
         }
 
+
         @Override
-        public void onBindViewHolder(@NonNull ManTravelAdapter.MyViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull final ManTravelAdapter.MyViewHolder holder, final int position) {
             final TravelDetail travelDetail = travelDetails.get(position);
             //圖片設定
             String url = Common.URL_SERVER + "/PlaceServlet";
@@ -213,13 +202,16 @@ public class ManTravelDetail extends Fragment {
             holder.travelName.setText(travelDetail.getPc_name());
             holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
-                public boolean onLongClick(View v) {
+                public boolean onLongClick(final View v) {
                     PopupMenu popupMenu = new PopupMenu(activity, v, Gravity.END);
                     popupMenu.inflate(R.menu.popup_menu);
                     popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
                             switch (item.getItemId()){
+                                case R.id.update:
+                                    Navigation.findNavController(v).navigate(R.id.action_manTravelDetail_to_manEditFragment);
+                                    break;
                                 case R.id.delete:
                                     if(Common.networkConnected(activity)){
                                         String url = Common.URL_SERVER + "/TravelDetailServlet";
@@ -227,8 +219,6 @@ public class ManTravelDetail extends Fragment {
                                         jsonObject.addProperty("action", "travelDetailDelete");
                                         jsonObject.addProperty("travel_id", travelDetail.getTravel_id());
                                         jsonObject.addProperty("pc_id", travelDetail.getPc_id());
-
-
                                         int count = 0;
                                         try{
                                             travelDetailDeleteTask = new CommonTask(url, jsonObject.toString());
@@ -259,64 +249,7 @@ public class ManTravelDetail extends Fragment {
                 }
             });
         }
-
-
     }
-    //拖拉改變位置功能
-    class ItemDrag extends ItemTouchHelper.Callback{
-
-
-        @Override
-        public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-            int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
-            int swipeFlags = 0;
-            return makeMovementFlags(dragFlags, swipeFlags);
-        }
-
-
-
-        @Override
-        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-            int fromPosition = viewHolder.getAdapterPosition();
-            int toPosition = target.getAdapterPosition();
-            Collections.swap(getTravelDetails(), fromPosition, toPosition);
-
-            manTravelAdapter.notifyItemMoved(fromPosition, toPosition);
-
-            return true;
-        }
-        @Override
-        public boolean isLongPressDragEnabled() {
-            return true;
-        }
-
-        @Override
-        public boolean isItemViewSwipeEnabled() {
-            return true;
-        }
-
-               @Override
-        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-
-        }
-
-        @Override
-        public void onSelectedChanged(@Nullable RecyclerView.ViewHolder viewHolder, int actionState) {
-            if(actionState != ItemTouchHelper.ACTION_STATE_DRAG){
-                viewHolder.itemView.setBackgroundColor(Color.LTGRAY);
-            }
-            super.onSelectedChanged(viewHolder, actionState);
-        }
-
-        @Override
-        public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-            super.clearView(recyclerView, viewHolder);
-            viewHolder.itemView.setBackgroundColor(0);
-
-        }
-    }
-
-
     @Override
     public void onStop() {
         super.onStop();
@@ -337,5 +270,94 @@ public class ManTravelDetail extends Fragment {
     }
 
 
+    //ItemMoveHelper
 
+    public class MyItemTouchHelperCallback extends ItemTouchHelper.Callback {
+
+
+        @Override
+        public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+
+            //上下拖移
+            int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN |ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT;
+            //向右側滑
+            int swipeFlags = ItemTouchHelper.RIGHT;
+            return makeMovementFlags(dragFlags, swipeFlags);
+        }
+
+
+
+        @Override
+        public boolean isItemViewSwipeEnabled() {
+            return true;
+        }
+
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            int fromPosition = viewHolder.getAdapterPosition();
+            int toPosition = target.getAdapterPosition();
+            Collections.swap(travelDetails, fromPosition, toPosition);
+            td_recycleView.getAdapter().notifyItemMoved(fromPosition, toPosition);
+            if (Common.networkConnected(activity)){
+
+            }
+
+            return true;
+        }
+
+
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+          //無作用
+        }
+
+        @Override
+        public void onSelectedChanged(@Nullable RecyclerView.ViewHolder viewHolder, int actionState) {
+            if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
+                viewHolder.itemView.setBackgroundColor(Color.GRAY);
+            }
+            super.onSelectedChanged(viewHolder, actionState);
+        }
+
+        @Override
+        public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+            super.clearView(recyclerView, viewHolder);
+            viewHolder.itemView.setBackgroundColor(Color.parseColor("#80d4ff"));
+        }
+
+        @Override
+        public boolean isLongPressDragEnabled() {
+            return true;
+        }
+
+
+
+    }
+    public interface ItemTouchHelperAdapter {
+        //item被移動時調用
+        // fromPosition item起點
+        // toPosition   item終點
+        void onItemMove(int fromPosition, int toPosition);
+        //@param position 側滑item的position
+        void onItemDismiss(int position);
+    }
+
+    public interface ItemTouchHelperViewHolder {
+
+        //item被選中可以更新狀態
+        void onItemSelected();
+
+        //item拖曳或側滑結束，恢復默認狀態
+        void onItemClear();
+
+    }
+
+    public interface OnStartDragListener {
+        //View 回調
+        //@param viewHolder
+        void onStartDrag(ManTravelDetail.ManTravelAdapter.MyViewHolder viewHolder);
+
+
+    }
 }

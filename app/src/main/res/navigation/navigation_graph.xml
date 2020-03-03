@@ -273,11 +273,19 @@
         <action
             android:id="@+id/action_manTravelDetail_to_manTravelInsertFragment"
             app:destination="@id/manTravelInsertFragment" />
+        <action
+            android:id="@+id/action_manTravelDetail_to_manEditFragment"
+            app:destination="@id/manEditFragment" />
     </fragment>
     <fragment
         android:id="@+id/manTravelInsertFragment"
         android:name="com.example.funtaipei.travel.ManTravelInsertFragment"
         android:label="fragment_man_travel_insert"
         tools:layout="@layout/fragment_man_travel_insert" />
+    <fragment
+        android:id="@+id/manEditFragment"
+        android:name="com.example.funtaipei.ManEditFragment"
+        android:label="fragment_man_edit"
+        tools:layout="@layout/fragment_man_edit" />
 
 </navigation>
