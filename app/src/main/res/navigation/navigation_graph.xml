@@ -105,9 +105,6 @@
             android:id="@+id/action_favoritePlaceFragment_to_placeDetailsFragment"
             app:destination="@id/placeDetailsFragment" />
         <action
-            android:id="@+id/action_favoritePlaceFragment_to_placeFavoriteFragment"
-            app:destination="@id/placeFavoriteFragment" />
-        <action
             android:id="@+id/action_favoritePlaceFragment_to_favoritePlaceDetailsFragment"
             app:destination="@id/favoritePlaceDetailsFragment" />
     </fragment>
@@ -200,6 +197,12 @@
         <action
             android:id="@+id/action_listviewFragment_to_manageTravel"
             app:destination="@id/manageTravel" />
+        <action
+            android:id="@+id/action_listviewFragment_to_doinGroupFragment"
+            app:destination="@id/doinGroupFragment" />
+        <action
+            android:id="@+id/action_listviewFragment_to_masterFragment"
+            app:destination="@id/masterFragment" />
     </fragment>
     <fragment
         android:id="@+id/updateMemberFragment"
@@ -254,7 +257,7 @@
     </fragment>
     <fragment
         android:id="@+id/doinGroupFragment"
-        android:name="com.example.funtaipei.group.DoinGroupFragment"
+        android:name="com.example.funtaipei.group.DoingGroupFragment"
         android:label="fragment_doin_group"
         tools:layout="@layout/fragment_doin_group" />
     <fragment
@@ -286,15 +289,23 @@
         android:label="fragment_man_travel_insert"
         tools:layout="@layout/fragment_man_travel_insert" />
     <fragment
-        android:id="@+id/placeFavoriteFragment"
-        android:name="com.example.funtaipei.PlaceFavoriteFragment"
-        android:label="fragment_place_favorite"
-        tools:layout="@layout/fragment_place_favorite" />
+        android:id="@+id/masterFragment"
+        android:name="com.example.funtaipei.group.MasterFragment"
+        android:label="fragment_master"
+        tools:layout="@layout/fragment_master" >
+        <action
+            android:id="@+id/action_masterFragment_to_myGroupMemberFragment"
+            app:destination="@id/myGroupMemberFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myGroupMemberFragment"
+        android:name="com.example.funtaipei.group.MyGroupMemberFragment"
+        android:label="fragment_my_group_member"
+        tools:layout="@layout/fragment_my_group_member" />
     <fragment
         android:id="@+id/favoritePlaceDetailsFragment"
         android:name="com.example.funtaipei.favoritePlace.FavoritePlaceDetailsFragment"
         android:label="fragment_favorite_place_details"
         tools:layout="@layout/fragment_favorite_place_details" />
-
-
 </navigation>
+

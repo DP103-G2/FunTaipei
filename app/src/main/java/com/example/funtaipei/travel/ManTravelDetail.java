@@ -210,7 +210,7 @@ public class ManTravelDetail extends Fragment {
                         public boolean onMenuItemClick(MenuItem item) {
                             switch (item.getItemId()){
                                 case R.id.update:
-                                    Navigation.findNavController(v).navigate(R.id.action_manTravelDetail_to_manEditFragment);
+                                    Navigation.findNavController(v).navigate(R.id.action_manageTravel_to_manTravelDetail);
                                     break;
                                 case R.id.delete:
                                     if(Common.networkConnected(activity)){
