@@ -268,7 +268,7 @@ public class GroupListFragment extends Fragment {
                 tvName = itemView.findViewById(R.id.tvName);
                 tvEventdate = itemView.findViewById(R.id.tvEventdate);
 //                tvNotes = itemView.findViewById(R.id.tvNotes);
-
+//
 
             }
         }
