@@ -291,7 +291,7 @@ public class PlaceListFragment extends Fragment{
         @Override
         public int getItemCount() {
             return places.size();
-
+//
         }
     }
     @Override
