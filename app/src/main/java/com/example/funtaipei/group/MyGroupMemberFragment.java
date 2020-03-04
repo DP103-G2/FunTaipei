@@ -3,8 +3,13 @@ package com.example.funtaipei.group;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Paint;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,18 +18,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.example.funtaipei.Common;
 import com.example.funtaipei.R;
 import com.example.funtaipei.task.CommonTask;
 import com.example.funtaipei.task.ImageTask;
-import com.example.funtaipei.travel.Image;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;

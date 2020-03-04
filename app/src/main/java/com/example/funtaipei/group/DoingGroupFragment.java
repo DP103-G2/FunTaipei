@@ -1,23 +1,25 @@
 package com.example.funtaipei.group;
+
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.funtaipei.Common;
 import com.example.funtaipei.R;
@@ -58,7 +60,7 @@ public class DoingGroupFragment extends Fragment {
 
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 //        activity.setTitle("團體-進行中");
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
@@ -74,6 +76,29 @@ public class DoingGroupFragment extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
+        if (groups == null || groups.isEmpty()) {
+
+
+            new AlertDialog.Builder(activity)
+                    .setTitle("您尚未參團")
+                    .setIcon(R.drawable.alert)
+                    .setMessage("您可以在瀏覽團體，找到喜歡的團報名喔！")
+                    .setPositiveButton("前往團體", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Navigation.findNavController(view).navigate(R.id.groupListFragment);
+                            dialogInterface.cancel();
+                        }
+
+                    })
+                    .setNegativeButton(R.string.textNo, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                        }
+                    })
+                    .show();
+        }
 
 
     }

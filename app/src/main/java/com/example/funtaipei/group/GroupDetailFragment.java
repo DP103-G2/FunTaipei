@@ -6,6 +6,15 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,24 +24,10 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.util.Base64;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.example.funtaipei.Common;
 import com.example.funtaipei.R;
-
-import com.example.funtaipei.main.MainActivity;
 import com.example.funtaipei.task.CommonTask;
 import com.example.funtaipei.task.ImageTask;
-import com.example.funtaipei.travel.Travel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -51,7 +46,9 @@ public class GroupDetailFragment extends Fragment {
     private Button btJoin, btTravel;
     private Group group;
     private byte[] image;
-    private CommonTask memberGetIdTask, loginTask;
+    private CommonTask memberGetIdTask, loginTask, joinGroupTask, deleteTask;
+    private JoinGroup joinGroup;
+    private int MB_NO;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,18 +76,147 @@ public class GroupDetailFragment extends Fragment {
         tvPeople = view.findViewById(R.id.tvPeople);
         tvNotes = view.findViewById(R.id.tvNotes);
         btJoin = view.findViewById(R.id.btJoin);
-
-
+        final SharedPreferences pref = activity.getSharedPreferences(Common.PREFERENCES_MEMBER, Context.MODE_PRIVATE);
+        MB_NO = pref.getInt("mb_no", 0);
+        Bundle bundle = getArguments();
+        if (bundle == null || bundle.getSerializable("group") == null) {
+            Common.showToast(activity, R.string.textNoGroupsFound);
+            navController.popBackStack();
+            return;
+        }
+        group = (Group) bundle.getSerializable("group");
+        showGroup();
+        getCheck();
+        if (joinGroup != null) {
+            if (joinGroup.getMASTER() == 1) {
+                btJoin.setText("查看參團名單");
+            } else {
+                btJoin.setText("取消參團");
+            }
+        }
 
 
         btJoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
                 final SharedPreferences pref = activity.getSharedPreferences(Common.PREFERENCES_MEMBER, Context.MODE_PRIVATE);
-                final int MB_NO = pref.getInt("mb_no", 0);
-                if (MB_NO == 0){
+                final int mbno = pref.getInt("mb_no", 0);
+                if (mbno != 0) {
+                    if (Common.networkConnected(activity)) {
+                        String url = Common.URL_SERVER + "/JoinGroupServlet";
+                        JsonObject jsonObject = new JsonObject();
+                        jsonObject.addProperty("action", "findByMb");
+                        jsonObject.addProperty("mb", mbno);
+                        jsonObject.addProperty("gp", group.getGP_ID());
+                        String jsonOut = jsonObject.toString();
+                        joinGroupTask = new CommonTask(url, jsonOut);
+                        try {
+                            String jsonIn = joinGroupTask.execute().get();
+                            joinGroup = new Gson().fromJson(jsonIn, JoinGroup.class);
+                        } catch (Exception e) {
+                            Log.e(TAG, e.toString());
+                        }
+                    } else {
+                        Common.showToast(activity, R.string.textNoNetwork);
+                    }
+                }
+                if (joinGroup != null) {
+                    if (joinGroup.getMASTER() == 1) {
+                        Bundle bundle = new Bundle();
+                        int id = group.getGP_ID();
+                        bundle.putInt("gpid", id);
+                        Navigation.findNavController(view).navigate(R.id.myGroupMemberFragment, bundle);
+                    } else {
+                        new AlertDialog.Builder(activity)
+                                /* 設定標題 */
+                                .setTitle(R.string.textCancelJoinGroup)
+                                /* 設定圖示 */
+                                .setIcon(R.drawable.alert)
+                                /* 設定訊息文字 */
+                                //.setMessage(R.string.textMessage)
+                                /* 設定positive與negative按鈕上面的文字與點擊事件監聽器 */
+                                .setPositiveButton(R.string.textYes, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                        int gp = group.getGP_ID();
+
+
+
+                                        if (Common.networkConnected(activity)) {
+                                            String url = Common.URL_SERVER + "/JoinGroupServlet";
+                                            JsonObject jsonObject = new JsonObject();
+                                            jsonObject.addProperty("action", "delete");
+                                            jsonObject.addProperty("mb", mbno);
+                                            jsonObject.addProperty("gp", gp);
+                                            int count = 0;
+                                            try {
+                                                deleteTask = new CommonTask(url, jsonObject.toString());
+                                                String result = deleteTask.execute().get();
+                                                count = Integer.valueOf(result);
+                                            } catch (Exception e) {
+                                                Log.e(TAG, e.toString());
+                                            }
+                                            if (count != 0) {
+                                                Common.showToast(getActivity(), R.string.textCancelGroupTrue);
+                                                btJoin.setText("立即報名");
+                                                int tvid = group.getTRAVEL_ID();
+                                                String name = group.getGP_NAME();
+                                                int ENROLLMENT = group.getGP_ENROLLMENT() - 1;
+                                                int upper = group.getGP_UPPER();
+                                                int lower = group.getGP_LOWER();
+                                                Date dateStart = group.getGP_DATESTAR();
+                                                Date dateEnd = group.getGP_DATEEND();
+                                                Date eventDate = group.getGP_EVENTDATE();
+                                                int status = group.getGP_STATUS();
+                                                String notes = group.getGP_NOTES();
+
+
+                                                if (Common.networkConnected(activity)) {
+                                                    String url2 = Common.URL_SERVER + "/GroupServlet";
+                                                    group.setGroup(tvid, name, ENROLLMENT, upper, lower, dateStart, dateEnd, eventDate, status, notes);
+
+                                                    jsonObject.addProperty("action", "groupUpdate");
+                                                    Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
+                                                    jsonObject.addProperty("group", gson.toJson(group));
+                                                    if (image != null) {
+                                                        jsonObject.addProperty("imageBase64", Base64.encodeToString(image, Base64.DEFAULT));
+                                                    }
+                                                    //int count2 = 0;
+                                                    try {
+                                                        String result = new CommonTask(url2, jsonObject.toString()).execute().get();
+                                                        //count = Integer.valueOf(result);
+                                                    } catch (Exception e) {
+                                                        Log.e(TAG, e.toString());
+                                                    }
+                                                }
+                                            } else {
+                                                Common.showToast(getActivity(), R.string.textCancelGroupFail);
+                                            }
+                                        } else {
+                                            Common.showToast(activity, R.string.textNoNetwork);
+                                        }
+                                        showGroup();
+
+
+                                    }
+                                })
+                                .setNegativeButton(R.string.textNo, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        /* 關閉對話視窗 */
+                                        dialog.cancel();
+                                    }
+                                })
+                                .show();
+                    }
+                }
+
+
+
+                if (mbno == 0) {
                     LayoutInflater inflater = LayoutInflater.from(activity);
-                    final View v = inflater.inflate(R.layout.fragment_login,null);
+                    final View v = inflater.inflate(R.layout.fragment_login, null);
 
                     final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
                     final AlertDialog alert = alertDialogBuilder.create();
@@ -98,11 +224,6 @@ public class GroupDetailFragment extends Fragment {
                     alert.setIcon(R.drawable.alert);
                     alert.setView(v);
                     alert.show();
-
-
-
-
-
 
 
                     etEmail = v.findViewById(R.id.etEmail);
@@ -129,17 +250,25 @@ public class GroupDetailFragment extends Fragment {
                                 Log.e(TAG, e.toString());
                             }
 
-                            if(isValid){
+                            if (isValid) {
                                 Common.showToast(getActivity(), R.string.textLoginSuccess);
 
-                                pref.edit().putString("email",MB_EMAIL)
+                                pref.edit().putString("email", MB_EMAIL)
                                         .putString("password", MB_PASSWORD)
-                                        .putInt("mb_no",getUserIdByEmail(MB_EMAIL))
+                                        .putInt("mb_no", getUserIdByEmail(MB_EMAIL))
                                         .apply();
-                                alert.cancel();
-                            } else {
-                                Common.showToast(getActivity(), R.string.textLoginFail);
+                                getJoinGroup();
+                                if (joinGroup != null) {
+                                    if (joinGroup.getMASTER() == 1) {
+                                        btJoin.setText("查看參團名單");
+                                    } else {
+                                        btJoin.setText("取消參團");
+                                    }
+                                }
                             }
+                            showGroup();
+                            alert.cancel();
+
 
                         }
                     });
@@ -152,8 +281,7 @@ public class GroupDetailFragment extends Fragment {
                         }
                     });
 
-                }
-                if (MB_NO != 0) {
+                } else if (joinGroup == null) {
                     new AlertDialog.Builder(activity)
                             /* 設定標題 */
                             .setTitle(R.string.textJoinGroup)
@@ -171,7 +299,7 @@ public class GroupDetailFragment extends Fragment {
 
                                     if (Common.networkConnected(activity)) {
                                         String url = Common.URL_SERVER + "/JoinGroupServlet";
-                                        JoinGroup jg = new JoinGroup(id, MB_NO, 0,0);
+                                        JoinGroup jg = new JoinGroup(id, MB_NO, 0, 0);
                                         JsonObject jsonObject = new JsonObject();
                                         jsonObject.addProperty("action", "jgInsert");
                                         jsonObject.addProperty("jg", new Gson().toJson(jg));
@@ -186,7 +314,7 @@ public class GroupDetailFragment extends Fragment {
                                             Common.showToast(getActivity(), R.string.textJoinFail);
                                         } else {
                                             Common.showToast(getActivity(), R.string.textIJoinSuccess);
-
+                                            btJoin.setText("取消參團");
 
                                             //這裡報名人數要+1已解決
 
@@ -227,6 +355,13 @@ public class GroupDetailFragment extends Fragment {
                                     }
                                     /* 回前一個Fragment */
                                     //navController.popBackStack();
+
+                                    getCheck();
+                                    if (joinGroup != null) {
+                                        if (joinGroup.getMASTER() == 1) {
+                                            btJoin.setText("查看參團名單");
+                                        }
+                                    }
                                     showGroup();
 
 
@@ -255,15 +390,57 @@ public class GroupDetailFragment extends Fragment {
         });
 
 
-        Bundle bundle = getArguments();
-        if (bundle == null || bundle.getSerializable("group") == null) {
-            Common.showToast(activity, R.string.textNoGroupsFound);
-            navController.popBackStack();
-            return;
-        }
-        group = (Group) bundle.getSerializable("group");
-        showGroup();
+    }
 
+    private void getJoinGroup() {
+        final SharedPreferences pref = activity.getSharedPreferences(Common.PREFERENCES_MEMBER, Context.MODE_PRIVATE);
+        int mbno2 = pref.getInt("mb_no", 0);
+        if (mbno2 != 0) {
+            if (Common.networkConnected(activity)) {
+                String url2 = Common.URL_SERVER + "/JoinGroupServlet";
+                JsonObject jsonObject2 = new JsonObject();
+                jsonObject2.addProperty("action", "findByMb");
+                jsonObject2.addProperty("mb", mbno2);
+                jsonObject2.addProperty("gp", group.getGP_ID());
+                String jsonOut = jsonObject2.toString();
+                joinGroupTask = new CommonTask(url2, jsonOut);
+                try {
+                    String jsonIn = joinGroupTask.execute().get();
+                    joinGroup = new Gson().fromJson(jsonIn, JoinGroup.class);
+                } catch (Exception e) {
+                    Log.e(TAG, e.toString());
+                }
+            } else {
+                Common.showToast(activity, R.string.textNoNetwork);
+            }
+        } else {
+
+
+            Common.showToast(getActivity(), R.string.textLoginFail);
+        }
+    }
+
+
+    private void getCheck() {
+        if (MB_NO != 0) {
+            if (Common.networkConnected(activity)) {
+                String url = Common.URL_SERVER + "/JoinGroupServlet";
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("action", "findByMb");
+                jsonObject.addProperty("mb", MB_NO);
+                jsonObject.addProperty("gp", group.getGP_ID());
+                String jsonOut = jsonObject.toString();
+                joinGroupTask = new CommonTask(url, jsonOut);
+                try {
+                    String jsonIn = joinGroupTask.execute().get();
+                    joinGroup = new Gson().fromJson(jsonIn, JoinGroup.class);
+                } catch (Exception e) {
+                    Log.e(TAG, e.toString());
+                }
+            } else {
+                Common.showToast(activity, R.string.textNoNetwork);
+            }
+        }
     }
 
     private void showGroup() {
@@ -287,24 +464,25 @@ public class GroupDetailFragment extends Fragment {
         tvDate.setText("活動日期：" + new SimpleDateFormat("yyyy/MM/dd").format(group.getGP_EVENTDATE()) + new SimpleDateFormat("（E）").format(group.getGP_EVENTDATE()));
         tvPeople.setText("可報 " + String.valueOf(group.getGP_UPPER() - group.getGP_ENROLLMENT()) + " 團位 " + String.valueOf(group.getGP_UPPER()));
     }
+
     private int getUserIdByEmail(String mb_email) {
         int mb_no = 0;
-        if(Common.networkConnected(activity)){
+        if (Common.networkConnected(activity)) {
             String url = Common.URL_SERVER + "/MemberServlet";
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "getUserIdByEmail");
             jsonObject.addProperty("email", mb_email);
             String jsonOut = jsonObject.toString();
-            memberGetIdTask = new CommonTask(url , jsonOut);
+            memberGetIdTask = new CommonTask(url, jsonOut);
             try {
                 //傳入string 回傳string轉型 int(id)
                 String result = memberGetIdTask.execute().get();
                 Log.d(TAG, result);
                 mb_no = Integer.parseInt(result);
-            }catch (Exception e){
+            } catch (Exception e) {
                 Log.e(TAG, e.toString());
             }
-        }else{
+        } else {
             Common.showToast(activity, R.string.textNoNetwork);
         }
         return mb_no;
@@ -314,13 +492,17 @@ public class GroupDetailFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        if(memberGetIdTask != null) {
+        if (memberGetIdTask != null) {
             memberGetIdTask.cancel(true);
             memberGetIdTask = null;
         }
-        if(loginTask != null) {
+        if (loginTask != null) {
             loginTask.cancel(true);
             loginTask = null;
+        }
+        if (joinGroupTask != null) {
+            joinGroupTask.cancel(true);
+            joinGroupTask = null;
         }
 
     }

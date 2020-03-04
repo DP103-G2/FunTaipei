@@ -25,10 +25,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.funtaipei.Common;
 import com.example.funtaipei.R;
-
 import com.example.funtaipei.task.CommonTask;
 import com.example.funtaipei.task.ImageTask;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -124,6 +122,9 @@ public class GroupListFragment extends Fragment {
                 return false;
             }
         });
+//        final SharedPreferences pref = activity.getSharedPreferences(Common.PREFERENCES_MEMBER, Context.MODE_PRIVATE);
+//        final int MB_NO = pref.getInt("mb_no", 0);
+//
         FloatingActionButton btAdd = view.findViewById(R.id.btAdd);
         btAdd.setOnClickListener(new View.OnClickListener() {
 
@@ -131,6 +132,7 @@ public class GroupListFragment extends Fragment {
             public void onClick(final View view) {
                 final SharedPreferences pref = activity.getSharedPreferences(Common.PREFERENCES_MEMBER, Context.MODE_PRIVATE);
                 final int MB_NO = pref.getInt("mb_no", 0);
+
                 if (MB_NO == 0){
                     LayoutInflater inflater = LayoutInflater.from(activity);
                     final View v = inflater.inflate(R.layout.fragment_login,null);

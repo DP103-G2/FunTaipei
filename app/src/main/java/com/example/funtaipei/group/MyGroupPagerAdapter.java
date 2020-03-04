@@ -1,20 +1,14 @@
 package com.example.funtaipei.group;
 
-import android.app.Activity;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.funtaipei.R;
-import com.example.funtaipei.travelCollection.FavoritePlaceFragment;
-import com.example.funtaipei.travelCollection.TravelCollectionFragment;
-
-import java.util.List;
 
 public class MyGroupPagerAdapter extends FragmentStatePagerAdapter {
     private static final int[] TAB_TITLES = new int[] {R.string.textdoingGroup, R.string.textEndGroup};

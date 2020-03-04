@@ -9,18 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.FileProvider;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-
 import android.os.Environment;
-import android.preference.PreferenceScreen;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
@@ -35,6 +24,14 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.FileProvider;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.funtaipei.Common;
 import com.example.funtaipei.R;
@@ -48,12 +45,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Calendar;
+import java.util.Date;
 
 import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;
-import static androidx.constraintlayout.widget.Constraints.TAG;
 
 
 public class GroupInsertFragment extends Fragment {
@@ -158,7 +154,7 @@ public class GroupInsertFragment extends Fragment {
                                     }
                                     int travelId = preferences.getInt("travelid", TRAVEL_ID);
                                     if(travelId == 0){
-                                        Common.showToast(getActivity(),R.string.textChoseTravel);
+                                        Common.showToast(getActivity(), R.string.textChoseTravel);
                                         return;
                                     }
 

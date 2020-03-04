@@ -2,10 +2,13 @@ package com.example.funtaipei.group;
 
 import java.io.Serializable;
 
-public class JoinGroup implements Serializable{
+public class JoinGroup implements Serializable {
 
     private int GP_ID, MB_NO, CHECK_IN, MASTER;
     private String MB_NAME;
+
+
+
 
     public JoinGroup (int mB_NO, String mB_NAME, int cHECK_IN) {
         super();
@@ -24,7 +27,11 @@ public class JoinGroup implements Serializable{
 
     }
 
-
+    public JoinGroup(int cHECK_IN, int mASTER) {
+        super();
+        this.CHECK_IN = cHECK_IN;
+        this.MASTER = mASTER;
+    }
     public int getGP_ID() {
         return GP_ID;
     }

@@ -3,17 +3,9 @@ package com.example.funtaipei.group;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,10 +13,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.example.funtaipei.Common;
 import com.example.funtaipei.R;
 import com.example.funtaipei.task.CommonTask;
 import com.example.funtaipei.task.ImageTask;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -46,6 +48,7 @@ public class MasterFragment extends Fragment {
     private CommonTask groupGetByIdTask;
     private ImageTask groupImageTask;
     private List<Group> groups;
+    private FloatingActionButton btAdd;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,7 +64,7 @@ public class MasterFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         activity.setTitle("我的揪團");
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
@@ -78,8 +81,69 @@ public class MasterFragment extends Fragment {
             }
         });
 
+        btAdd = view.findViewById(R.id.btAdd);
+        btAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.groupInsertFragment);
+            }
+        });
+
+
+
+        if (groups == null || groups.isEmpty()) {
+
+
+
+            new AlertDialog.Builder(activity)
+                    .setTitle("您尚未揪團")
+                    .setIcon(R.drawable.alert)
+                    .setMessage("您可以在團體建立團體")
+                    .setPositiveButton(R.string.textaddGroup, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Navigation.findNavController(view).navigate(R.id.groupInsertFragment);
+                            dialogInterface.cancel();
+                        }
+
+                    })
+                    .setNegativeButton(R.string.textNo, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                        }
+                    })
+                    .show();
+
+//            new AlertDialog.Builder(activity)
+//                    /* 設定標題 */
+//                    .setTitle(R.string.textTitle)
+//                    /* 設定圖示 */
+//                    .setIcon(R.drawable.alert)
+//                    /* 設定訊息文字 */
+//                    .setMessage(R.string.textMessage)
+//                    /* 設定positive與negative按鈕上面的文字與點擊事件監聽器 */
+//                    .setPositiveButton(R.string.textYes, new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            /* 結束此Activity頁面 */
+//                            activity.finish();
+//                        }
+//                    })
+//                    .setNegativeButton(R.string.textNo, new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            /* 關閉對話視窗 */
+//                            dialog.cancel();
+//                        }
+//                    })
+//                    .show();
+        }
+
+
 
     }
+
     private List<Group> getGroups() {
         List<Group> groups = null;
         final SharedPreferences pref = activity.getSharedPreferences(Common.PREFERENCES_MEMBER, Context.MODE_PRIVATE);
@@ -106,6 +170,7 @@ public class MasterFragment extends Fragment {
 
         return groups;
     }
+
     private void showGroups(List<Group> groups) {
         if (groups == null || groups.isEmpty()) {
 //            Common.showToast(activity, R.string.textNoInsertGroup);
@@ -118,6 +183,7 @@ public class MasterFragment extends Fragment {
             groupAdapter.notifyDataSetChanged();;
         }
     }
+
 
     private class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.MyViewHolder>{
         private LayoutInflater layoutInflater;
@@ -151,6 +217,7 @@ public class MasterFragment extends Fragment {
             return groups.size();
         }
 
+
         @NonNull
         @Override
         public GroupAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -182,6 +249,7 @@ public class MasterFragment extends Fragment {
 
 
     }
+
     @Override
     public void onStop() {
         super.onStop();
