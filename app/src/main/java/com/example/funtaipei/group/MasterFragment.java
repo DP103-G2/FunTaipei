@@ -37,9 +37,6 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class MasterFragment extends Fragment {
     private static final String TAG = "TAG_MasterFragment";
     private SwipeRefreshLayout swipeRefreshLayout;
