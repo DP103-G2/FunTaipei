@@ -282,6 +282,8 @@ public class GroupDetailFragment extends Fragment {
                     });
 
                 } else if (joinGroup == null) {
+                    final SharedPreferences pref2 = activity.getSharedPreferences(Common.PREFERENCES_MEMBER, Context.MODE_PRIVATE);
+                    final int mbno2 = pref.getInt("mb_no", 0);
                     new AlertDialog.Builder(activity)
                             /* 設定標題 */
                             .setTitle(R.string.textJoinGroup)
@@ -299,7 +301,7 @@ public class GroupDetailFragment extends Fragment {
 
                                     if (Common.networkConnected(activity)) {
                                         String url = Common.URL_SERVER + "/JoinGroupServlet";
-                                        JoinGroup jg = new JoinGroup(id, MB_NO, 0, 0);
+                                        JoinGroup jg = new JoinGroup(id, mbno2, 0, 0);
                                         JsonObject jsonObject = new JsonObject();
                                         jsonObject.addProperty("action", "jgInsert");
                                         jsonObject.addProperty("jg", new Gson().toJson(jg));
