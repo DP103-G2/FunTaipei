@@ -7,7 +7,7 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightgray"
+    android:background="@color/colorlightgray"
     android:orientation="vertical"
     tools:context=".main.MainActivity">
 
@@ -31,9 +31,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="@color/colorPrimary"
-            app:itemIconTint="#e6e6e6"
-            app:itemTextColor="#e6e6e6"
+            android:background="@android:color/background_light"
+            app:itemIconTint="@drawable/colot_item_state"
+            app:itemTextColor="@drawable/colot_item_state"
             app:menu="@menu/bottombarnavigation">
 
 

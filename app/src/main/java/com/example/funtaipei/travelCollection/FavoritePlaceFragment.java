@@ -139,7 +139,7 @@ public class FavoritePlaceFragment extends Fragment {
             layoutInflater = LayoutInflater.from(context);
             this.favoriteplaces = favoritePlaces;
             /* 螢幕寬度除以4當作將圖的尺寸 */
-            imageSize = getResources().getDisplayMetrics().widthPixels / 4;
+            imageSize = getResources().getDisplayMetrics().widthPixels / 2;
         }
 
         void setPlaces(List<FavoritePlace> favoriteplaces) {
