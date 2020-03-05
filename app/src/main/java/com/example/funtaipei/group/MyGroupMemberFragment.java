@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,6 +29,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -42,6 +44,9 @@ public class MyGroupMemberFragment extends Fragment {
     private CommonTask jgTask;
     private ImageTask mbImageTask;
     private List<JoinGroup> joinGroups;
+    private ImageView imageView;
+    private TextView textView;
+    private SearchView searchView;
 
 
     @Override
@@ -74,6 +79,43 @@ public class MyGroupMemberFragment extends Fragment {
         });
         showJoinGroups(joinGroups);
         joinGroups = getJoinGroups();
+        imageView = view.findViewById(R.id.imageView);
+        textView = view.findViewById(R.id.textView);
+        searchView = view.findViewById(R.id.searchView);
+        if (joinGroups == null || joinGroups.isEmpty()) {
+            imageView.setVisibility(View.VISIBLE);
+            textView.setVisibility(View.VISIBLE);
+            searchView.setVisibility(View.GONE);
+        }
+
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                JoinGroupAdapter joinGroupAdapter = (JoinGroupAdapter) rvMember.getAdapter();
+                if (joinGroupAdapter != null) {
+                    if (s.isEmpty()) {
+                        showJoinGroups(joinGroups);
+                    } else {
+                        List<JoinGroup> searchJoinGroups = new ArrayList<>();
+                        for (JoinGroup joinGroup : joinGroups) {
+                            if (joinGroup.getMB_NAME().toUpperCase().contains(s.toUpperCase())) {
+                                searchJoinGroups.add(joinGroup);
+                            }
+                        }
+                        joinGroupAdapter.setJoinGroups(searchJoinGroups);
+                    }
+                    joinGroupAdapter.notifyDataSetChanged();
+                    return true;
+                }
+                return false;
+            }
+        });
 
     }
 
@@ -106,7 +148,7 @@ public class MyGroupMemberFragment extends Fragment {
 
     private void showJoinGroups(List<JoinGroup> joinGroups) {
         if (joinGroups == null || joinGroups.isEmpty()) {
-            Common.showToast(activity, R.string.textNoMemberJoin);
+//            Common.showToast(activity, R.string.textNoMemberJoin);
         }
         JoinGroupAdapter joinGroupAdapter = (JoinGroupAdapter) rvMember.getAdapter();
         if (joinGroupAdapter == null) {

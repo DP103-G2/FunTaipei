@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ import com.example.funtaipei.Common;
 import com.example.funtaipei.R;
 import com.example.funtaipei.task.CommonTask;
 import com.example.funtaipei.task.ImageTask;
+import com.example.funtaipei.travel.Image;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -43,6 +45,9 @@ public class DoingGroupFragment extends Fragment {
     private CommonTask groupGetByIdTask;
     private ImageTask groupImageTask;
     private List<Group> groups;
+    private Button btGoGroup;
+    private ImageView imageView;
+    private TextView textView;
 
 
     @Override
@@ -76,30 +81,44 @@ public class DoingGroupFragment extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
+        imageView = view.findViewById(R.id.imageView);
+        textView = view.findViewById(R.id.textView);
+        btGoGroup = view.findViewById(R.id.btGoGroup);
+
         if (groups == null || groups.isEmpty()) {
+            imageView.setVisibility(View.VISIBLE);
+            textView.setVisibility(View.VISIBLE);
+            btGoGroup.setVisibility(View.VISIBLE);
+            btGoGroup.setEnabled(true);
 
 
-            new AlertDialog.Builder(activity)
-                    .setTitle("您尚未參團")
-                    .setIcon(R.drawable.alert)
-                    .setMessage("您可以在瀏覽團體，找到喜歡的團報名喔！")
-                    .setPositiveButton("前往團體", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            Navigation.findNavController(view).navigate(R.id.groupListFragment);
-                            dialogInterface.cancel();
-                        }
-
-                    })
-                    .setNegativeButton(R.string.textNo, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.cancel();
-                        }
-                    })
-                    .show();
+//            new AlertDialog.Builder(activity)
+//                    .setTitle("您尚未參團")
+//                    .setIcon(R.drawable.alert)
+//                    .setMessage("您可以瀏覽團體找到喜歡的團報名喔！")
+//                    .setPositiveButton("前往團體", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialogInterface, int i) {
+//                            Navigation.findNavController(view).navigate(R.id.groupListFragment);
+//                            dialogInterface.cancel();
+//                        }
+//
+//                    })
+//                    .setNegativeButton(R.string.textNo, new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialogInterface, int i) {
+//                            dialogInterface.cancel();
+//                        }
+//                    })
+//                    .show();
         }
 
+        btGoGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.groupListFragment);
+            }
+        });
 
     }
     private List<Group> getGroups() {

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -43,6 +44,9 @@ public class EndGroupFragment extends Fragment {
     private CommonTask groupGetByIdTask;
     private ImageTask groupImageTask;
     private List<Group> groups;
+    private Button btGoGroup;
+    private ImageView imageView;
+    private TextView textView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,9 +77,24 @@ public class EndGroupFragment extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
+        imageView = view.findViewById(R.id.imageView);
+        textView = view.findViewById(R.id.textView);
+        btGoGroup = view.findViewById(R.id.btGoGroup);
+        if (groups == null || groups.isEmpty()) {
+            imageView.setVisibility(View.VISIBLE);
+            textView.setVisibility(View.VISIBLE);
+            btGoGroup.setVisibility(View.VISIBLE);
+            btGoGroup.setEnabled(true);
+        }
+        btGoGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.groupListFragment);
+            }
+        });
 
 
-    }
+        }
     private List<Group> getGroups() {
         List<Group> groups = null;
         final SharedPreferences pref = activity.getSharedPreferences(Common.PREFERENCES_MEMBER, Context.MODE_PRIVATE);

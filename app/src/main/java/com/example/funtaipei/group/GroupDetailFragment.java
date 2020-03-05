@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -79,19 +81,29 @@ public class GroupDetailFragment extends Fragment {
         final SharedPreferences pref = activity.getSharedPreferences(Common.PREFERENCES_MEMBER, Context.MODE_PRIVATE);
         MB_NO = pref.getInt("mb_no", 0);
         Bundle bundle = getArguments();
-        if (bundle == null || bundle.getSerializable("group") == null) {
-            Common.showToast(activity, R.string.textNoGroupsFound);
-            navController.popBackStack();
-            return;
+
+//        if (bundle == null || bundle.getSerializable("group") == null) {
+//            Common.showToast(activity, R.string.textNoGroupsFound);
+//            navController.popBackStack();
+//            return;
+//        }
+        if (bundle.getSerializable("group") != null) {
+            group = (Group) bundle.getSerializable("group");
         }
-        group = (Group) bundle.getSerializable("group");
+        if (bundle.getSerializable("gpid") != null) {
+            group = (Group) bundle.getSerializable("gpid");
+        }
         showGroup();
         getCheck();
         if (joinGroup != null) {
             if (joinGroup.getMASTER() == 1) {
                 btJoin.setText("查看參團名單");
+                btJoin.setBackgroundColor(Color.parseColor("#72E774"));
+//                btJoin.getBackground().setColorFilter(0xFF000000, android.graphics.PorterDuff.Mode.MULTIPLY );
             } else {
                 btJoin.setText("取消參團");
+                btJoin.setTextColor(Color.parseColor("#E91E63"));
+                btJoin.setBackgroundColor(View.GONE);
             }
         }
 
@@ -129,7 +141,7 @@ public class GroupDetailFragment extends Fragment {
                     } else {
                         new AlertDialog.Builder(activity)
                                 /* 設定標題 */
-                                .setTitle(R.string.textCancelJoinGroup)
+                                .setTitle("確定要取消 \"" + group.getGP_NAME() + "\" 嗎？")
                                 /* 設定圖示 */
                                 .setIcon(R.drawable.alert)
                                 /* 設定訊息文字 */
@@ -160,6 +172,9 @@ public class GroupDetailFragment extends Fragment {
                                             if (count != 0) {
                                                 Common.showToast(getActivity(), R.string.textCancelGroupTrue);
                                                 btJoin.setText("立即報名");
+                                                btJoin.setTextColor(Color.parseColor("#FCFAFA"));
+                                                btJoin.setBackgroundColor(Color.parseColor("#E91E63"));
+
                                                 int tvid = group.getTRAVEL_ID();
                                                 String name = group.getGP_NAME();
                                                 int ENROLLMENT = group.getGP_ENROLLMENT() - 1;
@@ -261,8 +276,11 @@ public class GroupDetailFragment extends Fragment {
                                 if (joinGroup != null) {
                                     if (joinGroup.getMASTER() == 1) {
                                         btJoin.setText("查看參團名單");
+                                        btJoin.setBackgroundColor(Color.parseColor("#72E774"));
                                     } else {
                                         btJoin.setText("取消參團");
+                                        btJoin.setTextColor(Color.parseColor("#E91E63"));
+                                        btJoin.setBackgroundColor(View.GONE);
                                     }
                                 }
                             }
@@ -286,7 +304,7 @@ public class GroupDetailFragment extends Fragment {
                     final int mbno2 = pref.getInt("mb_no", 0);
                     new AlertDialog.Builder(activity)
                             /* 設定標題 */
-                            .setTitle(R.string.textJoinGroup)
+                            .setTitle("確定要報名 \"" + group.getGP_NAME() + "\" 嗎？")
                             /* 設定圖示 */
                             .setIcon(R.drawable.alert)
                             /* 設定訊息文字 */
@@ -317,6 +335,8 @@ public class GroupDetailFragment extends Fragment {
                                         } else {
                                             Common.showToast(getActivity(), R.string.textIJoinSuccess);
                                             btJoin.setText("取消參團");
+                                            btJoin.setTextColor(Color.parseColor("#E91E63"));
+                                            btJoin.setBackgroundColor(View.GONE);
 
                                             //這裡報名人數要+1已解決
 
@@ -362,6 +382,7 @@ public class GroupDetailFragment extends Fragment {
                                     if (joinGroup != null) {
                                         if (joinGroup.getMASTER() == 1) {
                                             btJoin.setText("查看參團名單");
+                                            btJoin.setBackgroundColor(Color.parseColor("#72E774"));
                                         }
                                     }
                                     showGroup();
@@ -505,6 +526,10 @@ public class GroupDetailFragment extends Fragment {
         if (joinGroupTask != null) {
             joinGroupTask.cancel(true);
             joinGroupTask = null;
+        }
+        if (deleteTask != null) {
+            deleteTask.cancel(true);
+            deleteTask = null;
         }
 
     }

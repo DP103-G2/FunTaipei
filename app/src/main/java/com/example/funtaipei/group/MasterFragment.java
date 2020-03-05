@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -63,6 +64,7 @@ public class MasterFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        final NavController navController = Navigation.findNavController(view);
         activity.setTitle("我的揪團");
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         rvGroup = view.findViewById(R.id.rvGroup);
@@ -95,7 +97,7 @@ public class MasterFragment extends Fragment {
             new AlertDialog.Builder(activity)
                     .setTitle("您尚未揪團")
                     .setIcon(R.drawable.alert)
-                    .setMessage("您可以在團體建立團體")
+                    .setMessage("您可以在團體建立揪團")
                     .setPositiveButton(R.string.textaddGroup, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
@@ -108,6 +110,7 @@ public class MasterFragment extends Fragment {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             dialogInterface.cancel();
+                            navController.popBackStack();
                         }
                     })
                     .show();
@@ -236,9 +239,9 @@ public class MasterFragment extends Fragment {
                 public void onClick(View view) {
 
                     Bundle bundle = new Bundle();
-                    int id = group.getGP_ID();
-                    bundle.putInt("gpid", id);
-                    Navigation.findNavController(view).navigate(R.id.action_masterFragment_to_myGroupMemberFragment, bundle);
+
+                    bundle.putSerializable("gpid", group);
+                    Navigation.findNavController(view).navigate(R.id.groupDetailFragment, bundle);
                 }
             });
 

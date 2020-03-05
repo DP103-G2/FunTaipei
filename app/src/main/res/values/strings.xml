@@ -71,7 +71,7 @@
     <string name="textNo">取消</string>
     <string name="tab1">我的行程</string>
     <string name="tab2">我的旅遊點</string>
-    <string name="textJoinGroup">確定報名此團嗎？</string>
+
     <string name="textJoinFail">報名失敗</string>
     <string name="textIJoinSuccess">報名成功</string>
     <string name="textGender">性別</string>

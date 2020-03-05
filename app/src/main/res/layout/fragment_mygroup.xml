@@ -25,11 +25,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="參團紀錄" />
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/Master"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="我的團體"/>
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager.widget.ViewPager

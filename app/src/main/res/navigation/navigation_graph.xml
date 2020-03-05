@@ -307,5 +307,10 @@
         android:name="com.example.funtaipei.favoritePlace.FavoritePlaceDetailsFragment"
         android:label="fragment_favorite_place_details"
         tools:layout="@layout/fragment_favorite_place_details" />
+    <fragment
+        android:id="@+id/noFindGroupFragment"
+        android:name="com.example.funtaipei.group.NoFindGroupFragment"
+        android:label="fragment_no_find_group"
+        tools:layout="@layout/fragment_no_find_group" />
 </navigation>
 

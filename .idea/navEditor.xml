@@ -447,6 +447,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="noFindGroupFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="170" />
+                            <option name="y" value="-2710" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="placeDetailsFragment">
                     <value>
                       <LayoutPositions>
