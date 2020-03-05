@@ -19,6 +19,13 @@ public class Travel implements Serializable{
 		this.mb_no = mb_no;
 	}
 
+	public Travel(int travel_id, String travel_name, int travel_status, int mb_no) {
+		super();
+		this.travel_id = travel_id;
+		this.travel_name = travel_name;
+		this.travel_status = travel_status;
+		this.mb_no = mb_no;
+	}
 	public Travel(int travel_id, String travel_name, int travel_status) {
 		super();
 		this.travel_id = travel_id;
@@ -37,19 +44,6 @@ public class Travel implements Serializable{
 		this.travel_name = travel_name;
 
 	}
-
-	public Travel(int travel_id, String travel_name, int travel_status, int mb_no) {
-		this.travel_id = travel_id;
-		this.travel_name = travel_name;
-		this.travel_status = travel_status;
-		this.mb_no = mb_no;
-	}
-
-	public Travel(int travel_id, int mb_no, int travel_name, int travel_status) {
-
-
-	}
-
 	public int getTravel_id() {
 		return travel_id;
 	}
@@ -81,8 +75,6 @@ public class Travel implements Serializable{
 		this.mb_no = mb_no;
 	}
 
-	public int setTravel_id() {
-		this.travel_id = travel_id;
-		return travel_id;
-	}
+
+
 }
