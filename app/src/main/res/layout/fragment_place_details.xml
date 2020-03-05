@@ -102,9 +102,11 @@
 
     <Button
         android:id="@+id/btCanceldt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/colorYellow"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/circlebutton"
+        android:radius="15dp"
+        android:shape="rectangle"
         android:text="Back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -126,5 +128,13 @@
         app:layout_constraintEnd_toEndOf="@+id/mapView"
         app:layout_constraintStart_toStartOf="@+id/mapView"
         app:layout_constraintTop_toTopOf="@+id/mapView" />
+
+    <Button
+        android:id="@+id/btGood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Good"
+        app:layout_constraintEnd_toEndOf="@+id/ivPlace"
+        app:layout_constraintTop_toBottomOf="@+id/ivPlace" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
