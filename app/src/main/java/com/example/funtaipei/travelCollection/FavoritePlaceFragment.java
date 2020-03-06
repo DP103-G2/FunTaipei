@@ -198,22 +198,14 @@ public class FavoritePlaceFragment extends Fragment {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
                             switch (item.getItemId()) {
-//                                case R.id.insert:
-//                                    Navigation.findNavController(view).navigate(R.id.action_favoritePlaceFragment_to_placeDetailsFragment);
-//                                    break;
-                                case R.id.update:
-                                    Bundle bundle = new Bundle();
-                                    bundle.putSerializable("favoriteplace", favoritePlace);
-                                    Navigation.findNavController(view)
-                                            .navigate(R.id.action_favoritePlaceFragment_to_favoritePlaceDetailsFragment, bundle);
-                                    break;
 
                                 case R.id.delete:
                                     if (Common.networkConnected(activity)) {
                                         String url = Common.URL_SERVER + "/FavoritePlaceServlet";
                                         JsonObject jsonObject = new JsonObject();
-                                        jsonObject.addProperty("action", "favoriteplaceDelete");
-                                        jsonObject.addProperty("favoriteplaceId", favoritePlace.getGp_name());
+                                        jsonObject.addProperty("action", "favoritePlaceDelete");
+                                        jsonObject.addProperty("Pc_id", favoritePlace.getPc_id());
+                                        jsonObject.addProperty("mbNo", mbNo);
                                         int count = 0;
                                         try {
                                             placeDeleteTask = new CommonTask(url, jsonObject.toString());
@@ -226,9 +218,7 @@ public class FavoritePlaceFragment extends Fragment {
                                             Common.showToast(activity, R.string.textDeleteFail);
                                         } else {
                                             favoriteplaces.remove(favoritePlace);
-
                                             FavoritePlaceFragment.FavoritePlaceAdapter.this.notifyDataSetChanged();
-                                            // 外面spots也必須移除選取的spot
                                             FavoritePlaceFragment.this.favoriteplaces.remove(favoritePlace);
                                             Common.showToast(activity, R.string.textDeleteSuccess);
                                         }

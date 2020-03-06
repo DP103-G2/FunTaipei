@@ -17,14 +17,17 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.funtaipei.Common;
 import com.example.funtaipei.R;
@@ -54,7 +57,7 @@ public class PlaceDetailsFragment extends Fragment {
     private TextView tvPhone;
     private  TextView tvName;
     private ImageView ivPlace;
-    private  Button btFavorite ,btLogin, btRegister;
+    private  Button btFavorite ,btLogin, btRegister,btGood;
     private  CommonTask favoritePlaceTask,  memberGetIdTask, loginTask;
     private GoogleMap map;
     private  int mbNo;
@@ -247,6 +250,31 @@ public class PlaceDetailsFragment extends Fragment {
 
             }
         });
+
+//         btGood = view.findViewById(R.id.btGood);
+//         btGood.setOnClickListener(new View.OnClickListener() {
+//             @Override
+//             public void onClick(View v) {
+//                 int id = (int)btGood.getTag();
+//                 if( id == R.drawable.like2){
+//
+//                     btGood.setTag(R.drawable.like);
+//                     btGood.setImageResource(R.drawable.like);
+//
+//                     Common.showToast(getActivity(), R.string.textGoodFail);
+//
+//                 } else {
+//
+//                     btGood.setTag(R.drawable.like2);
+//                     btGood.setImageResource(R.drawable.like2);
+//                     Common.showToast(getActivity(), R.string.textGoodSuccess);
+//
+//                 }
+//
+//             }
+//         });
+
+
     }
 
 
@@ -322,6 +350,8 @@ public class PlaceDetailsFragment extends Fragment {
         }
         return mb_no;
     }
+
+
 
 
 }
