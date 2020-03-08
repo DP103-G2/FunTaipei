@@ -11,14 +11,15 @@
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/colorPrimary"
-        app:tabMode="fixed"
-        app:tabGravity="fill">
+        android:background="@color/colorlightgray"
+        app:tabGravity="fill"
+        app:tabMode="fixed">
+
         <com.google.android.material.tabs.TabItem
             android:id="@+id/DoingGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="進行中"/>
+            android:text="進行中" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/EndGroup"

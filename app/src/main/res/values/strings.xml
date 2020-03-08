@@ -101,5 +101,7 @@
     <string name="textCancelGroupTrue">取消成功</string>
     <string name="textCancelJoinGroup">您確定取消報名嗎？</string>
     <string name="textaddGroup">前往建立團體</string>
+    <string name="textGoodFail">按讚失敗</string>
+    <string name="textGoodSuccess">按讚成功</string>
 
 </resources>

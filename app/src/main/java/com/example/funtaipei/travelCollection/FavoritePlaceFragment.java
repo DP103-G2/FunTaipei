@@ -138,8 +138,8 @@ public class FavoritePlaceFragment extends Fragment {
         FavoritePlaceAdapter(Context context, List<FavoritePlace> favoritePlaces) {
             layoutInflater = LayoutInflater.from(context);
             this.favoriteplaces = favoritePlaces;
-            /* 螢幕寬度除以4當作將圖的尺寸 */
-            imageSize = getResources().getDisplayMetrics().widthPixels / 2;
+            /* 螢幕寬度除以3當作將圖的尺寸 */
+            imageSize = getResources().getDisplayMetrics().widthPixels / 3;
         }
 
         void setPlaces(List<FavoritePlace> favoriteplaces) {
@@ -172,7 +172,7 @@ public class FavoritePlaceFragment extends Fragment {
         public void onBindViewHolder(@NonNull FavoritePlaceFragment.FavoritePlaceAdapter.MyViewHolder holder, int position) {
             final FavoritePlace favoritePlace = favoriteplaces.get(position);
             String url = Common.URL_SERVER + "/PlaceServlet";
-            int id = favoritePlace.getPc_id();
+            final int id = favoritePlace.getPc_id();
             placeImageTask = new ImageTask(url, id, imageSize, holder.imageView);
             placeImageTask.execute();
             holder.tvName.setText(favoritePlace.getPc_name());
