@@ -58,8 +58,8 @@
 
             android:layout_marginTop="25dp"
             android:layout_marginEnd="10dp"
-            android:text="報名中"
-            android:textColor="#006400" />
+            android:text="活動中"
+            android:textColor="#03A9F4" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

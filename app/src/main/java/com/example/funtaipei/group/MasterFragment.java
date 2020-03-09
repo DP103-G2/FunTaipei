@@ -252,8 +252,12 @@ public class MasterFragment extends Fragment {
             groupImageTask.execute();
 //            SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
             Calendar curDate = Calendar.getInstance();
-            if (group.getGP_EVENTDATE().getTime() <= curDate.getTimeInMillis()){
-                myViewHolder.textView.setText("活動中");
+            if (group.getGP_DATEEND().getTime() < curDate.getTimeInMillis() && group.getGP_EVENTDATE().getTime() > curDate.getTimeInMillis()) {
+                myViewHolder.textView.setText("截止報名");
+                myViewHolder.textView.setTextColor(Color.parseColor("#FFD700"));
+            } else if (group.getGP_DATESTAR().getTime() < curDate.getTimeInMillis() && group.getGP_DATEEND().getTime() > curDate.getTimeInMillis()){
+                myViewHolder.textView.setText("報名中");
+                myViewHolder.textView.setTextColor(Color.parseColor("#00FF99"));
             }
 
 
@@ -312,10 +316,10 @@ public class MasterFragment extends Fragment {
 
                 });
             }
-            else /*if (group.getGP_DATEEND().getTime() <= curDate.getTimeInMillis())*/ {
-                myViewHolder.textView.setText("已截止報名");
-                myViewHolder.textView.setTextColor(Color.parseColor("#FFD700"));
-            }
+//            else /*if (group.getGP_DATEEND().getTime() <= curDate.getTimeInMillis())*/ {
+//                myViewHolder.textView.setText("截止報名");
+//                myViewHolder.textView.setTextColor(Color.parseColor("#FFD700"));
+//            }
             myViewHolder.tvName.setText(group.getGP_NAME());
             myViewHolder.tvEventedate.setText("活動日期：" + new SimpleDateFormat("yyyy/MM/dd").format(group.getGP_EVENTDATE()) + new SimpleDateFormat("（E）").format(group.getGP_EVENTDATE()));
             myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {

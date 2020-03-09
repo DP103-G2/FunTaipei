@@ -210,9 +210,12 @@ public class DoingGroupFragment extends Fragment {
             groupImageTask = new ImageTask(url, id, imageSize, myViewHolder.imageView);
             groupImageTask.execute();
             Calendar curDate = Calendar.getInstance();
-            if (group.getGP_DATEEND().getTime() < curDate.getTimeInMillis()) {
-                myViewHolder.textView.setText("已截止報名");
+            if (group.getGP_DATEEND().getTime() < curDate.getTimeInMillis() && group.getGP_EVENTDATE().getTime() > curDate.getTimeInMillis()) {
+                myViewHolder.textView.setText("截止報名");
                 myViewHolder.textView.setTextColor(Color.parseColor("#FFD700"));
+            } else if (group.getGP_DATESTAR().getTime() < curDate.getTimeInMillis() && group.getGP_DATEEND().getTime() > curDate.getTimeInMillis()){
+                myViewHolder.textView.setText("報名中");
+                myViewHolder.textView.setTextColor(Color.parseColor("#00FF99"));
             }
             myViewHolder.tvName.setText(group.getGP_NAME());
             myViewHolder.tvEventedate.setText("活動日期：" + new SimpleDateFormat("yyyy/MM/dd").format(group.getGP_EVENTDATE()) + new SimpleDateFormat("（E）").format(group.getGP_EVENTDATE()));

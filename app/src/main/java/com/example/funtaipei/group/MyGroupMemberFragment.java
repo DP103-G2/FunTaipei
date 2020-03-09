@@ -23,6 +23,7 @@ import com.example.funtaipei.Common;
 import com.example.funtaipei.R;
 import com.example.funtaipei.task.CommonTask;
 import com.example.funtaipei.task.ImageTask;
+import com.example.funtaipei.travel.Travel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -31,6 +32,8 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 
 /**
@@ -41,13 +44,13 @@ public class MyGroupMemberFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView rvMember;
     private Activity activity;
-    private CommonTask jgTask;
+    private CommonTask jgTask, groupTask;
     private ImageTask mbImageTask;
     private List<JoinGroup> joinGroups;
     private ImageView imageView;
     private TextView textView;
     private SearchView searchView;
-
+    private Group group;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,7 +68,7 @@ public class MyGroupMemberFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        activity.setTitle("參團名單");
+
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         rvMember = view.findViewById(R.id.rvMember);
         rvMember.setLayoutManager(new LinearLayoutManager(activity));
@@ -88,6 +91,32 @@ public class MyGroupMemberFragment extends Fragment {
             searchView.setVisibility(View.GONE);
         }
 
+        if (group == null ) {
+            Bundle bundle = getArguments();
+            int id = bundle.getInt("gpid");
+
+            if (Common.networkConnected(activity)) {
+                String url = Common.URL_SERVER + "/GroupServlet";
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("action", "findById");
+                jsonObject.addProperty("id", id);
+                String jsonOut = jsonObject.toString();
+
+
+                groupTask = new CommonTask(url, jsonOut);
+                try {
+                    String jsonIn = groupTask.execute().get();
+                    Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
+                    group = gson.fromJson(jsonIn, Group.class);
+                } catch (Exception e) {
+                    Log.d(TAG, e.toString());
+                }
+            } else {
+                Common.showToast(activity, R.string.textNoNetwork);
+            }
+
+        }
+        activity.setTitle("\"" + group.getGP_NAME() + "\" 參團名單");
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
