@@ -114,7 +114,7 @@ public class DoingGroupFragment extends Fragment {
 //                    })
 //                    .show();
         }
-
+//
         btGoGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
