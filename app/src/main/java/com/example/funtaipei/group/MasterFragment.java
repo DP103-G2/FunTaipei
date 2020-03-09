@@ -351,6 +351,11 @@ public class MasterFragment extends Fragment {
             groupImageTask.cancel(true);
             groupImageTask = null;
         }
+
+        if (groupDeleteTask != null) {
+            groupDeleteTask.cancel(true);
+            groupDeleteTask = null;
+        }
     }
 
 

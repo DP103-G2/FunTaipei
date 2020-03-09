@@ -253,5 +253,10 @@ public class MyGroupMemberFragment extends Fragment {
             mbImageTask.cancel(true);
             mbImageTask = null;
         }
+
+        if (groupTask != null) {
+            groupTask.cancel(true);
+            groupTask = null;
+        }
     }
 }

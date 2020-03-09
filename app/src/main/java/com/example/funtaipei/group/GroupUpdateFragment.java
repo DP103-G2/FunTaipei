@@ -553,4 +553,12 @@ public class GroupUpdateFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (travelTask != null) {
+            travelTask.cancel(true);
+            travelTask = null;
+        }
+    }
 }
