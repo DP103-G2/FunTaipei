@@ -200,6 +200,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="groupUpdateFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="200" />
+                            <option name="y" value="-4050" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="homeFragment">
                     <value>
                       <LayoutPositions>
@@ -369,6 +381,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="masterFinsihFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-238" />
+                            <option name="y" value="-3385" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="masterFragment">
                     <value>
                       <LayoutPositions>
@@ -386,6 +410,18 @@
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="masterGroupFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="1390" />
+                            <option name="y" value="-910" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>

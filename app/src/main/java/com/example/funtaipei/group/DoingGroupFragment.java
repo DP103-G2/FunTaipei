@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,6 +35,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -176,13 +178,14 @@ public class DoingGroupFragment extends Fragment {
         }
         class MyViewHolder extends RecyclerView.ViewHolder {
             ImageView imageView;
-            TextView tvName, tvEventedate;
+            TextView tvName, tvEventedate, textView;
 
             public MyViewHolder(@NonNull View itemView) {
                 super(itemView);
                 imageView = itemView.findViewById(R.id.imageView);
                 tvName = itemView.findViewById(R.id.tvName);
                 tvEventedate = itemView.findViewById(R.id.tvEventdate);
+                textView = itemView.findViewById(R.id.textView);
             }
 
         }
@@ -206,6 +209,11 @@ public class DoingGroupFragment extends Fragment {
             int id = group.getGP_ID();
             groupImageTask = new ImageTask(url, id, imageSize, myViewHolder.imageView);
             groupImageTask.execute();
+            Calendar curDate = Calendar.getInstance();
+            if (group.getGP_DATEEND().getTime() < curDate.getTimeInMillis()) {
+                myViewHolder.textView.setText("已截止報名");
+                myViewHolder.textView.setTextColor(Color.parseColor("#FFD700"));
+            }
             myViewHolder.tvName.setText(group.getGP_NAME());
             myViewHolder.tvEventedate.setText("活動日期：" + new SimpleDateFormat("yyyy/MM/dd").format(group.getGP_EVENTDATE()) + new SimpleDateFormat("（E）").format(group.getGP_EVENTDATE()));
             myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {

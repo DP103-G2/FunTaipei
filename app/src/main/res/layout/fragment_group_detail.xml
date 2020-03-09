@@ -109,4 +109,15 @@
         app:layout_constraintTop_toBottomOf="@+id/tvDate"
         tools:text="備註" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="最後報名日期："
+        android:textColor="#E91E63"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPeople" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,12 +5,16 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -35,6 +39,8 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -43,10 +49,13 @@ public class MasterFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView rvGroup;
     private Activity activity;
-    private CommonTask groupGetByIdTask;
+    private CommonTask groupGetByIdTask, groupDeleteTask;
     private ImageTask groupImageTask;
     private List<Group> groups;
     private FloatingActionButton btAdd;
+    private ImageView imageView;
+    private TextView textView;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -87,11 +96,19 @@ public class MasterFragment extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.groupInsertFragment);
             }
         });
-
+        imageView = view.findViewById(R.id.imageView);
+        textView = view.findViewById(R.id.textView);
+//        if (groups == null || groups.isEmpty()) {
+//            imageView.setVisibility(View.VISIBLE);
+//            textView.setVisibility(View.VISIBLE);
+////            btGoGroup.setVisibility(View.VISIBLE);
+////            btGoGroup.setEnabled(true);
+//        }
 
 
         if (groups == null || groups.isEmpty()) {
-
+            imageView.setVisibility(View.VISIBLE);
+            textView.setVisibility(View.VISIBLE);
 
 
             new AlertDialog.Builder(activity)
@@ -110,7 +127,7 @@ public class MasterFragment extends Fragment {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             dialogInterface.cancel();
-                            navController.popBackStack();
+//                            navController.popBackStack();
                         }
                     })
                     .show();
@@ -201,13 +218,14 @@ public class MasterFragment extends Fragment {
         }
         class MyViewHolder extends RecyclerView.ViewHolder {
             ImageView imageView;
-            TextView tvName, tvEventedate;
+            TextView tvName, tvEventedate, textView;
 
             public MyViewHolder(@NonNull View itemView) {
                 super(itemView);
                 imageView = itemView.findViewById(R.id.imageView);
                 tvName = itemView.findViewById(R.id.tvName);
                 tvEventedate = itemView.findViewById(R.id.tvEventdate);
+                textView = itemView.findViewById(R.id.textView);
             }
 
         }
@@ -232,6 +250,72 @@ public class MasterFragment extends Fragment {
             int id = group.getGP_ID();
             groupImageTask = new ImageTask(url, id, imageSize, myViewHolder.imageView);
             groupImageTask.execute();
+//            SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+            Calendar curDate = Calendar.getInstance();
+            if (group.getGP_EVENTDATE().getTime() <= curDate.getTimeInMillis()){
+                myViewHolder.textView.setText("活動中");
+            }
+
+
+            else if(group.getGP_DATESTAR().getTime() > curDate.getTimeInMillis()) {
+                myViewHolder.textView.setText("未開放");
+                myViewHolder.textView.setTextColor(Color.parseColor("#E91E63"));
+                myViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(final View view) {
+                        PopupMenu popupMenu = new PopupMenu(activity, view, Gravity.END);
+                        popupMenu.inflate(R.menu.update_group);
+                        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem menuItem) {
+                                switch (menuItem.getItemId()) {
+                                    case R.id.update:
+                                        Bundle bundle = new Bundle();
+                                        bundle.putSerializable("group", group);
+                                        Navigation.findNavController(view).navigate(R.id.groupUpdateFragment, bundle);
+                                        break;
+                                    case R.id.delete:
+                                        if (Common.networkConnected(activity)) {
+                                            String url = Common.URL_SERVER + "/GroupServlet";
+                                            JsonObject jsonObject = new JsonObject();
+                                            jsonObject.addProperty("action", "delete");
+                                            jsonObject.addProperty("id", group.getGP_ID());
+                                            int count = 0;
+                                            try {
+                                                groupDeleteTask = new CommonTask(url, jsonObject.toString());
+                                                String result = groupDeleteTask.execute().get();
+                                                count = Integer.valueOf(result);
+                                            } catch (Exception e) {
+                                                Log.e(TAG, e.toString());
+                                            }
+                                            if (count != 2) {
+                                                Common.showToast(activity, R.string.textDeleteFail);
+                                            } else {
+                                                groups.remove(group);
+                                                GroupAdapter.this.notifyDataSetChanged();
+                                                MasterFragment.this.groups.remove(group);
+                                                Common.showToast(activity, R.string.textDeleteSuccess);
+                                            }
+                                        } else {
+                                            Common.showToast(activity, R.string.textNoNetwork);
+                                        }
+
+                                }
+                                return true;
+                            }
+
+
+                        });
+                        popupMenu.show();
+                        return true;
+                    }
+
+                });
+            }
+            else /*if (group.getGP_DATEEND().getTime() <= curDate.getTimeInMillis())*/ {
+                myViewHolder.textView.setText("已截止報名");
+                myViewHolder.textView.setTextColor(Color.parseColor("#FFD700"));
+            }
             myViewHolder.tvName.setText(group.getGP_NAME());
             myViewHolder.tvEventedate.setText("活動日期：" + new SimpleDateFormat("yyyy/MM/dd").format(group.getGP_EVENTDATE()) + new SimpleDateFormat("（E）").format(group.getGP_EVENTDATE()));
             myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {

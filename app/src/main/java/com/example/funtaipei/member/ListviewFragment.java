@@ -100,7 +100,7 @@ public class ListviewFragment extends Fragment {
         memberList = new ArrayList<>();
         memberIcon = new int[]{R.drawable.personcontact, R.drawable.group, R.drawable.team,R.drawable.ic_card_travel_black_24dp, R.drawable.login};
         memberTitle = new String[]{getString(R.string.textPersoncontact), getString(R.string.textMyGroup),getString(R.string.textmyNewGroup),getString(R.string.textTravelManage),getString(R.string.textLogout)};
-        memberAction = new int[]{R.id.action_listviewFragment_to_memberDetailFragment ,R.id.action_listviewFragment_to_mygroupFragment, R.id.action_listviewFragment_to_masterFragment, R.id.action_listviewFragment_to_manageTravel};
+        memberAction = new int[]{R.id.action_listviewFragment_to_memberDetailFragment ,R.id.action_listviewFragment_to_mygroupFragment, R.id.masterGroupFragment, R.id.action_listviewFragment_to_manageTravel};
         guestList = new ArrayList<>();
         guestIcon = new int[]{R.drawable.login};
         guestTitle = new String[]{getString(R.string.textLogin)};

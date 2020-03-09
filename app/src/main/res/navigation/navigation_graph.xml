@@ -312,5 +312,20 @@
         android:name="com.example.funtaipei.group.NoFindGroupFragment"
         android:label="fragment_no_find_group"
         tools:layout="@layout/fragment_no_find_group" />
+    <fragment
+        android:id="@+id/masterGroupFragment"
+        android:name="com.example.funtaipei.group.MasterGroupFragment"
+        android:label="fragment_master_group"
+        tools:layout="@layout/fragment_master_group" />
+    <fragment
+        android:id="@+id/masterFinsihFragment"
+        android:name="com.example.funtaipei.group.MasterFinishFragment"
+        android:label="fragment_master_finsih"
+        tools:layout="@layout/fragment_master_finish" />
+    <fragment
+        android:id="@+id/groupUpdateFragment"
+        android:name="com.example.funtaipei.group.GroupUpdateFragment"
+        android:label="fragment_group_update"
+        tools:layout="@layout/fragment_group_update" />
 </navigation>
 

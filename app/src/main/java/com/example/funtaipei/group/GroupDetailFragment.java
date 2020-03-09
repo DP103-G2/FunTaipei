@@ -35,6 +35,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -42,7 +43,7 @@ public class GroupDetailFragment extends Fragment {
     private FragmentActivity activity;
     private final static String TAG = "TAG_GroupDetailFragment";
     private ImageView imageView;
-    private TextView tvName, tvDate, tvGroupNo, tvPeople, tvNotes;
+    private TextView tvName, tvDate, tvGroupNo, tvPeople, tvNotes, textView;
     private Button btLogin, btRegister;
     private EditText etEmail, etPassword;
     private Button btJoin, btTravel;
@@ -78,6 +79,8 @@ public class GroupDetailFragment extends Fragment {
         tvPeople = view.findViewById(R.id.tvPeople);
         tvNotes = view.findViewById(R.id.tvNotes);
         btJoin = view.findViewById(R.id.btJoin);
+        textView = view.findViewById(R.id.textView);
+
         final SharedPreferences pref = activity.getSharedPreferences(Common.PREFERENCES_MEMBER, Context.MODE_PRIVATE);
         MB_NO = pref.getInt("mb_no", 0);
         Bundle bundle = getArguments();
@@ -95,16 +98,21 @@ public class GroupDetailFragment extends Fragment {
         }
         showGroup();
         getCheck();
+        final Calendar curDate = Calendar.getInstance();
+
         if (joinGroup != null) {
-            if (joinGroup.getMASTER() == 1) {
+            if (joinGroup.getMASTER() == 1 && group.getGP_EVENTDATE().getTime() > curDate.getTimeInMillis()) {
                 btJoin.setText("查看參團名單");
                 btJoin.setBackgroundColor(Color.parseColor("#72E774"));
 //                btJoin.getBackground().setColorFilter(0xFF000000, android.graphics.PorterDuff.Mode.MULTIPLY );
+            } else if ( group.getGP_DATEEND().getTime() < curDate.getTimeInMillis()) {
+                btJoin.setVisibility(View.GONE);
             } else {
                 btJoin.setText("取消參團");
                 btJoin.setTextColor(Color.parseColor("#E91E63"));
                 btJoin.setBackgroundColor(View.GONE);
             }
+
         }
 
 
@@ -152,7 +160,6 @@ public class GroupDetailFragment extends Fragment {
                                     public void onClick(DialogInterface dialog, int which) {
 
                                         int gp = group.getGP_ID();
-
 
 
                                         if (Common.networkConnected(activity)) {
@@ -228,7 +235,6 @@ public class GroupDetailFragment extends Fragment {
                 }
 
 
-
                 if (mbno == 0) {
                     LayoutInflater inflater = LayoutInflater.from(activity);
                     final View v = inflater.inflate(R.layout.fragment_login, null);
@@ -277,7 +283,7 @@ public class GroupDetailFragment extends Fragment {
                                     if (joinGroup.getMASTER() == 1) {
                                         btJoin.setText("查看參團名單");
                                         btJoin.setBackgroundColor(Color.parseColor("#72E774"));
-                                    } else {
+                                    } else if (group.getGP_DATEEND().getTime() > curDate.getTimeInMillis()) {
                                         btJoin.setText("取消參團");
                                         btJoin.setTextColor(Color.parseColor("#E91E63"));
                                         btJoin.setBackgroundColor(View.GONE);
@@ -481,6 +487,7 @@ public class GroupDetailFragment extends Fragment {
         } else {
             imageView.setImageResource(R.drawable.no_image);
         }
+        textView.setText("最後報名日期：" + new SimpleDateFormat("yyyy/MM/dd").format(group.getGP_DATEEND()) + new SimpleDateFormat("（E）").format(group.getGP_DATEEND()));
         tvNotes.setText(group.getGP_NOTES());
         tvName.setText(group.getGP_NAME());
         tvGroupNo.setText("團體編號：" + String.valueOf(group.getGP_ID()));

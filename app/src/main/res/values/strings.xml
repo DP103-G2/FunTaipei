@@ -101,5 +101,10 @@
     <string name="textCancelGroupTrue">取消成功</string>
     <string name="textCancelJoinGroup">您確定取消報名嗎？</string>
     <string name="textaddGroup">前往建立團體</string>
+    <string name="joining">進行中</string>
+    <string name="textGroupFinish">過往紀錄</string>
+    <string name="notopen">未開放報名</string>
+    <string name="textFinishUpdate">確定更新旅遊團嗎？</string>
+    <string name="textGroupUpdateMessage">開始報名後將無法編輯</string>
 
 </resources>
