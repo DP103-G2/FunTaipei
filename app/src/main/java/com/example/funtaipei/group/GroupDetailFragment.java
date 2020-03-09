@@ -101,11 +101,11 @@ public class GroupDetailFragment extends Fragment {
         final Calendar curDate = Calendar.getInstance();
 
         if (joinGroup != null) {
-            if (joinGroup.getMASTER() == 1 && group.getGP_EVENTDATE().getTime() > curDate.getTimeInMillis()) {
+            if (joinGroup.getMASTER() == 1) {
                 btJoin.setText("查看參團名單");
                 btJoin.setBackgroundColor(Color.parseColor("#72E774"));
 //                btJoin.getBackground().setColorFilter(0xFF000000, android.graphics.PorterDuff.Mode.MULTIPLY );
-            } else if ( group.getGP_DATEEND().getTime() < curDate.getTimeInMillis()) {
+            } else if ( group.getGP_DATEEND().getTime() < curDate.getTimeInMillis() && joinGroup.getMASTER() == 0) {
                 btJoin.setVisibility(View.GONE);
             } else {
                 btJoin.setText("取消參團");
