@@ -282,9 +282,7 @@ public class TravelDetailFragment extends Fragment {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
                             switch (item.getItemId()){
-                                case R.id.update:
-                                    Navigation.findNavController(v).navigate(R.id.action_manageTravel_to_manTravelDetail);
-                                    break;
+
                                 case R.id.delete:
                                     if(Common.networkConnected(activity)){
                                         String url = Common.URL_SERVER + "/TravelDetailServlet";

@@ -252,12 +252,6 @@ public class RestaurantFragment extends Fragment {
 //                                case R.id.insert:
 //                                    Navigation.findNavController(view).navigate(R.id.action_restaurantFragment_to_placeDetailsFragment);
 //                                    break;
-                                case R.id.update:
-                                    Bundle bundle = new Bundle();
-                                    bundle.putSerializable("place", place);
-                                    Navigation.findNavController(view)
-                                            .navigate(R.id.action_restaurantFragment_to_placeDetailsFragment, bundle);
-                                    break;
 
                                 case R.id.delete:
                                     if (Common.networkConnected(activity)) {

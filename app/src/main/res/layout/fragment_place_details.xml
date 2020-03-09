@@ -119,22 +119,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="我是地圖"
-        app:layout_constraintBottom_toBottomOf="@+id/mapView"
-        app:layout_constraintEnd_toEndOf="@+id/mapView"
-        app:layout_constraintStart_toStartOf="@+id/mapView"
-        app:layout_constraintTop_toTopOf="@+id/mapView" />
+    <!--    <ImageButton-->
+<!--        android:id="@+id/btGood"-->
+<!--        android:layout_width="50dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginTop="7dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/ivPlace" />-->
 
-    <Button
+        <com.jackandphantom.androidlikebutton.AndroidLikeButton
         android:id="@+id/btGood"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Good"
+        android:layout_width="138dp"
+        android:layout_height="110dp"
+        android:scaleType="fitCenter"
+        app:circle_endColor="#f4ac1b"
+        app:circle_startColor="#fcd229"
         app:layout_constraintEnd_toEndOf="@+id/ivPlace"
-        app:layout_constraintTop_toBottomOf="@+id/ivPlace" />
+        app:layout_constraintTop_toBottomOf="@+id/ivPlace"
+        app:like_icon="@drawable/like"
+        app:unlike_icon="@drawable/like2" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

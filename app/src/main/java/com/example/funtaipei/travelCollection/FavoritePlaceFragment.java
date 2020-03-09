@@ -138,8 +138,8 @@ public class FavoritePlaceFragment extends Fragment {
         FavoritePlaceAdapter(Context context, List<FavoritePlace> favoritePlaces) {
             layoutInflater = LayoutInflater.from(context);
             this.favoriteplaces = favoritePlaces;
-            /* 螢幕寬度除以4當作將圖的尺寸 */
-            imageSize = getResources().getDisplayMetrics().widthPixels / 2;
+            /* 螢幕寬度除以3當作將圖的尺寸 */
+            imageSize = getResources().getDisplayMetrics().widthPixels / 3;
         }
 
         void setPlaces(List<FavoritePlace> favoriteplaces) {
@@ -172,7 +172,7 @@ public class FavoritePlaceFragment extends Fragment {
         public void onBindViewHolder(@NonNull FavoritePlaceFragment.FavoritePlaceAdapter.MyViewHolder holder, int position) {
             final FavoritePlace favoritePlace = favoriteplaces.get(position);
             String url = Common.URL_SERVER + "/PlaceServlet";
-            int id = favoritePlace.getPc_id();
+            final int id = favoritePlace.getPc_id();
             placeImageTask = new ImageTask(url, id, imageSize, holder.imageView);
             placeImageTask.execute();
             holder.tvName.setText(favoritePlace.getPc_name());
@@ -198,22 +198,14 @@ public class FavoritePlaceFragment extends Fragment {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
                             switch (item.getItemId()) {
-//                                case R.id.insert:
-//                                    Navigation.findNavController(view).navigate(R.id.action_favoritePlaceFragment_to_placeDetailsFragment);
-//                                    break;
-                                case R.id.update:
-                                    Bundle bundle = new Bundle();
-                                    bundle.putSerializable("favoriteplace", favoritePlace);
-                                    Navigation.findNavController(view)
-                                            .navigate(R.id.action_favoritePlaceFragment_to_favoritePlaceDetailsFragment, bundle);
-                                    break;
 
                                 case R.id.delete:
                                     if (Common.networkConnected(activity)) {
                                         String url = Common.URL_SERVER + "/FavoritePlaceServlet";
                                         JsonObject jsonObject = new JsonObject();
-                                        jsonObject.addProperty("action", "favoriteplaceDelete");
-                                        jsonObject.addProperty("favoriteplaceId", favoritePlace.getGp_name());
+                                        jsonObject.addProperty("action", "favoritePlaceDelete");
+                                        jsonObject.addProperty("Pc_id", favoritePlace.getPc_id());
+                                        jsonObject.addProperty("mbNo", mbNo);
                                         int count = 0;
                                         try {
                                             placeDeleteTask = new CommonTask(url, jsonObject.toString());
@@ -226,9 +218,7 @@ public class FavoritePlaceFragment extends Fragment {
                                             Common.showToast(activity, R.string.textDeleteFail);
                                         } else {
                                             favoriteplaces.remove(favoritePlace);
-
                                             FavoritePlaceFragment.FavoritePlaceAdapter.this.notifyDataSetChanged();
-                                            // 外面spots也必須移除選取的spot
                                             FavoritePlaceFragment.this.favoriteplaces.remove(favoritePlace);
                                             Common.showToast(activity, R.string.textDeleteSuccess);
                                         }
