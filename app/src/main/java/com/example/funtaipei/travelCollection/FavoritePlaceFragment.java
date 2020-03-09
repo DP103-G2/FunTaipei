@@ -12,8 +12,10 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+import androidx.viewpager.widget.ViewPager;
 
 import android.util.Log;
 import android.view.Gravity;
@@ -32,6 +34,7 @@ import com.example.funtaipei.R;
 import com.example.funtaipei.favoritePlace.FavoritePlace;
 import com.example.funtaipei.task.CommonTask;
 import com.example.funtaipei.task.ImageTask;
+import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
@@ -46,13 +49,14 @@ import java.util.List;
 public class FavoritePlaceFragment extends Fragment {
     private static final String TAG = "TAG_PlaceListFragment";
     private GridView gvMember;
-    private RecyclerView rvPlace;
+    private RecyclerView FvRecycleview;
     private Activity activity;
     private CommonTask placeGetAllTask;
     private CommonTask placeDeleteTask;
     private ImageTask placeImageTask;
     private List<FavoritePlace> favoriteplaces;
     private int mbNo;
+
 
     public static FavoritePlaceFragment newInstance(){
         return new FavoritePlaceFragment();
@@ -80,16 +84,21 @@ public class FavoritePlaceFragment extends Fragment {
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         SearchView searchView = view.findViewById(R.id.searchView);
-        rvPlace = view.findViewById(R.id.rvPlace);
-        //rvPlace.setLayoutManager(new LinearLayoutManager(activity));//直上直下
+        FvRecycleview = view.findViewById(R.id.FvRecycleview);
+        FvRecycleview.setLayoutManager(new LinearLayoutManager(activity));//直上直下
+
         //rvPlace.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL,false)); //橫向滑動
-        rvPlace.setLayoutManager(new StaggeredGridLayoutManager(6, StaggeredGridLayoutManager.HORIZONTAL));
+//        FvRecycleview.setLayoutManager(new StaggeredGridLayoutManager(6, StaggeredGridLayoutManager.HORIZONTAL));
+
         favoriteplaces = getFavoritePlaces();
         showFavoritePlaces(favoriteplaces);
         activity.setTitle("我的收藏");
         SharedPreferences pref = activity.getSharedPreferences(Common.PREFERENCES_MEMBER, Context.MODE_PRIVATE);
 
     }
+
+
+
 
     private List<FavoritePlace> getFavoritePlaces() {
         List<FavoritePlace> favoritePlaces = null;
@@ -121,9 +130,9 @@ public class FavoritePlaceFragment extends Fragment {
             Common.showToast(activity, R.string.textNoPlacesFound);
         }
 
-        FavoritePlaceAdapter favoritePlaceAdapter = (FavoritePlaceAdapter) rvPlace.getAdapter();
+        FavoritePlaceAdapter favoritePlaceAdapter = (FavoritePlaceAdapter) FvRecycleview.getAdapter();
         if (favoritePlaceAdapter ==null){
-            rvPlace.setAdapter(new FavoritePlaceAdapter(activity, favoritePlaces));
+            FvRecycleview.setAdapter(new FavoritePlaceAdapter(activity, favoritePlaces));
         } else {
             favoritePlaceAdapter.setPlaces(favoritePlaces);
             favoritePlaceAdapter.notifyDataSetChanged();
