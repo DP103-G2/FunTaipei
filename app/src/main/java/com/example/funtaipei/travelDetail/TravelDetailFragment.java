@@ -87,13 +87,10 @@ public class TravelDetailFragment extends Fragment {
 
 
         //報名按鈕
-        signUpButton = view.findViewById(R.id.signUpButton);
-        signUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(activity, "按讚拉",Toast.LENGTH_SHORT).show();
-            }
-        });
+
+
+
+
 
         //收藏按鈕
         collectionUpButton = view.findViewById(R.id.collectionUpButton);
@@ -119,7 +116,7 @@ public class TravelDetailFragment extends Fragment {
                 if (count == 1) {
                     Common.showToast(activity, R.string.textFavoriteSuccess);
                 } else {
-                    Common.showToast(activity, R.string.textInsertFail);
+                    //Common.showToast(activity, R.string.textInsertFail);
                 }
             }
         });
