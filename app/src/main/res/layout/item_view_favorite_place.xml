@@ -11,32 +11,26 @@
     android:foreground="?android:attr/selectableItemBackground">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
         <com.example.funtaipei.CircleImageView
             android:id="@+id/imageView"
-            android:layout_width="50pt"
-            android:layout_height="50pt"
-            android:src="@drawable/no_image"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/no_image" />
 
         <TextView
             android:id="@+id/tvName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="292dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="20dp"
+            android:layout_toEndOf="@+id/imageView"
             android:textColor="#FF5722"
             android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Name" />
+            android:textStyle="bold" />
 
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 </androidx.cardview.widget.CardView>
