@@ -12,10 +12,10 @@
 
         <ImageView
             android:id="@+id/ivMember"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:src="@drawable/no_image"
             app:layout_constraintEnd_toEndOf="parent"
@@ -26,7 +26,7 @@
             android:id="@+id/linearMember"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,16 +37,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@string/textTakePicture"
-                android:background="@drawable/bluebuttonstyle"/>
+                android:background="@android:drawable/ic_menu_camera" />
 
             <Button
                 android:id="@+id/btPickPicture"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="@string/textPickPicture"
-                android:background="@drawable/bluebuttonstyle"/>
+                android:background="@android:drawable/ic_menu_upload_you_tube" />
 
         </LinearLayout>
 
@@ -55,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="16dp"
             android:text="@string/textAccount"
             android:textSize="20dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -163,7 +162,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="12dp"
             android:text="@string/textOk"
-            android:background="@drawable/okbuttonstyle"
+            android:background="@drawable/little_blue_button"
             android:textColor="#FCFAFA"
             app:layout_constraintBottom_toTopOf="@+id/btCancel"
             app:layout_constraintEnd_toEndOf="parent"
@@ -179,7 +178,7 @@
             android:layout_marginEnd="12dp"
             android:text="@string/textCan"
             android:textColor="#FCFAFA"
-            android:background="@drawable/cancelbuttonstyle"
+            android:background="@drawable/little_red_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btFinishUpdate" />

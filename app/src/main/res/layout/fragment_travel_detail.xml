@@ -20,20 +20,17 @@
             android:layout_height="250dp"
             android:src="@drawable/no_image" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center">
 
-            <Button
-                android:id="@+id/collectionUpButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:background="@drawable/little_blue_button"
-                android:text="收藏" />
-        </LinearLayout>
+        <Button
+            android:id="@+id/collectionUpButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_weight="0.5"
+            android:background="@drawable/little_blue_button"
+            android:text="收藏"
+            android:textColor="#000000"
+            android:textSize="18sp" />
 
         <LinearLayout
             android:layout_width="match_parent"

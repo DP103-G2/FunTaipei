@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="15dp"
-    app:cardBackgroundColor="#80d4ff"
+    app:cardBackgroundColor="#FFFFFF"
     app:cardCornerRadius="30dp"
     android:layout_marginTop="5dp"
     android:layout_marginBottom="10dp">
@@ -19,16 +19,18 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/no_image"/>
-    <TextView
-        android:id="@+id/travelName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Name"
-        android:textStyle="bold"
-        android:textColor="#000000"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="30dp"
-        android:layout_toRightOf="@id/imageView"/>
+
+        <TextView
+            android:id="@+id/travelName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="30dp"
+            android:layout_toRightOf="@id/imageView"
+            android:text="Name"
+            android:textColor="#FF5722"
+            android:textSize="30sp"
+            android:textStyle="bold" />
     </RelativeLayout>
 
 

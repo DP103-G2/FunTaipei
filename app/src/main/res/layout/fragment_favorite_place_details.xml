@@ -8,17 +8,18 @@
 
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="93dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mapView">
 
         <Button
             android:id="@+id/btFavorite"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="收藏" />
-
     </LinearLayout>
 
     <TextView
@@ -37,7 +38,7 @@
         android:id="@+id/Address"
         android:layout_width="20pt"
         android:layout_height="20pt"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/marker"
         android:textSize="18sp"
@@ -46,11 +47,13 @@
 
     <ImageView
         android:id="@+id/ivPlace"
-        android:layout_width="191dp"
-        android:layout_height="128dp"
-        android:layout_marginStart="200dp"
+        android:layout_width="304dp"
+        android:layout_height="177dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
         android:src="@drawable/ic_launcher_foreground"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mapView" />
 
@@ -70,7 +73,7 @@
         android:id="@+id/Phone"
         android:layout_width="20pt"
         android:layout_height="20pt"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/phone"
         android:textSize="18sp"
@@ -93,8 +96,8 @@
         android:id="@+id/Name"
         android:layout_width="18pt"
         android:layout_height="18pt"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="250dp"
         android:background="@drawable/name"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"

@@ -24,7 +24,7 @@
     <string name="textDateStart">開始報名日期</string>
     <string name="textDateEnd">結束報名日期</string>
     <string name="textNote">團體簡介(例如：有空的人歡迎報名！...)</string>
-    <string name="textNoPlacesFound">找不到旅遊點</string>
+    <string name="textNoPlacesFound">您尚未收藏旅遊點</string>
     <string name="textDeleteSuccess">刪除成功</string>
     <string name="textNoCameraApp">找不到相機程式</string>
 

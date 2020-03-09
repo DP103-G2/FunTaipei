@@ -17,7 +17,14 @@
             android:id="@+id/btFavorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="收藏" />
+            android:layout_marginTop="5dp"
+            android:layout_weight="0.5"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/little_blue_button"
+            android:text="收藏"
+            android:textColor="#000000"
+            android:textSize="18sp" />
+
 
     </LinearLayout>
 

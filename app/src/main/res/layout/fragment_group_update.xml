@@ -18,7 +18,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:enabled="false"
-            android:background="@drawable/little_blue_button"
+            android:background="@drawable/little_pickblue_button"
             android:text="@string/textDatePicker"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvPeople" />
@@ -32,7 +32,7 @@
             android:layout_marginRight="8dp"
             android:enabled="false"
             android:text="@string/textDatePicker"
-            android:background="@drawable/little_blue_button"
+            android:background="@drawable/little_pickblue_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvDateTime2" />
 
@@ -42,15 +42,15 @@
             android:layout_height="40dp"
             android:layout_marginTop="6dp"
             android:layout_marginEnd="8dp"
-            android:background="@drawable/little_blue_button"
+            android:background="@drawable/little_pickblue_button"
             android:text="@string/textTravelName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 
         <ImageView
             android:id="@+id/ivGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="398dp"
+            android:layout_height="200dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
@@ -76,19 +76,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/little_blue_button"
-                android:text="@string/textTakePicture" />
+                android:background="@android:drawable/ic_menu_camera" />
 
             <Button
                 android:id="@+id/btPickPicture"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/little_blue_button"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
-                android:text="@string/textPickPicture" />
+                android:background="@android:drawable/ic_menu_upload_you_tube" />
         </LinearLayout>
 
 
@@ -98,7 +96,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:background="@color/colorYellow"
+            android:background="#FFFCB1"
             android:text="@string/textStartDate"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -110,7 +108,7 @@
             android:layout_height="40dp"
             android:layout_marginTop="13dp"
             android:layout_marginEnd="8dp"
-            android:background="@drawable/little_blue_button"
+            android:background="@drawable/little_pickblue_button"
             android:text="@string/textDatePicker"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTravelName" />
@@ -120,9 +118,8 @@
             android:layout_width="311dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            android:background="@color/colorYellow"
+            android:background="#FFFCB1"
             android:text="@string/textDateStart"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -133,9 +130,8 @@
             android:layout_width="311dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
             android:layout_marginTop="16dp"
-            android:background="@color/colorYellow"
+            android:background="#FFFCB1"
             android:text="@string/textDateEnd"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -143,23 +139,30 @@
 
         <Button
             android:id="@+id/btFinishInsert"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="8dp"
             android:text="更新"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btCancel" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDateTime3"
+            android:background="@drawable/little_blue_button" />
 
 
         <Button
             android:id="@+id/btCancel"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:text="@string/textCancel"
-            app:layout_constraintEnd_toStartOf="@+id/btFinishInsert"
-            app:layout_constraintTop_toBottomOf="@+id/tvDateTime3" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btFinishInsert"
+            android:background="@drawable/little_red_button"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout2"
@@ -239,7 +242,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="10dp"
-            android:background="@color/colorYellow"
+            android:background="#FFFCB1"
             android:text="@string/textTravel"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"

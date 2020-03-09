@@ -100,14 +100,14 @@ public class PlaceDetailsFragment extends Fragment {
                 tvPhone.setText(String.valueOf(place.getPC_PHONE()).trim());
                 tvAddress.setText(place.getPC_ADDRESS());
 
-                Button btCancel = view.findViewById(R.id.btCanceldt);
-                btCancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        /* 回前一個Fragment */
-                        navController.popBackStack();
-                    }
-                });
+//                Button btCancel = view.findViewById(R.id.btCanceldt);
+//                btCancel.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        /* 回前一個Fragment */
+//                        navController.popBackStack();
+//                    }
+//                });
 
                 //按下收藏按鈕新增至收藏
                 btFavorite = view.findViewById(R.id.btFavorite);

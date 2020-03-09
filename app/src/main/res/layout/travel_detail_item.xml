@@ -5,12 +5,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp"
-    app:cardBackgroundColor="#99c2ff"
+    app:cardBackgroundColor="#95D9FD"
     android:layout_marginTop="15dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp">
 
         <com.example.funtaipei.CircleImageView
             android:id="@+id/imageView"
@@ -23,11 +25,15 @@
             android:id="@+id/pc_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:layout_toRightOf="@id/imageView"
             android:text="台北101"
-            android:textColor="#000000"
-            android:textSize="26sp" />
+            android:textColor="#FF5722"
+            android:textSize="26sp"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 

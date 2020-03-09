@@ -123,7 +123,7 @@ public class TravelCollectionFragment extends Fragment {
 
     private void showTravelCollections(List<TravelCollection> travelCollections) {
         if (travelCollections == null || travelCollections.isEmpty()) {
-            Common.showToast(activity, "No TravelCollections Found");
+            Common.showToast(activity, "您尚未收藏行程");
             return;
         }
         TravelCollectionAdapter travelCollectionAdapter = (TravelCollectionAdapter) travelCollectionRecycleView.getAdapter();
