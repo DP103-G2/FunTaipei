@@ -86,10 +86,7 @@ public class FavoritePlaceFragment extends Fragment {
         SearchView searchView = view.findViewById(R.id.searchView);
         FvRecycleview = view.findViewById(R.id.FvRecycleview);
         FvRecycleview.setLayoutManager(new LinearLayoutManager(activity));//直上直下
-
         //rvPlace.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL,false)); //橫向滑動
-//        FvRecycleview.setLayoutManager(new StaggeredGridLayoutManager(6, StaggeredGridLayoutManager.HORIZONTAL));
-
         favoriteplaces = getFavoritePlaces();
         showFavoritePlaces(favoriteplaces);
         activity.setTitle("我的收藏");
