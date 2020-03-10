@@ -46,4 +46,3 @@ public class MyGroupPagerAdapter extends FragmentStatePagerAdapter {
     }
 }
 
-//
