@@ -106,7 +106,7 @@ public class MyGroupMemberFragment extends Fragment {
                 groupTask = new CommonTask(url, jsonOut);
                 try {
                     String jsonIn = groupTask.execute().get();
-                    Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
+                    Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd HH:mm:ss").create();
                     group = gson.fromJson(jsonIn, Group.class);
                 } catch (Exception e) {
                     Log.d(TAG, e.toString());
@@ -163,7 +163,7 @@ public class MyGroupMemberFragment extends Fragment {
             try {
                 String jsonIn = jgTask.execute().get();
                 Type listType = new TypeToken<List<JoinGroup>>(){}.getType();
-                Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
+                Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd HH:mm:ss").create();
                 joinGroups = gson.fromJson(jsonIn, listType);
             } catch (Exception e) {
                 Log.e(TAG, e.toString());

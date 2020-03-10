@@ -215,7 +215,7 @@ public class GroupInsertTravelFragment extends Fragment {
             travelImageTask = new ImageTask(url, id, imageSize, myViewHolder.imageView);
             travelImageTask.execute();
             myViewHolder.tvTravelName.setText(travel.getTravel_name());
-            myViewHolder.tvTravelId.setText(String.valueOf(travel.getTravel_id()));
+            myViewHolder.tvTravelId.setText("編號：" + String.valueOf(travel.getTravel_id()));
 
 
             myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -103,7 +103,8 @@ public class GroupDetailFragment extends Fragment {
         if (joinGroup != null) {
             if (joinGroup.getMASTER() == 1) {
                 btJoin.setText("查看參團名單");
-                btJoin.setBackgroundColor(Color.parseColor("#72E774"));
+                btJoin.setTextColor(Color.parseColor("#72E774"));
+                btJoin.setBackgroundColor(View.GONE);
 //                btJoin.getBackground().setColorFilter(0xFF000000, android.graphics.PorterDuff.Mode.MULTIPLY );
             } else if ( group.getGP_DATEEND().getTime() < curDate.getTimeInMillis() && joinGroup.getMASTER() == 0) {
                 btJoin.setVisibility(View.GONE);
@@ -199,7 +200,7 @@ public class GroupDetailFragment extends Fragment {
                                                     group.setGroup(tvid, name, ENROLLMENT, upper, lower, dateStart, dateEnd, eventDate, status, notes);
 
                                                     jsonObject.addProperty("action", "groupUpdate");
-                                                    Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
+                                                    Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd HH:mm:ss").create();
                                                     jsonObject.addProperty("group", gson.toJson(group));
                                                     if (image != null) {
                                                         jsonObject.addProperty("imageBase64", Base64.encodeToString(image, Base64.DEFAULT));
@@ -282,7 +283,8 @@ public class GroupDetailFragment extends Fragment {
                                 if (joinGroup != null) {
                                     if (joinGroup.getMASTER() == 1) {
                                         btJoin.setText("查看參團名單");
-                                        btJoin.setBackgroundColor(Color.parseColor("#72E774"));
+                                        btJoin.setTextColor(Color.parseColor("#72E774"));
+                                        btJoin.setBackgroundColor(View.GONE);
                                     } else if (group.getGP_DATEEND().getTime() > curDate.getTimeInMillis()) {
                                         btJoin.setText("取消參團");
                                         btJoin.setTextColor(Color.parseColor("#E91E63"));
@@ -363,7 +365,7 @@ public class GroupDetailFragment extends Fragment {
                                                 group.setGroup(tvid, name, ENROLLMENT, upper, lower, dateStart, dateEnd, eventDate, status, notes);
 
                                                 jsonObject.addProperty("action", "groupUpdate");
-                                                Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
+                                                Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd HH:mm:ss").create();
                                                 jsonObject.addProperty("group", gson.toJson(group));
                                                 if (image != null) {
                                                     jsonObject.addProperty("imageBase64", Base64.encodeToString(image, Base64.DEFAULT));
@@ -388,7 +390,8 @@ public class GroupDetailFragment extends Fragment {
                                     if (joinGroup != null) {
                                         if (joinGroup.getMASTER() == 1) {
                                             btJoin.setText("查看參團名單");
-                                            btJoin.setBackgroundColor(Color.parseColor("#72E774"));
+                                            btJoin.setTextColor(Color.parseColor("#72E774"));
+                                            btJoin.setBackgroundColor(View.GONE);
                                         }
                                     }
                                     showGroup();

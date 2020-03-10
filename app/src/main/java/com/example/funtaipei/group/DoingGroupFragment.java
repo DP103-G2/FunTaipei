@@ -36,6 +36,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -138,7 +139,7 @@ public class DoingGroupFragment extends Fragment {
                 String jsonIn = groupGetByIdTask.execute().get();
                 Type listType = new TypeToken<List<Group>>() {
                 }.getType();
-                Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
+                Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd HH:mm:ss").create();
                 groups = gson.fromJson(jsonIn, listType);
             } catch (Exception e) {
                 Log.e(TAG, e.toString());
@@ -209,7 +210,10 @@ public class DoingGroupFragment extends Fragment {
             int id = group.getGP_ID();
             groupImageTask = new ImageTask(url, id, imageSize, myViewHolder.imageView);
             groupImageTask.execute();
+//            Date curDate = System.currentTimeMillis();
+//            long time = System.currentTimeMillis();
             Calendar curDate = Calendar.getInstance();
+//            curDate.setTimeInMillis(time);
             if (group.getGP_DATEEND().getTime() < curDate.getTimeInMillis() && group.getGP_EVENTDATE().getTime() > curDate.getTimeInMillis()) {
                 myViewHolder.textView.setText("截止報名");
                 myViewHolder.textView.setTextColor(Color.parseColor("#FFD700"));

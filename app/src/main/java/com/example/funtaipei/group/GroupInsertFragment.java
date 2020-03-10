@@ -185,7 +185,7 @@ public class GroupInsertFragment extends Fragment {
                                     Group group = new Group(0, travelId, name, 1, upper, 2, dateStart, dateEnd, eventDate, 1, notes, MB_NO,0,1);
                                     JsonObject jsonObject = new JsonObject();
                                     jsonObject.addProperty("action", "groupInsert");
-                                    Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
+                                    Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd HH:mm:ss").create();
 //                                    Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
                                     jsonObject.addProperty("group", gson.toJson(group));
                                     if (image != null) {

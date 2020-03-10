@@ -112,7 +112,7 @@ public class EndGroupFragment extends Fragment {
                 String jsonIn = groupGetByIdTask.execute().get();
                 Type listType = new TypeToken<List<Group>>() {
                 }.getType();
-                Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
+                Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd HH:mm:ss").create();
                 groups = gson.fromJson(jsonIn, listType);
             } catch (Exception e) {
                 Log.e(TAG, e.toString());

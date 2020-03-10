@@ -176,7 +176,7 @@ public class MasterFragment extends Fragment {
                 String jsonIn = groupGetByIdTask.execute().get();
                 Type listType = new TypeToken<List<Group>>() {
                 }.getType();
-                Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
+                Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd HH:mm:ss").create();
                 groups = gson.fromJson(jsonIn, listType);
             } catch (Exception e) {
                 Log.e(TAG, e.toString());
@@ -251,11 +251,12 @@ public class MasterFragment extends Fragment {
             groupImageTask = new ImageTask(url, id, imageSize, myViewHolder.imageView);
             groupImageTask.execute();
 //            SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+//            SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH-mm-ss");
             Calendar curDate = Calendar.getInstance();
-            if (group.getGP_DATEEND().getTime() < curDate.getTimeInMillis() && group.getGP_EVENTDATE().getTime() > curDate.getTimeInMillis()) {
+            if (group.getGP_DATEEND().getTime() <= curDate.getTimeInMillis() && group.getGP_EVENTDATE().getTime() > curDate.getTimeInMillis()) {
                 myViewHolder.textView.setText("截止報名");
                 myViewHolder.textView.setTextColor(Color.parseColor("#FFD700"));
-            } else if (group.getGP_DATESTAR().getTime() < curDate.getTimeInMillis() && group.getGP_DATEEND().getTime() > curDate.getTimeInMillis()){
+            } else if (group.getGP_DATESTAR().getTime() <= curDate.getTimeInMillis() && group.getGP_DATEEND().getTime() > curDate.getTimeInMillis()){
                 myViewHolder.textView.setText("報名中");
                 myViewHolder.textView.setTextColor(Color.parseColor("#00FF99"));
             }
