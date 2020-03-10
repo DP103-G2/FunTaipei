@@ -49,28 +49,26 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 
+
         <ImageView
             android:id="@+id/ivGroup"
             android:layout_width="398dp"
             android:layout_height="200dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
             android:src="@drawable/no_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="111dp"
+            android:layout_height="56dp"
             android:layout_marginTop="8dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivGroup">
+            app:layout_constraintTop_toBottomOf="@+id/tvDateTime3">
 
             <Button
                 android:id="@+id/btTakePicture"
@@ -91,7 +89,6 @@
                 android:layout_marginTop="8dp"
                 android:background="@android:drawable/ic_menu_upload_you_tube" />
         </LinearLayout>
-
 
         <TextView
             android:id="@+id/tvDateTime"
@@ -140,20 +137,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvDateTime2" />
 
+
         <Button
             android:id="@+id/btFinishInsert"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:background="@drawable/little_blue_button"
             android:text="@string/btInsertGroup"
             android:textColor="#FFFFFF"
-            android:background="@drawable/little_blue_button"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvDateTime3" />
-
+            app:layout_constraintTop_toBottomOf="@+id/ivGroup" />
 
         <Button
             android:id="@+id/btCancel"
@@ -200,18 +198,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+            app:layout_constraintTop_toTopOf="parent">
 
             <EditText
                 android:id="@+id/etName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:hint="@string/textGroupName"
                 android:inputType="text"
                 android:textColor="#0000FF"

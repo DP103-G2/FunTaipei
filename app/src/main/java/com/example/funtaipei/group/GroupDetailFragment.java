@@ -495,7 +495,7 @@ public class GroupDetailFragment extends Fragment {
         tvName.setText(group.getGP_NAME());
         tvGroupNo.setText("團體編號：" + String.valueOf(group.getGP_ID()));
         tvDate.setText("活動日期：" + new SimpleDateFormat("yyyy/MM/dd").format(group.getGP_EVENTDATE()) + new SimpleDateFormat("（E）").format(group.getGP_EVENTDATE()));
-        tvPeople.setText("可報 " + String.valueOf(group.getGP_UPPER() - group.getGP_ENROLLMENT()) + " 團位 " + String.valueOf(group.getGP_UPPER()));
+        tvPeople.setText("可報 " + String.valueOf(group.getGP_UPPER() - group.getGP_ENROLLMENT()) + "    /   團位  " + String.valueOf(group.getGP_UPPER()));
     }
 
     private int getUserIdByEmail(String mb_email) {

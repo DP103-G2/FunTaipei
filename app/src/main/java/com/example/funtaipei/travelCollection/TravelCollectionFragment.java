@@ -210,10 +210,13 @@ public class TravelCollectionFragment extends Fragment {
                                 //刪除
                                 case R.id.delete:
                                     if (Common.networkConnected(activity)) {
+                                        SharedPreferences pref = activity.getSharedPreferences(Common.PREFERENCES_MEMBER, Context.MODE_PRIVATE);
+                                        int memId = pref.getInt("mb_no", 0);
+
                                         String url = Common.URL_SERVER + "/TravelCollectionServlet";
                                         JsonObject jsonObject = new JsonObject();
                                         jsonObject.addProperty("action", "travelCollectionDelete");
-                                        jsonObject.addProperty("mb_no", travelCollection.getMb_no());
+                                        jsonObject.addProperty("mb_no", memId);
                                         jsonObject.addProperty("travel_id", travelCollection.getTravel_id());
 
                                         int count = 0;

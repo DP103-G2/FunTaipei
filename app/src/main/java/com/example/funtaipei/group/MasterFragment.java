@@ -253,7 +253,7 @@ public class MasterFragment extends Fragment {
 //            SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
 //            SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH-mm-ss");
             Calendar curDate = Calendar.getInstance();
-            if (group.getGP_DATEEND().getTime() <= curDate.getTimeInMillis() && group.getGP_EVENTDATE().getTime() > curDate.getTimeInMillis()) {
+            if (group.getGP_DATEEND().getTime() <= curDate.getTimeInMillis() && group.getGP_EVENTDATE().getTime() - 86399000 > curDate.getTimeInMillis()) {
                 myViewHolder.textView.setText("截止報名");
                 myViewHolder.textView.setTextColor(Color.parseColor("#FFD700"));
             } else if (group.getGP_DATESTAR().getTime() <= curDate.getTimeInMillis() && group.getGP_DATEEND().getTime() > curDate.getTimeInMillis()){

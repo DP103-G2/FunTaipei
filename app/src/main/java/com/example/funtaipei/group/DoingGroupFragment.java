@@ -214,7 +214,7 @@ public class DoingGroupFragment extends Fragment {
 //            long time = System.currentTimeMillis();
             Calendar curDate = Calendar.getInstance();
 //            curDate.setTimeInMillis(time);
-            if (group.getGP_DATEEND().getTime() < curDate.getTimeInMillis() && group.getGP_EVENTDATE().getTime() > curDate.getTimeInMillis()) {
+            if (group.getGP_DATEEND().getTime() < curDate.getTimeInMillis() && group.getGP_EVENTDATE().getTime() - 86399000 > curDate.getTimeInMillis()) {
                 myViewHolder.textView.setText("截止報名");
                 myViewHolder.textView.setTextColor(Color.parseColor("#FFD700"));
             } else if (group.getGP_DATESTAR().getTime() < curDate.getTimeInMillis() && group.getGP_DATEEND().getTime() > curDate.getTimeInMillis()){
