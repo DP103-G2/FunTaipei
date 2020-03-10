@@ -18,7 +18,8 @@
             android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:iconifiedByDefault="false">
+            android:iconifiedByDefault="false"
+            android:queryHint="搜尋 餐廳名稱">
 
         </SearchView>
 
