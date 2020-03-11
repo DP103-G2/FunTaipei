@@ -115,6 +115,7 @@ public class HotelFragment extends Fragment {
             @Override
             public void onRefresh() {
                 swipeRefreshLayout.setRefreshing(true);
+                places = getPlaces();
                 showPlaces(places);
                 swipeRefreshLayout.setRefreshing(false);
             }
