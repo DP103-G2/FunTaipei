@@ -188,7 +188,6 @@ public class FavoritePlaceFragment extends Fragment {
                 public void onClick(View view) {
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("place", favoritePlace);
-
                     // Navigation.findNavController(view).navigate(R.id.action_favoritePlaceFragment_to_favoritePlaceDetailsFragment, bundle);
                     Navigation.findNavController(view).navigate(R.id.favoritePlaceDetailsFragment, bundle);
 
