@@ -223,7 +223,7 @@ public class GroupUpdateFragment extends Fragment {
                                     int upper = skPeople.getProgress();
 
                                     if (upper == 2) {
-                                        tvPeople.setText("可報名人數: " + skPeople.getProgress() + "人");
+                                        tvPeople.setText("團體人數: " + skPeople.getProgress() + "人");
                                     }
 
 
@@ -434,7 +434,7 @@ public class GroupUpdateFragment extends Fragment {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                tvPeople.setText("可報名人數: " + progress + "人");
+                tvPeople.setText("團體人數: " + progress + "人");
             }
 
             @Override
@@ -473,7 +473,7 @@ public class GroupUpdateFragment extends Fragment {
         tvDateTime.append(":" + simpleDateFormat.format(date1));
         tvDateTime2.append(":" + simpleDateFormat.format(date2));
         tvDateTime3.append(":" + simpleDateFormat.format(date3));
-        tvPeople.setText("可報名人數: " + group.getGP_UPPER() + "人");
+        tvPeople.setText("團體人數: " + group.getGP_UPPER() + "人");
         skPeople.setProgress(group.getGP_UPPER());
         if(DEFAULT_TRAVEL_NAME != "") {
             tvTravelName.append(": " + travelName);

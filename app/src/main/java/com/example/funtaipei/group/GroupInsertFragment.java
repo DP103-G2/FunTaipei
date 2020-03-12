@@ -111,7 +111,7 @@ public class GroupInsertFragment extends Fragment {
         etName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                etName.setText("就是要揪團");
+                etName.setText("出來玩團");
             }
         });
         etNotes = view.findViewById(R.id.etNotes);
@@ -183,7 +183,7 @@ public class GroupInsertFragment extends Fragment {
                                     int upper = skPeople.getProgress();
 
                                     if (upper == 2) {
-                                        tvPeople.setText("可報名人數: " + skPeople.getProgress() + "人");
+                                        tvPeople.setText("團體人數: " + skPeople.getProgress() + "人");
                                     }
 
 
@@ -393,7 +393,7 @@ public class GroupInsertFragment extends Fragment {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                tvPeople.setText("可報名人數: " + progress + "人");
+                tvPeople.setText("團體人數: " + progress + "人");
             }
 
             @Override
@@ -480,9 +480,9 @@ public class GroupInsertFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        if (preferences != null) {
-            preferences.edit().clear().commit();
-        }
+//        if (preferences != null) {
+//            preferences.edit().clear().commit();
+//        }
     }
 }
 //
