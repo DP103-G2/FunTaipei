@@ -115,17 +115,17 @@ public class PlaceDetailsFragment extends Fragment {
                 btFavorite = view.findViewById(R.id.btFavorite);
                 btFavorite.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v) {final SharedPreferences pref = activity.getSharedPreferences(Common.PREFERENCES_MEMBER, Context.MODE_PRIVATE);
+                    public void onClick(final View view) {final SharedPreferences pref = activity.getSharedPreferences(Common.PREFERENCES_MEMBER, Context.MODE_PRIVATE);
 //                        final int MB_NO = pref.getInt("mb_no", 0);
                         if (mbNo == 0){
                             LayoutInflater inflater = LayoutInflater.from(activity);
-                             View view = inflater.inflate(R.layout.fragment_login,null);
+                             final View v = inflater.inflate(R.layout.fragment_login,null);
 
                             final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
                             final AlertDialog alert = alertDialogBuilder.create();
                             alert.setTitle(R.string.textPleaseLogin);
                             alert.setIcon(R.drawable.alert);
-                            alert.setView(view);
+                            alert.setView(v);
                             alert.show();
 
 
@@ -137,7 +137,7 @@ public class PlaceDetailsFragment extends Fragment {
                             etEmail = view.findViewById(R.id.etEmail);
                             etPassword = view.findViewById(R.id.etPassword);
                             //找不到btLogin
-                            btLogin = view.findViewById(R.id.btLogin);
+                            btLogin = v.findViewById(R.id.btLogin);
 
                             btLogin.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -175,14 +175,16 @@ public class PlaceDetailsFragment extends Fragment {
                                 }
                             });
 
+                            btRegister = v.findViewById(R.id.btRegister);
+
                             //找不到btRegister
-                            btRegister = view.findViewById(R.id.btRegister);
-
-
+//                            btRegister = v.findViewById(R.id.btRegister);
+//
+//
                             btRegister.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    Navigation.findNavController(v).navigate(R.id.registerFragment);
+                                    Navigation.findNavController(view).navigate(R.id.registerFragment);
                                     alert.cancel();
                                 }
                             });
