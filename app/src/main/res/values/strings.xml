@@ -106,5 +106,9 @@
     <string name="notopen">未開放報名</string>
     <string name="textFinishUpdate">確定更新旅遊團嗎？</string>
     <string name="textGroupUpdateMessage">開始報名後將無法編輯</string>
+    <string name="textDate">1994/03/13</string>
+    <string name="textmemName">陳曉安</string>
+    <string name="textPass">1111</string>
+    <string name="textmemEmail">anan@gmail.com</string>
 
 </resources>

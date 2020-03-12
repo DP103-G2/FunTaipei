@@ -77,6 +77,9 @@ public class MyGroupMemberFragment extends Fragment {
             @Override
             public void onRefresh() {
                 swipeRefreshLayout.setRefreshing(true);
+                joinGroups = getJoinGroups();
+                showJoinGroups(joinGroups);
+                swipeRefreshLayout.setRefreshing(false);
 
             }
         });

@@ -80,6 +80,7 @@ public class DoingGroupFragment extends Fragment {
             @Override
             public void onRefresh() {
                 swipeRefreshLayout.setRefreshing(true);
+                groups = getGroups();
                 showGroups(groups);
                 swipeRefreshLayout.setRefreshing(false);
             }

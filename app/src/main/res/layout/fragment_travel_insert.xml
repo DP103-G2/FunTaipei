@@ -24,14 +24,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:background="@drawable/little_blue_button"
-            android:text="TakePicture"/>
+            android:text="@string/textTakePicture" />
+
         <Button
             android:id="@+id/btnPickPic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:background="@drawable/little_blue_button"
-            android:text="PickPicture"/>
+            android:text="@string/textPickPicture"/>
     </LinearLayout>
     <EditText
         android:id="@+id/edtTitle"
@@ -50,14 +51,14 @@
             android:layout_height="wrap_content"
             android:background="@drawable/little_blue_button"
             android:layout_weight="0.5"
-            android:text="Insert"/>
+            android:text="@string/textInsert"/>
         <Button
             android:id="@+id/btnCancel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/little_blue_button"
             android:layout_weight="0.5"
-            android:text="CANCEL"/>
+            android:text="@string/textCancel"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -75,6 +75,7 @@ public class EndGroupFragment extends Fragment {
             @Override
             public void onRefresh() {
                 swipeRefreshLayout.setRefreshing(true);
+                groups = getGroups();
                 showGroups(groups);
                 swipeRefreshLayout.setRefreshing(false);
             }

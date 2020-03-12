@@ -1,6 +1,7 @@
 package com.example.funtaipei.member;
 
 //HI
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -43,7 +44,7 @@ public class RegisterFragment extends Fragment {
     private final static String TAG = "TAG_RegisterFragment";
     private Activity activity;
     private EditText etEmail, etPassword, etName;
-    private TextView tvDate;
+    private TextView tvDate, textView5;
     private Button btOK, btBack;
     private Date Date1;
     private SimpleDateFormat simpleDateFormat;
@@ -75,6 +76,7 @@ public class RegisterFragment extends Fragment {
         etPassword = view.findViewById(R.id.etPassword);
         etName = view.findViewById(R.id.etName);
         rgGender = view.findViewById(R.id.rgGender);
+        textView5 = view.findViewById(R.id.textView5);
 
         /* RadioGroup註冊OnCheckedChangeListener監聽器 */
         rgGender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -86,6 +88,7 @@ public class RegisterFragment extends Fragment {
 
         tvDate = view.findViewById(R.id.tvDate);
         simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+
 
         tvDate.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -118,29 +121,29 @@ public class RegisterFragment extends Fragment {
             public void onClick(View v) {
 
                 String MB_EMAIL = etEmail.getText().toString();
-                if (MB_EMAIL.length() <= 0){
+                if (MB_EMAIL.length() <= 0) {
                     Common.showToast(activity, R.string.textEmailIsInvalid);
                     return;
                 }
                 String MB_PASSWORD = etPassword.getText().toString();
-                if (MB_PASSWORD.length() <=0){
+                if (MB_PASSWORD.length() <= 0) {
                     Common.showToast(activity, R.string.textPasswordIsInvalid);
                     return;
                 }
                 String MB_NAME = etName.getText().toString();
-                if(MB_NAME.length() <= 0){
+                if (MB_NAME.length() <= 0) {
                     Common.showToast(activity, R.string.textNameIsInvalid);
                     return;
                 }
                 String MB_GENDER = rgGender.getCheckedRadioButtonId() == R.id.rbMale ? "男" : "女";
-                if (MB_GENDER.length() <= 0){
-                    Common.showToast(activity,R.string.textGenderIsInvalid);
+                if (MB_GENDER.length() <= 0) {
+                    Common.showToast(activity, R.string.textGenderIsInvalid);
                     return;
                 }
                 //simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
                 Date MB_BIRTHDAY = Date1;
                 String MB_BIRTHDAY_Str = tvDate.getText().toString();
-                if (MB_BIRTHDAY_Str.length() <= 0){
+                if (MB_BIRTHDAY_Str.length() <= 0) {
                     Common.showToast(activity, R.string.textBirthdayIsInvalid);
                 } else {
                     try {
@@ -149,11 +152,11 @@ public class RegisterFragment extends Fragment {
                         e.printStackTrace();
                     }
                 }
-                if(Common.networkConnected(activity)){
+                if (Common.networkConnected(activity)) {
                     String url = Common.URL_SERVER + "/MemberServlet";
-                    Member member = new Member(0,MB_EMAIL,MB_PASSWORD,MB_NAME,MB_GENDER,MB_BIRTHDAY,1);
+                    Member member = new Member(0, MB_EMAIL, MB_PASSWORD, MB_NAME, MB_GENDER, MB_BIRTHDAY, 1);
                     JsonObject jsonObject = new JsonObject();
-                    jsonObject.addProperty("action","memberInsert");
+                    jsonObject.addProperty("action", "memberInsert");
                     Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
                     jsonObject.addProperty("member", gson.toJson(member));
                     int count = 0;
@@ -165,11 +168,10 @@ public class RegisterFragment extends Fragment {
                     }
                     if (count == 0) {
                         Common.showToast(getActivity(), R.string.textRegisterFail);
-                    } else if(count == -1){ //判斷已註冊的帳號
+                    } else if (count == -1) { //判斷已註冊的帳號
                         Common.showToast(getActivity(), R.string.textRegistered);
 
-                    }
-                    else if(count == 1){
+                    } else if (count == 1) {
                         Common.showToast(getActivity(), R.string.textRegisterSuccess);
                         navController.popBackStack();
                     }
@@ -180,6 +182,18 @@ public class RegisterFragment extends Fragment {
 
             }
         });
+        textView5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                etEmail.setText(R.string.textmemEmail);
+                etPassword.setText(R.string.textPass);
+                etName.setText(R.string.textmemName);
+                tvDate.setText(R.string.textDate);
+            }
+        });
+
+
+
         btBack = view.findViewById(R.id.btBack);
         btBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,7 +202,9 @@ public class RegisterFragment extends Fragment {
             }
         });
 
+
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

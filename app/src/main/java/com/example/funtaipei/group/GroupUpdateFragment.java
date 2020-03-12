@@ -560,5 +560,8 @@ public class GroupUpdateFragment extends Fragment {
             travelTask.cancel(true);
             travelTask = null;
         }
+        if (preferences != null) {
+            preferences.edit().clear().commit();
+        }
     }
 }

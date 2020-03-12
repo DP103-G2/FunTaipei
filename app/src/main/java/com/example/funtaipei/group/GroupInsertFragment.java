@@ -108,8 +108,21 @@ public class GroupInsertFragment extends Fragment {
         ivGroup = view.findViewById(R.id.ivGroup);
 
         etName = view.findViewById(R.id.etName);
+        etName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                etName.setText("就是要揪團");
+            }
+        });
         etNotes = view.findViewById(R.id.etNotes);
+        etNotes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                etNotes.setText("只要當天沒事的就快來報名吧！！！！");
+            }
+        });
         tvTravelName = view.findViewById(R.id.tvTravelName);
+
         tvDateTime = view.findViewById(R.id.tvDateTime);
         tvDateTime2 = view.findViewById(R.id.tvDateTime2);
         tvDateTime3 = view.findViewById(R.id.tvDateTime3);
@@ -464,5 +477,12 @@ public class GroupInsertFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (preferences != null) {
+            preferences.edit().clear().commit();
+        }
+    }
 }
 //
